@@ -3,22 +3,22 @@ import { Todos } from '../../models/todos'
 
 const db = connection
 
-function getAllTodos() {
+export function getAllTodos() {
   return db('todos').select()
 }
 
-function getTodoById(id: number) {
-  return db('todo').where({ id }).select()
+export function getTodoById(id: number) {
+  return db('todos').where({ id }).select()
 }
 
-function addTodo(newTodo: Todos): Promise<Todos> {
+export function addTodo(newTodo: Todos): Promise<Todos> {
   return db('todos').insert(newTodo)
 }
 
-function updateTodo(id: number, update: string) {
+export function updateTodo(id: number, update: Todos) {
   return db('todos').where({ id }).update(update)
 }
 
-function deleteTodo(id: number) {
+export function deleteTodo(id: number) {
   return db('todos').where({ id }).del()
 }
