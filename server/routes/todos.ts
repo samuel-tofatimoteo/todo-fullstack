@@ -24,3 +24,13 @@ router.get('/:id', async (req, res) => {
     console.log('There was an error try again!')
   }
 })
+
+router.post('/', async (req, res) => {
+  try {
+    const newTodo = req.body
+    const todos = await db.addTodo(newTodo)
+    res.json(todos)
+  } catch (error) {
+    console.log('There was an error try again!')
+  }
+})
