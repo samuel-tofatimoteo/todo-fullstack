@@ -1,6 +1,7 @@
 import express from 'express'
 import * as Path from 'node:path'
 import * as db from './db/db'
+import routes from './routes/routes'
 
 const server = express()
 
@@ -16,5 +17,8 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(Path.resolve('./dist/index.html'))
   })
 }
+
+// route path
+server.use('/api/v1/grab', routes)
 
 export default server
