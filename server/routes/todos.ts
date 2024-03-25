@@ -45,3 +45,13 @@ router.patch('/:id', async (req, res) => {
     console.log('There was an error try again!')
   }
 })
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const id = Number(req.params.id)
+    const todos = await db.deleteTodo(id)
+    res.json(todos)
+  } catch (error) {
+    console.log('There was an error try again!')
+  }
+})
