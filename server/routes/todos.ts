@@ -34,3 +34,14 @@ router.post('/', async (req, res) => {
     console.log('There was an error try again!')
   }
 })
+
+router.patch('/:id', async (req, res) => {
+  try {
+    const id = Number(req.params.id)
+    const updatedTodo = req.body
+    const todos = await db.updateTodo(id, updatedTodo)
+    res.json(todos)
+  } catch (error) {
+    console.log('There was an error try again!')
+  }
+})
