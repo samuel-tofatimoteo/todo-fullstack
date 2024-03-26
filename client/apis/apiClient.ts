@@ -11,3 +11,7 @@ export async function getAllBooks() {
 export async function addBook(obj: Book) {
   await request.post(rootURL).send(obj)
 }
+
+export async function delBookById(id: number) {
+  await request.delete(rootURL + String(id))
+}

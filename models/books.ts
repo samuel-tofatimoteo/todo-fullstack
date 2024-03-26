@@ -3,3 +3,7 @@ export interface Book {
   author: string
   isRead: boolean
 }
+
+export interface BookWithId extends Book {
+  id: number
+}

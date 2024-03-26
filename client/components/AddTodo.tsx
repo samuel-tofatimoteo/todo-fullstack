@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import * as api from '../apis/apiClient'
 import { Book } from '../../models/books'
+import { useAddBook } from './hooks'
 
 // eslint-disable-next-line no-unused-vars
 function AddTodo() {
@@ -10,17 +11,19 @@ function AddTodo() {
     author: '',
     isRead: false,
   })
-  const client = useQueryClient()
-  const mutation = useMutation({
-    mutationFn: async (data: Book) => await api.addBook(data),
-    onSuccess: async () => {
-      client.invalidateQueries({ queryKey: ['todos'] })
-    },
-  })
+  // const client = useQueryClient()
+  // const mutation = useMutation({
+  //   mutationFn: async (data: Book) => await api.addBook(data),
+  //   onSuccess: async () => {
+  //     client.invalidateQueries({ queryKey: ['todos'] })
+  //   },
+  // })
 
-  function handleSubmit(e) {
+  const mutation = useAddBook()
+
+  async function handleSubmit(e: { preventDefault: () => void; target: any }) {
     e.preventDefault()
-    console.log(e.target)
+
     mutation.mutate(input)
     setInput({
       title: '',
@@ -31,7 +34,6 @@ function AddTodo() {
 
   function handleChange(e) {
     setInput({ ...input, [e.target.name]: e.target.value })
-    console.log(input)
   }
 
   return (

@@ -1,6 +1,6 @@
 import * as api from '../apis/apiClient'
 import { useQuery } from '@tanstack/react-query'
-import { useMutation } from '@tanstack/react-query'
+import { Book, BookWithId } from '../../models/books'
 
 export default function TodoList() {
   const { data, isLoading, isError } = useQuery({
@@ -17,19 +17,32 @@ export default function TodoList() {
     return <p>Error: API not found</p>
   }
 
+  async function handleDelete(e: {
+    target: {
+      closest: (arg0: string) => {
+        (): any
+        new (): any
+        dataset: { (): any; new (): any; id: any }
+      }
+    }
+  }) {
+    const id = e.target.closest('li').dataset.id
+    await api.delBookById(id)
+  }
+
   if (list) {
     return (
       <section className="main">
         {/* <input id="toggle-all" className="toggle-all" type="checkbox" />
         <label htmlFor="toggle-all">Mark all as complete</label> */}
         <ul className="todo-list">
-          {list.map((book) => (
-            <li key={book.id}>
+          {list.map((book: BookWithId) => (
+            <li data-id={book.id} key={book.id}>
               <div className="view">
                 <input className="toggle" type="checkbox" />
                 <label>{book.title}</label>
                 <span className="author">{book.author}</span>
-                <button className="destroy"></button>
+                <button onClick={handleDelete} className="destroy"></button>
               </div>
             </li>
           ))}
