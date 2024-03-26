@@ -22,6 +22,11 @@ function AddTodo() {
     e.preventDefault()
     console.log(e.target)
     mutation.mutate(input)
+    setInput({
+      title: '',
+      author: '',
+      isRead: false,
+    })
   }
 
   function handleChange(e) {
@@ -30,7 +35,7 @@ function AddTodo() {
   }
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <input
         name="title"
         onChange={handleChange}
@@ -53,9 +58,7 @@ function AddTodo() {
         placeholder="Reading Status"
         // value={input.status}
       />
-      <button onSubmit={handleSubmit} className="submitButton">
-        Submit
-      </button>
+      <button className="submitButton">Submit</button>
     </form>
   )
 }
