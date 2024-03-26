@@ -13,6 +13,9 @@ function AddTodo() {
   const client = useQueryClient()
   const mutation = useMutation({
     mutationFn: async (data: Book) => await api.addBook(data),
+    onSuccess: async () => {
+      client.invalidateQueries({ queryKey: ['todos'] })
+    },
   })
 
   function handleSubmit(e) {
