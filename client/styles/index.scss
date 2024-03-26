@@ -143,9 +143,14 @@ body {
 }
 
 .todo-list {
-  margin: 0;
+  margin-right: 20px;
+  display: inline-flex;
   padding: 0;
   list-style: none;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
 }
 
 .todo-list li {
