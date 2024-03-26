@@ -10,13 +10,6 @@ function AddTodo() {
   const [newTask, setNewTask] = useState('')
   const [newDetails, setnewDetails] = useState('')
   const [newPriority, setNewPriority] = useState(0)
-  const [submittedTask, setSubmittedTask] = useState('')
-  const [newForm, setNewForm] = useState({ 
-    name: '', 
-    details: '', 
-    priority: 1, 
-    completed: false }
-  )
 
   function handleChangeTask(e){
     setNewTask(e.target.value)
@@ -39,7 +32,7 @@ function AddTodo() {
       completed: false })
     setNewTask('')
     setnewDetails('')
-    setNewPriority(0)
+    setNewPriority(1)
   }
 
   const queryClient = useQueryClient()
@@ -50,24 +43,27 @@ function AddTodo() {
       queryClient.invalidateQueries({ queryKey: ['tasks'] })
     },
   })
-  
 
   return (
     <>
       <p>New Form: {newTask} - {newDetails} - {newPriority}</p>
-      {/* <p>Submitted Task: {submittedTask}</p> */}
       <form onSubmit={handleSubmit}>
         <label htmlFor="task">Task Name</label>
-        <input id="task" value={newTask} onChange={handleChangeTask}
+        <input id="task" name="task" value={newTask} onChange={handleChangeTask}
         placeholder="Enter new task ..."/>
         <label htmlFor="details">Details</label>
-        <input id="task" value={newDetails} onChange={handleChangeDetails}
+        <input id="details" name="details" value={newDetails} onChange={handleChangeDetails}
         placeholder="More about task here ..."/>
-        <label htmlFor="priority">Priority</label>
-        <input id="priority" value={newPriority} onChange={handleChangePriority}/>
+        <label htmlFor="priorityLevel">
+        Priority Level:
+        <select id="priorityLevel" name="priorityLevel" onChange={handleChangePriority}>
+        <option value={1}>1</option>
+        <option value={2}>2</option>
+        <option value={3}>3</option>
+        </select>
+        </label>
       <button type="submit">Submit</button>
       </form>
-      
     </>
   )
 }
