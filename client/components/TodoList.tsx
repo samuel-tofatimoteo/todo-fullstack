@@ -1,12 +1,23 @@
 import React from 'react'
 import { Todo } from '../../models/todo'
+import { useQuery } from '@tanstack/react-query'
+import * as api from '../apis/apiClient'
 
 export default function TodoList() {
-  const todos = [
-    { details: 'shopping', priority: 10, completed: false },
-    { details: 'coding', priority: 10, completed: false },
-    { details: 'drink coffee', priority: 5, completed: true },
-  ] as Todo[]
+  const { isPending, isError, data, error } = useQuery({
+    queryKey: ['todos'],
+    queryFn: () => api.fetchTodos(),
+  })
+
+  if (isPending) {
+    return <span>Loading...</span>
+  }
+
+  if (isError) {
+    return <span>Error: {error.message}</span>
+  }
+
+  const todos = data
 
   return (
     <div>
