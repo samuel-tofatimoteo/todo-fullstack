@@ -338,3 +338,7 @@ html .clear-completed:active {
   display: flex;
   color: #b83f45;
 }
+
+#button {
+  border: #1caa8b;
+}

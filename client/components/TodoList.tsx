@@ -45,11 +45,13 @@ function TodoList() {
               <p>
                 <strong>PRIORITY:</strong> {todo.priority}
               </p>
-
+            <fieldset>
+            <legend>Click checkbox if todo completed</legend>
               <label>
                 Completed: <input type="checkbox" name="completed" />
               </label>
-              <button
+              </fieldset>
+              <button id="button"
                 disabled={deleteTodos.isPending}
                 key={todo.id}
                 onClick={() => handleClick(todo.id)}

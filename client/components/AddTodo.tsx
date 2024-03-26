@@ -31,6 +31,8 @@ function AddTodo() {
   return (
     <>
       <form onSubmit={handlesubmit}>
+      <label>
+        Todo:
         <input
           className="new-todo"
           placeholder="What needs to be done?"
@@ -39,6 +41,9 @@ function AddTodo() {
           // autoFocus={true}
           onChange={handleChange}
         />
+        </label>
+        <label>
+          Priority:
         <input
           className="new-todo"
           placeholder="Priority"
@@ -47,6 +52,7 @@ function AddTodo() {
           // autoFocus={true}
           onChange={handleChange}
         />
+        </label>
         <button type="submit">Submit</button>
       </form>
     </>
