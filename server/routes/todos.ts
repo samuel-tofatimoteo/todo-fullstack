@@ -6,7 +6,9 @@ import {
   getTodosByPriority,
   addTodo,
   delTodo,
+  updateDetails,
 } from '../db/db'
+import { Todos } from '../../models/model'
 
 const router = Router()
 
@@ -39,6 +41,18 @@ router.patch('/:id', async (req, res) => {
   }
 })
 
+router.patch('/update/:id', async (req, res) =>{
+  try {
+    const input:string = req.body
+    const id = Number(req.params.id)
+    await updateDetails(id, input)
+    res.json({yes: "successful"})
+  } catch (error) {
+    res.status(500).json({ message: 'Error' })
+  }
+  
+})
+
 router.get('/priority/:priority', async (req, res) => {
   try {
     const priority = Number(req.params.priority)
@@ -51,7 +65,7 @@ router.get('/priority/:priority', async (req, res) => {
 
 router.post('/add', async (req, res) => {
   try {
-    const todoData = req.body
+    const todoData:Todos = req.body
     const todos = await addTodo(todoData)
     res.json(todos)
   } catch (error) {
