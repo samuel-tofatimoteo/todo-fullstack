@@ -12,6 +12,6 @@ export async function addTodo(newTodo: Todo): Promise<void> {
   await request.post(rootUrl).send(newTodo)
 }
 
-export async function deleteTodo(id: Todo) {
-  await request.delete(rootUrl + String(id))
+export async function deleteTodo(id: string) {
+  await request.delete(`${rootUrl}/${id}`)
 }

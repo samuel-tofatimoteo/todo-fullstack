@@ -1,13 +1,33 @@
 import React from 'react'
-import { Todo } from '../../models/todo'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import * as api from '../apis/apiClient'
+import { useMutation } from '@tanstack/react-query'
 
 export default function TodoList() {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['todos'],
     queryFn: () => api.fetchTodos(),
   })
+
+  const queryClient = useQueryClient()
+  const mutation = useMutation({
+    mutationFn: (id) => api.deleteTodo(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries('todos')
+    },
+  })
+
+  const handleDelete = (id: string) => {
+    mutation.mutate(id)
+  }
+
+  // const queryClient = useQueryClient()
+  // const mutation = useMutation({
+  //   mutationFn: (newToDo) => api.addTodo(newToDo),
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({ queryKey: ['todos'] })
+  //   },
+  // })
 
   if (isPending) {
     return <span>Loading...</span>
@@ -31,7 +51,10 @@ export default function TodoList() {
                 <div className="view">
                   <input className="toggle" type="checkbox" />
                   <label>{todo.details}</label>
-                  <button className="destroy"></button>
+                  <button
+                    className="destroy"
+                    onClick={() => handleDelete(todo.id)}
+                  ></button>
                 </div>
               </li>
             ))}
