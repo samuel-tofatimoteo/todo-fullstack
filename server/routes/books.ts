@@ -8,7 +8,17 @@ export default router
 router.get('/', async (req, res) => {
   try {
     const AllBooks = await db.getBooks()
-    res.send(AllBooks)
+    res.json(AllBooks)
+  } catch (e) {
+    console.log(e)
+  }
+})
+
+router.get('/:id', async (req, res) => {
+  try {
+    const id = Number(req.params.id)
+    const book = await db.getBookById(id)
+    res.json(book)
   } catch (e) {
     console.log(e)
   }
@@ -23,11 +33,11 @@ router.post('/', async (req, res) => {
   }
 })
 
-router.delete('/:title', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
-    const title = req.params.title
-    const deleteBook = await db.delBooksByTitle(title)
-    res.send(deleteBook)
+    const id = Number(req.params.id)
+    await db.delBooksById(id)
+    res.sendStatus(200)
   } catch (e) {
     console.log(e)
   }

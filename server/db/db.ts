@@ -15,6 +15,6 @@ export function addBooks(bookObj: book) {
   return db('books').insert(bookObj)
 }
 
-export function delBooksByTitle(title: string) {
-  return db('books').del().where({ title })
+export function delBooksById(id: number) {
+  return db('books').del().where({ id })
 }
