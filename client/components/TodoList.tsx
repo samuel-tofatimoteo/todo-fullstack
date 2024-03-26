@@ -1,8 +1,10 @@
 import * as api from '../apis/apiClient'
 import { useQuery } from '@tanstack/react-query'
 import { Book, BookWithId } from '../../models/books'
+import { useDeleteBook } from './hooks'
 
 export default function TodoList() {
+  const deleteHook = useDeleteBook()
   const { data, isLoading, isError } = useQuery({
     queryKey: ['todos'],
     queryFn: async () => await api.getAllBooks(),
@@ -17,15 +19,7 @@ export default function TodoList() {
     return <p>Error: API not found</p>
   }
 
-  async function handleDelete(e: {
-    target: {
-      closest: (arg0: string) => {
-        (): any
-        new (): any
-        dataset: { (): any; new (): any; id: any }
-      }
-    }
-  }) {
+  async function handleDelete(e) {
     const id = e.target.closest('li').dataset.id
     await api.delBookById(id)
   }

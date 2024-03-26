@@ -14,3 +14,15 @@ export function useAddBook() {
 
   return mutation
 }
+
+export function useDeleteBook(id: number) {
+  const client = useQueryClient()
+  const mutation = useMutation({
+    mutationFn: async () => await api.delBookById(id),
+    onSuccess: async () => {
+      client.invalidateQueries({ queryKey: ['todos'] })
+    },
+  })
+
+  return mutation
+}
