@@ -21,11 +21,16 @@ button {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.task{
+  font-size: 25px ;
+  color: #b83f45;
+}
+
 body {
   font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.4em;
   background: #f5f5f5;
-  color: #111111;
+  color: #000000;
   min-width: 230px;
   max-width: 550px;
   margin: 0 auto;
@@ -144,9 +149,10 @@ body {
 }
 
 .todo-list {
-  margin-right: 20px;
+  margin-right: 30px;
+  margin-top: 30px;
   display: inline-flex;
-  padding: 0;
+  padding-top: 0;
   list-style: none;
   flex-wrap: nowrap;
   flex-direction: column;

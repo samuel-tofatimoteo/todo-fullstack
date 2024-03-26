@@ -51,7 +51,7 @@ function TodoList() {
                 Completed: <input type="checkbox" name="completed" />
               </label>
               </fieldset>
-              <button id="button"
+              <button className="button"
                 disabled={deleteTodos.isPending}
                 key={todo.id}
                 onClick={() => handleClick(todo.id)}
