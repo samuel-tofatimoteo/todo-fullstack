@@ -37,39 +37,45 @@ function AddTodo() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="addForm" onSubmit={handleSubmit}>
+      <label htmlFor="title">Title</label>
       <input
+        id="title"
         name="title"
         onChange={handleChange}
         className="new-todo"
         placeholder="What book do you want to read?"
         value={input.title}
       />
+      <label htmlFor="author">Author</label>
       <input
+        id="author"
         name="author"
         onChange={handleChange}
         className="new-todo"
         placeholder="Author"
         value={input.author}
       />
-      <div>
-        <input
-          type="radio"
-          name="isRead"
-          id="read"
-          onChange={handleChange}
-          value="true"
-        />
-        <label htmlFor="read">Read</label>
-        <input
-          type="radio"
-          name="isRead"
-          id="notRead"
-          onChange={handleChange}
-          value="false"
-        />
-        <label htmlFor="notRead">Not Read</label>
-      </div>
+      <fieldset className="new-todo">
+        <legend>
+          <input
+            type="radio"
+            name="isRead"
+            id="read"
+            onChange={handleChange}
+            value="true"
+          />
+          <label htmlFor="read">Read</label>
+          <input
+            type="radio"
+            name="isRead"
+            id="notRead"
+            onChange={handleChange}
+            value="false"
+          />
+          <label htmlFor="notRead">Not Read</label>
+        </legend>
+      </fieldset>
       <button className="submitButton">Submit</button>
     </form>
   )

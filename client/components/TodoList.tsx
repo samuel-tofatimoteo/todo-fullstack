@@ -37,10 +37,15 @@ export default function TodoList() {
           {list.map((book: BookWithId) => (
             <li data-id={book.id} key={book.id}>
               <div className="view">
-                <input className="toggle" type="checkbox" />
-                <label>{book.title}</label>
+                <label htmlFor={`book${book.id}`} className="toggle">
+                  Status
+                </label>
+                <input id={`book${book.id}`} type="checkbox" />
+                <p className="title">{book.title}</p>
                 <span className="author">{book.author}</span>
-                <button onClick={handleDelete} className="destroy"></button>
+                <button onClick={handleDelete} className="destroy">
+                  X
+                </button>
               </div>
             </li>
           ))}
