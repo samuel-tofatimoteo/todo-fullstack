@@ -12,8 +12,7 @@ router.get('/', async (req, res) => {
         console.log(error)
         res.sendStatus(500)
     }
-}
-)
+})
 
 router.get('/incomplete', async (req, res) => {
     try {
@@ -57,7 +56,6 @@ router.delete('/:id', async (req, res) => {
         res.sendStatus(500)
     }
 })
-
 
 
 export default router

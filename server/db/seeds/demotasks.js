@@ -12,7 +12,6 @@ export async function seed(knex) {
   ]);
 }
 
-
 // table.integer('id')
 //       table.string('name')
 //       table.string('details')
