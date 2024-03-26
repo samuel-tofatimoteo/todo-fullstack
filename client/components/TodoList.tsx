@@ -16,6 +16,8 @@ export default function TodoList() {
               <input type="checkbox" name="complete">
                 {todo.complete}
               </input>
+              <button>Update</button>
+              <button>Delete</button>
             </li>
           </ul>
         )
