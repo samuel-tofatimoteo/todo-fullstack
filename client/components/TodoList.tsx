@@ -1,7 +1,8 @@
-import { useQuery } from '@tanstack/react-query'
-import { Todos } from '../../models/todos'
-import getTodos from '../apis/apiClient.ts'
+import { useQuery, useMutation } from '@tanstack/react-query'
+import { TodoId, Todos } from '../../models/todos'
+import * as api from '../apis/apiClient.ts'
 import useTodos from './hooks/useTodos.tsx'
+import useDeleteTodos from './hooks/useDeleteTodos.tsx'
 
 function TodoList() {
   // const todos: Todos[] = [
@@ -11,6 +12,7 @@ function TodoList() {
   // ]
 
   const { isPending, isError, data, error } = useTodos()
+  const deleteTodos = useDeleteTodos()
   // console.log(useTodos())
 
   // const { isPending, isError, data, error } = useQuery({
@@ -25,9 +27,18 @@ function TodoList() {
   if (isError) {
     return <p>Error: {error.message}</p>
   }
+
+  function handleClick(id:number){
+    if (deleteTodos.isPending) {
+      return "no"
+    }
+    deleteTodos.mutate({id})
+  }
+
+  if (data){
   return (
     <>
-      {data.map((todo: Todos) => {
+      {data.map((todo: TodoId) => {
         return (
           <div key={todo.id} className="todo-list">
             <p>{todo.todo}</p>
@@ -38,11 +49,14 @@ function TodoList() {
             <label>
               Completed: <input type="checkbox" name="completed" />
             </label>
+            <button disabled={deleteTodos.isPending} key={todo.id} onClick={()=>handleClick(todo.id)}>click</button>
           </div>
+          
         )
       })}
     </>
-  )
+  )}
 }
 
 export default TodoList
+

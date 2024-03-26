@@ -1,13 +1,20 @@
 import request from 'superagent'
-import { Todos } from '../../models/todos'
+import { TodoId, Todos } from '../../models/todos'
 
 const rootUrl = '/api/v1/todos'
 
-async function getTodos(): Promise<Todos[]> {
+export async function getTodos(): Promise<TodoId[]> {
   const res = await request.get(rootUrl)
-  console.log(res.body)
+  // console.log(res.body)
 
   return res.body
 }
 
-export default getTodos
+export async function deleteTodos(id: number) {
+  await request.delete(`/api/v1/todos/${id}`)
+  // console.log(res.body)
+
+  return alert("your todo has been deleted")
+}
+
+
