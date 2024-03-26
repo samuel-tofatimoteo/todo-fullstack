@@ -9,10 +9,21 @@ router.get('/', async (req, res) => {
         const allTasks = await db.getTasks()
         res.json(allTasks) 
     } catch (error) {
-        console.log(error);
+        console.log(error)
+        res.sendStatus(500)
     }
 }
 )
+
+router.get('/incomplete', async (req, res) => {
+    try {
+        const allTasks = await db.getIncomplete()
+        res.json(allTasks) 
+    } catch (error) {
+        console.log(error) 
+        res.sendStatus(500)
+    }
+})
 
 router.get('/:id', async (req, res) => {
     const id = Number(req.params.id)
@@ -21,16 +32,18 @@ router.get('/:id', async (req, res) => {
         res.json(task)
     } catch (error) {
         console.log(error) 
+        res.sendStatus(500)
     }
 })
 
 router.post('/', async (req, res) => {
-    const newTask = req.body
+    const newTask : Task = req.body
     try {
         await db.addTask(newTask)
         res.send('add: done!')
     } catch (error) {
         console.log(error) 
+        res.sendStatus(500)
     }
 })
 
@@ -44,5 +57,7 @@ router.delete('/:id', async (req, res) => {
         res.sendStatus(500)
     }
 })
+
+
 
 export default router
