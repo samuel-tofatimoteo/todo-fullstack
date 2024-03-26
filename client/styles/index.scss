@@ -379,3 +379,13 @@ html .clear-completed:active {
     bottom: 10px;
   }
 }
+
+.todo-container {
+  padding-left:  30px;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+}
+
+.priority{
+  padding-left:  30px;
+}
