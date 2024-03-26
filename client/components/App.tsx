@@ -1,11 +1,13 @@
-import AddTodo from './AddTodo.tsx'
+import { TodoForm } from './AddTodo'
+import { ToDoList } from './TodoList'
 
 function App() {
   return (
     <>
       <header className="header">
         <h1>todos</h1>
-        <AddTodo />
+        <ToDoList />
+        <TodoForm />
       </header>
       <section className="main"></section>
       <footer className="footer"></footer>

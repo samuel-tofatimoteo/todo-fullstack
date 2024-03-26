@@ -1,43 +1,62 @@
+import Router from 'express'
 import * as db from '../db/db'
-import express from 'express'
 
-const router = express.Router()
+const router = Router()
 
-router.post('/', async (req, res, next) => {
+router.get('/', async (req, res) => {
   try {
-    const { taskDetails, priority, completed } = req.body
-    res.setHeader('toDo', URL)
-    res.status(201).json({ toDo: URL })
-  } catch (e) {
-    next(e)
+    const getToDos = await db.getToDo()
+    res.json(getToDos)
+  } catch (error) {
+    console.error(`Database error: ${error}`)
+    res.sendStatus(500)
+  }
+})
+router.get('/:id', async (req, res) => {
+  const id = Number(req.params.id)
+  try {
+    const toDo = await db.getToDoById(id)
+    res.json(toDo)
+  } catch (error) {
+    console.error(`Database error: ${error}`)
+    res.sendStatus(500)
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
-  try {
-    const id = Number(req.params.id)
-  } catch (e) {
-    next(e)
-  }
-})
-router.get('/:id', async (req, res, next) => {
-  try {
-    const id = Number(req.params.id)
+// POST /api/v1/vegetables
 
-    const getToDo = {
-      id: id,
-    }
-
-    res.json(getToDo)
-  } catch (e) {
-    next(e)
-  }
-})
-router.patch('/:id', async (req, res, next) => {
+router.post('/', async (req, res) => {
   try {
-    const {} = req.body
-    const id = Number(req.body.id)
-  } catch (e) {
-    next(e)
+    const toDo = req.body
+    await db.addToDo(toDo)
+    res.sendStatus(200)
+  } catch (error) {
+    console.error(`Database error: ${error}`)
+    res.sendStatus(500)
   }
 })
+
+// DELETE /api/v1/vegetables/:id
+
+router.delete('/:id', async (req, res) => {
+  const id = Number(req.params.id)
+  try {
+    await db.removeToDo(id)
+    res.sendStatus(200)
+  } catch (error) {
+    console.error(`Database error: ${error}`)
+    res.sendStatus(500)
+  }
+})
+router.get('/', async (req, res) => {
+  try {
+    const toDo = await db.sortThis()
+
+    res.json(toDo)
+  } catch (error) {
+    console.error(`Database error: ${error}`)
+    res.sendStatus(500)
+  }
+})
+
+export default router

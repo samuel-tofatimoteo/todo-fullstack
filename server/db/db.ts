@@ -20,3 +20,7 @@ export async function removeToDo(id: number) {
 export async function toDo() {
   throw new Error('Function not implemented.')
 }
+
+export function sortThis() {
+  throw new Error('Function not implemented.')
+}
