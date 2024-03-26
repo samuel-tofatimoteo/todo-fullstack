@@ -7,9 +7,6 @@ const server = express()
 
 server.use(express.json())
 
-const test = await db.getTaskById(2)
-console.log(test)
-
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))
   server.use('/assets', express.static(Path.resolve('./dist/assets')))
@@ -19,6 +16,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // route path
-server.use('/api/v1/grab', routes)
+server.use('/api/v1/', routes)
 
 export default server
