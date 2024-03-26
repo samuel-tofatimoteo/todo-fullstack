@@ -1,28 +1,55 @@
 import express from 'express'
-import { getTaskById } from '../db/db'
 import * as db from '../db/db'
 
 const router = express.Router()
 
 export default router
 
-router.get('/', async (req, res, next) => {
+router.get('/', async (req, res) => {
   try {
-    const task = db.getTask
-    res.status(201).json(task)
+    const task = await db.getTask()
+    res.json(task)
   } catch (e) {
-    next(e)
+    res.sendStatus(500)
   }
 })
 
-router.post('/:id', async (req, res, next) => {
+router.get('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
-    // const id = 0
-    const url = `/api/v1/task/${id}`
-    res.setHeader('Location', url)
-    res.status(201).json({ location: url })
+    const task = await db.getTaskById(id)
+    res.json(task)
   } catch (e) {
-    next(e)
+    res.sendStatus(500)
+  }
+})
+
+router.post('/', async (req, res) => {
+  try {
+    const newTask = req.body
+    const task = await db.addTask(newTask)
+    res.json(task)
+  } catch (e) {
+    res.sendStatus(500)
+  }
+})
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const id = Number(req.params.id)
+    const task = await db.deleteTaskById(id)
+    res.json(task)
+  } catch (e) {
+    res.sendStatus(500)
+  }
+})
+
+router.patch('/:id', async (req, res) => {
+  try {
+    const id = Number(req.params.id)
+    const task = await db.markDoneById(id)
+    res.json(task)
+  } catch (e) {
+    res.sendStatus(500)
   }
 })
