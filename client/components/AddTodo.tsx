@@ -5,7 +5,6 @@ import * as api from '../apis/apiClient'
 
 export default function AddTodo() {
   const [newToDo, setNewToDo] = useState('')
-  const [submittedToDo, setSubmittedToDo] = useState('')
 
   const queryClient = useQueryClient()
   const mutation = useMutation({
@@ -22,24 +21,18 @@ export default function AddTodo() {
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     mutation.mutate({ details: newToDo })
-    setSubmittedToDo(newToDo)
     setNewToDo('')
   }
 
   return (
     <>
-      <p>New Todo:{newToDo}</p>
-      <p>Submitted Todo:{submittedToDo}</p>
       <form onSubmit={handleOnSubmit}>
-        <input className="toggle" type="checkbox"></input>
         <input
           className="new-todo"
           placeholder="What needs to be done?"
           value={newToDo}
           onChange={handleOnChange}
         />
-
-        <button>Submit</button>
       </form>
     </>
   )
