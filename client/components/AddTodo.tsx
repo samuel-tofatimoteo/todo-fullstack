@@ -35,6 +35,7 @@ function AddTodo() {
   function handleChange(e) {
     setInput({ ...input, [e.target.name]: e.target.value })
   }
+  console.log(input)
 
   return (
     <form onSubmit={handleSubmit}>
@@ -42,7 +43,7 @@ function AddTodo() {
         name="title"
         onChange={handleChange}
         className="new-todo"
-        placeholder="What needs to be done?"
+        placeholder="What book do you want to read?"
         value={input.title}
       />
       <input
@@ -52,14 +53,24 @@ function AddTodo() {
         placeholder="Author"
         value={input.author}
       />
-      <input
-        // type="checkbox"
-        name="status"
-        // onChange={handleChange}
-        className="new-todo"
-        placeholder="Reading Status"
-        // value={input.status}
-      />
+      <div>
+        <input
+          type="radio"
+          name="isRead"
+          id="read"
+          onChange={handleChange}
+          value="true"
+        />
+        <label htmlFor="read">Read</label>
+        <input
+          type="radio"
+          name="isRead"
+          id="notRead"
+          onChange={handleChange}
+          value="false"
+        />
+        <label htmlFor="notRead">Not Read</label>
+      </div>
       <button className="submitButton">Submit</button>
     </form>
   )

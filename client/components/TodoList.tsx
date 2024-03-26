@@ -21,7 +21,7 @@ export default function TodoList() {
     return <p>Error: API not found</p>
   }
 
-  async function handleDelete(e) {
+  function handleDelete(e) {
     const id = e.target.closest('li').dataset.id
     // await api.delBookById(id)
     setId(id)
