@@ -1,12 +1,10 @@
 import express from 'express'
 import * as Path from 'node:path'
-import * as db from './db/db'
-import * as db from './routes/todo'
-
+import todo from './routes/todo'
 const server = express()
 
 server.use(express.json())
-server.use('/api/vi/todo', toDoRoutes)
+server.use('/api/v1/todo', todo)
 
 // const toDo = await db.addToDo({
 //   taskDetails: 'walk the cat',

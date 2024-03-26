@@ -20,3 +20,18 @@ export async function removeToDo(id: number) {
 export async function toDo() {
   throw new Error('Function not implemented.')
 }
+export async function getToDoTaskName(taskDetails: string): Promise<toDo[]> {
+  return db('toDo')
+    .select(taskDetails)
+    .where('task', 'LIKE', '%${taskDetails}%')
+}
+
+export async function sortThis() {
+  const tasks = await db('toDo').select()
+  const taskDetails = tasks.map((task) => task.task)
+  taskDetails.sort()
+  const filtered = taskDetails.map((task) =>
+    tasks.find((check) => check.task == task),
+  )
+  return filtered.sort()
+}
