@@ -1,11 +1,18 @@
-import { useTodos } from '../hooks/useTodos.ts'
+import { Todos } from '../../models/model.ts'
+import { useDelTodos, useTodos } from '../hooks/useTodos.ts'
 import AddTodo from './AddTodo.tsx'
 import { useQuery } from '@tanstack/react-query'
 
 function App() {
   // const [ data, isLoading]
   const { data, isLoading, isError, error } = useTodos()
-  console.log(data)
+
+  const delTodo = useDelTodos()
+
+  function handleDelete(e: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+    console.log(delTodo)
+    delTodo.mutate(e.target.id)
+  }
 
   if (isLoading) {
     return <p>Loading</p>
@@ -23,12 +30,15 @@ function App() {
           <AddTodo />
         </header>
         <div className="todo-content">
-          {data.map((todo) => {
+          {data.map((todo: Todos) => {
             return (
               <div className="todo-container" key={todo.id}>
                 <p>{todo.task_details}</p>
                 <p className="priority">{todo.priority} </p>
                 <p>{todo.completed ? 'completed' : 'not complete'}</p>
+                <button id={String(todo.id)} onClick={handleDelete}>
+                  delete
+                </button>
               </div>
             )
           })}

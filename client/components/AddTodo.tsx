@@ -2,21 +2,26 @@
 import { useState } from 'react'
 import { Todos } from '../../models/model'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { addTodo } from '../../server/db/db'
+import { addTodos } from '../apis/todos'
+import { useAddTodos } from '../hooks/useTodos'
 
 function AddTodo() {
-  const [todo, setTodo] = useState('')
-  const [submit, setSubmit] = useState('')
-
-  const qc = useQueryClient()
-  const mutation = useMutation({
-    mutationFn: (todo) => addTodo(todo),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['todos'] }),
+  const [formData, setFormData] = useState({
+    task_details: '',
+    priority: null,
+    completed: false,
   })
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    onSubmit(submit)
+  const mutation = useAddTodos()
+
+  function handleChange(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    mutation.mutate(formData)
   }
   return (
     <>
@@ -25,8 +30,21 @@ function AddTodo() {
           className="new-todo"
           placeholder="What needs to be done?"
           autoFocus={true}
+          onChange={handleChange}
+          name="task_details"
+          id="task_details"
+          value={formData.task_details}
         />
-        <input type="number" name="priority" id="priority"></input>
+        <input
+          className="new-todo"
+          placeholder="Assign Priority"
+          type="number"
+          name="priority"
+          id="priority"
+          onChange={handleChange}
+          value={formData.priority}
+        ></input>
+        <button>submit</button>
       </form>
     </>
   )
