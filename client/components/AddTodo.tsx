@@ -35,7 +35,6 @@ function AddTodo() {
   function handleChange(e) {
     setInput({ ...input, [e.target.name]: e.target.value })
   }
-  console.log(input)
 
   return (
     <form onSubmit={handleSubmit}>
