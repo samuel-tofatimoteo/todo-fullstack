@@ -11,10 +11,14 @@ export function getTodosById(id: number): Promise<Todo> {
   return db('todos').where({ id }).select().first()
 }
 
-export function addTodo(newVegObj: Todo) {
-  return db('todos').insert(newVegObj)
+export function addTodo(newTodo: Todo) {
+  return db('todos').insert(newTodo)
 }
 
 export function removeTodo(id: number) {
   return db('todos').where({ id }).del()
+}
+
+export function completeTodo(id: number) {
+  return db('todos').where({ id }).update('complete', true)
 }
