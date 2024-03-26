@@ -1,4 +1,5 @@
 import AddTodo from './AddTodo.tsx'
+import FooterButtons from './FooterButtons.tsx'
 import TodoList from './TodoList.tsx'
 
 function App() {
@@ -10,7 +11,9 @@ function App() {
         <TodoList />
       </header>
       <section className="main"></section>
-      <footer className="footer"></footer>
+      <footer className="footer">
+        <FooterButtons />
+      </footer>
     </>
   )
 }
