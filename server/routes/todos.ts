@@ -43,9 +43,9 @@ router.patch('/:id', async (req, res) => {
 
 router.patch('/update/:id', async (req, res) =>{
   try {
-    const input:string = req.body
+    const input = req.body
     const id = Number(req.params.id)
-    await updateDetails(id, input)
+    await updateDetails(id, input.input)
     res.json({yes: "successful"})
   } catch (error) {
     res.status(500).json({ message: 'Error' })
