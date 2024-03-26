@@ -14,7 +14,10 @@ export async function deleteTodos(id: number) {
   await request.delete(`/api/v1/todos/${id}`)
   // console.log(res.body)
 
-  return alert("your todo has been deleted")
+  return alert('your todo has been deleted')
 }
 
-
+export async function addTodo(newTodo: string) {
+  const res = await request.post(rootUrl).send({ todo: newTodo })
+  return res.body
+}
