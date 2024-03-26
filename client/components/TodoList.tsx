@@ -28,35 +28,40 @@ function TodoList() {
     return <p>Error: {error.message}</p>
   }
 
-  function handleClick(id:number){
+  function handleClick(id: number) {
     if (deleteTodos.isPending) {
-      return "no"
+      return 'no'
     }
-    deleteTodos.mutate({id})
+    deleteTodos.mutate({ id })
   }
 
-  if (data){
-  return (
-    <>
-      {data.map((todo: TodoId) => {
-        return (
-          <div key={todo.id} className="todo-list">
-            <p>{todo.todo}</p>
-            <p>
-              <strong>PRIORITY:</strong> {todo.priority}
-            </p>
+  if (data) {
+    return (
+      <>
+        {data.map((todo: TodoId) => {
+          return (
+            <div key={todo.id} className="todo-list">
+              <p>{todo.todo}</p>
+              <p>
+                <strong>PRIORITY:</strong> {todo.priority}
+              </p>
 
-            <label>
-              Completed: <input type="checkbox" name="completed" />
-            </label>
-            <button disabled={deleteTodos.isPending} key={todo.id} onClick={()=>handleClick(todo.id)}>click</button>
-          </div>
-          
-        )
-      })}
-    </>
-  )}
+              <label>
+                Completed: <input type="checkbox" name="completed" />
+              </label>
+              <button
+                disabled={deleteTodos.isPending}
+                key={todo.id}
+                onClick={() => handleClick(todo.id)}
+              >
+                delete
+              </button>
+            </div>
+          )
+        })}
+      </>
+    )
+  }
 }
 
 export default TodoList
-

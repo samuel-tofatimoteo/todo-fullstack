@@ -4,18 +4,29 @@ import useAddTodo from './hooks/useAddTodo'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 function AddTodo() {
-  const [newToDo, setNewToDo] = useState('')
+  const [newToDo, setNewToDo] = useState({
+    todo: '',
+    priority: '',
+  })
 
   const addTodo = useAddTodo()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewToDo(e.target.value)
+    const name = e.target.name
+    const val = e.target.value
+    setNewToDo({
+      ...newToDo,
+      [name]: val,
+    })
   }
 
   const handlesubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    addTodo.mutate({ todo: newToDo })
-    setNewToDo('')
+    addTodo.mutate(newToDo)
+    setNewToDo({
+      todo: '',
+      priority: '',
+    })
   }
   return (
     <>
@@ -23,10 +34,20 @@ function AddTodo() {
         <input
           className="new-todo"
           placeholder="What needs to be done?"
-          value={newToDo}
+          name="todo"
+          value={newToDo.todo}
           // autoFocus={true}
           onChange={handleChange}
         />
+        <input
+          className="new-todo"
+          placeholder="Priority"
+          name="priority"
+          value={newToDo.priority}
+          // autoFocus={true}
+          onChange={handleChange}
+        />
+        <button type="submit">Submit</button>
       </form>
     </>
   )

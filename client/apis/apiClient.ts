@@ -17,7 +17,9 @@ export async function deleteTodos(id: number) {
   return alert('your todo has been deleted')
 }
 
-export async function addTodo(newTodo: string) {
-  const res = await request.post(rootUrl).send({ todo: newTodo })
+export async function addTodo(newTodo: Todos) {
+  const res = await request
+    .post(rootUrl)
+    .send({ todo: newTodo.todo, priority: newTodo.priority })
   return res.body
 }
