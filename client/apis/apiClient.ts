@@ -8,3 +8,6 @@ export async function getTasks(): Promise<TaskDB[]>{
     return res.body as TaskDB[]
 }
 
+export async function addTask(data) {
+    await request.post(rootUrl).send(data)
+}

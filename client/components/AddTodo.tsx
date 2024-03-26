@@ -1,5 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import { useState } from "react"
+import { useMutation, QueryClient, useQueryClient } from "@tanstack/react-query"
+import * as api from '../apis/apiClient'
+import { Task } from "../../Models/Task"
 
 function AddTodo() {
 
@@ -12,9 +15,20 @@ function AddTodo() {
 
   function handleSubmit(e){
     e.preventDefault()
+    taskAdd.mutate({ name: newTask, details: 'test', priority: 1, completed: false })
     setSubmittedTask(newTask)
     setNewTask('')
   }
+
+  const queryClient = useQueryClient()
+
+  const taskAdd = useMutation({
+    mutationFn: (change : Task) => api.addTask(change),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['tasks'] })
+    },
+  })
+  
 
   return (
     <>
