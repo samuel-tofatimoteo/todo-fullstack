@@ -383,9 +383,56 @@ html .clear-completed:active {
 .todo-container {
   padding-left:  30px;
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  justify-content: center;
+  border-top: 2px solid #e6e6e6;
+  grid-template-columns: repeat(5,2fr);
 }
 
 .priority{
   padding-left:  30px;
+}
+// button overall
+.btn{
+  border: 1px solid black;
+  border-radius: 0.4rem;
+  font-size: larger;
+  font-weight: 800;
+  cursor: pointer;
+}
+//submit
+.submit-todo{
+  background-color: rgb(126, 126, 251);
+  margin-left: 20px;
+  padding: 3px;
+}
+
+.submit-todo:hover{
+  background-color: rgb(134, 134, 247) ;
+}
+//update
+.update{
+  background-color: #ef9c27;
+  margin-right: 10px;
+}
+
+.update:hover{
+  background-color: #f4af4f;
+}
+//delete
+.delete{
+  background-color: #ff4650;
+  margin-right: 10px;
+}
+
+.delete:hover{
+  background-color: #ff5a62;
+}
+
+.close{
+  background-color: #ff4650 ;
+  margin-left: 10px;
+  padding: 3px;
+}
+.close:hover{
+  background-color:#ff5a62 ;
 }

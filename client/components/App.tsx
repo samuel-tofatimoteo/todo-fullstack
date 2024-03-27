@@ -52,13 +52,21 @@ function App() {
             return (
               <div key={todo.id} className="todo-container">
                 <p>{todo.task_details}</p>
-                <p>{todo.priority}</p>
-                <p>{todo.completed}</p>
-                <button id={String(todo.id)} onClick={doUpdate}>
+                <p className="priority">{todo.priority}</p>
+                <p>{todo.completed ? 'Completed' : 'Not Completed'}</p>
+                <button
+                  className="update btn"
+                  id={String(todo.id)}
+                  onClick={doUpdate}
+                >
                   update
                 </button>
 
-                <button id={String(todo.id)} onClick={handleDelete}>
+                <button
+                  className="delete btn"
+                  id={String(todo.id)}
+                  onClick={handleDelete}
+                >
                   delete
                 </button>
               </div>
@@ -74,8 +82,12 @@ function App() {
                 id="updateVal"
                 value={input}
               ></input>
-              <button type="submit">Submit</button>
-              <button onClick={() => setUpdate(false)}>Close</button>
+              <button className="submit-todo btn" type="submit">
+                Submit
+              </button>
+              <button className="close btn" onClick={() => setUpdate(false)}>
+                Close
+              </button>
             </form>
           )}
         </div>

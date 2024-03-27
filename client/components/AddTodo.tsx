@@ -44,7 +44,7 @@ function AddTodo() {
           onChange={handleChange}
           value={formData.priority}
         ></input>
-        <button>submit</button>
+        <button className="submit-todo btn">submit</button>
       </form>
     </>
   )
