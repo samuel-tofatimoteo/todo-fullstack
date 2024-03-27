@@ -28,7 +28,7 @@ function TodoList() {
         {data.map((todo) => {
           return (
             <div key={todo.id}>
-              <p>{todo.todo}</p>
+              <p id="todo">{todo.todo}</p>
               <p>
                 <strong>Priority:</strong> {todo.priority}
               </p>
@@ -38,7 +38,11 @@ function TodoList() {
                   Completed: <input type="checkbox" name="completed" />
                 </label>
               </fieldset>
-              <button key={todo.id} onClick={() => handleClick(todo.id)}>
+              <button
+                key={todo.id}
+                onClick={() => handleClick(todo.id)}
+                id="button"
+              >
                 Delete
               </button>
             </div>
