@@ -44,6 +44,10 @@ export default function TodoList() {
     setEditableTodoId(null)
   }
 
+  const handleToggle = (id, completed) => {
+    mutationUpdate.mutate({ id, completed: !completed })
+  }
+
   const [editableTodoId, setEditableTodoId] = useState(null)
   const [editedTodoDetails, setEditedTodoDetails] = useState('')
 
@@ -65,19 +69,26 @@ export default function TodoList() {
           <label htmlFor="toggle-all">Mark all as complete</label>
           <ul className="todo-list">
             {todos.map((todo) => (
-              <li key={`extra-${todo.id}`}>
+              <li
+                key={`extra-${todo.id}`}
+                className={todo.completed ? 'completed' : ''}
+              >
                 <div className="view">
-                  <input className="toggle" type="checkbox" />
+                  <input
+                    className="toggle"
+                    type="checkbox"
+                    checked={todo.completed}
+                    onChange={() => handleToggle(todo.id, todo.completed)}
+                  />
                   {editableTodoId === todo.id ? (
-                    <form onSubmit={(e) => handleEditSubmit(e, todo.id)}>
-                      <input
-                        className="ed"
-                        type="text"
-                        value={editedTodoDetails}
-                        onChange={handleEditChange}
-                        onBlur={(e) => handleEditSubmit(e, todo.id)}
-                      />
-                    </form>
+                    <input
+                      type="text"
+                      value={editedTodoDetails}
+                      onChange={handleEditChange}
+                      onBlur={() => handleEditSubmit(todo.id)}
+                      autoFocus
+                      className="edit"
+                    />
                   ) : (
                     <label
                       className=""
@@ -99,5 +110,3 @@ export default function TodoList() {
     </div>
   )
 }
-
-//todo-list li.editing .edi
