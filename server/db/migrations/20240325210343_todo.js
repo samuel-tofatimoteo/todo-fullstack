@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 export function up(knex) {
-  return knex.schema.createTable('todos', (table) => {
+  return knex.schema.createTable('toDo', (table) => {
     table.increments()
     table.string('details')
     table.integer('priority')
@@ -16,5 +16,5 @@ export function up(knex) {
  * @returns { Promise<void> }
  */
 export function down(knex) {
-  return knex.schema.dropTable('todos')
+  return knex.schema.dropTable('toDo')
 }

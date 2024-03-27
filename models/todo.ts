@@ -1,7 +1,6 @@
 import { ReactNode } from 'react'
 
-export interface todo {
-  [x: string]: ReactNode
+export interface toDo {
   taskDetails: string
   priority: number
   completed: boolean

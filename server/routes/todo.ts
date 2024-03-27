@@ -27,8 +27,8 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const toDo = req.body
-    await db.addToDo(toDo)
+    const newTodo = req.body
+    await db.addToDo(newTodo)
     res.sendStatus(200)
   } catch (error) {
     console.error(`Database error: ${error}`)
@@ -48,11 +48,11 @@ router.delete('/:id', async (req, res) => {
     res.sendStatus(500)
   }
 })
-router.get('/', async (req, res) => {
+router.delete('/', async (req, res) => {
+  const id = Number(req.params.id)
   try {
-    const toDo = await db.sortThis()
-
-    res.json(toDo)
+    await db.removeToDo(id)
+    res.sendStatus(200)
   } catch (error) {
     console.error(`Database error: ${error}`)
     res.sendStatus(500)

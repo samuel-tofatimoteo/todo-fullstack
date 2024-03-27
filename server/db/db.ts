@@ -1,7 +1,8 @@
 import connection from './connection'
-import { toDo } from '../../models/todo'
+import toDo from '../../models/todo'
 
 const db = connection
+
 export async function getToDo(): Promise<toDo[]> {
   return db('toDo').select()
 }
@@ -16,11 +17,4 @@ export function addToDo(task: toDo) {
 
 export async function removeToDo(id: number) {
   return db('toDo').where({ id }).del()
-}
-export async function toDo() {
-  throw new Error('Function not implemented.')
-}
-
-export function sortThis() {
-  throw new Error('Function not implemented.')
 }
