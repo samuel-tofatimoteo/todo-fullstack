@@ -1,13 +1,12 @@
 import * as db from '../db/db'
 import express from 'express'
-import { TodoId, Todos } from '../../models/todos'
 
 const router = express.Router()
 
 //GET all todos
 router.get('/', async (req, res) => {
   try {
-    const todos = db.getAllTodos()
+    const todos = await db.getAllTodos()
     res.json(todos)
   } catch (error) {
     res.sendStatus(500)
@@ -19,7 +18,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
-    const todos = db.getTodoById(id)
+    const todos = await db.getTodoById(id)
     res.json(todos)
   } catch (error) {
     res.sendStatus(500)
@@ -31,7 +30,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const newTodo = req.body
-    const todos = db.addTodo(newTodo)
+    const todos = await db.addTodo(newTodo)
     res.json(todos)
   } catch (error) {
     res.sendStatus(500)
@@ -44,7 +43,7 @@ router.patch('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
     const updateTodo = req.body
-    const todos = db.updateTodo(id, updateTodo)
+    const todos = await db.updateTodo(id, updateTodo)
     res.json(todos)
   } catch (error) {
     res.sendStatus(500)
@@ -56,7 +55,7 @@ router.patch('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
-    const todos = db.deleteTodo(id)
+    const todos = await db.deleteTodo(id)
     res.json(todos)
   } catch (error) {
     res.sendStatus(500)

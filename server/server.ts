@@ -1,6 +1,6 @@
 import express from 'express'
 import * as Path from 'node:path'
-import * as db from './db/db'
+// import * as db from './db/db'
 import todos from './routes/todos'
 
 const server = express()
