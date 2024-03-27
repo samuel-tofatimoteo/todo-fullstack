@@ -16,7 +16,11 @@ export function getTodoById(id: number) {
 }
 
 //create data:
-export function addTodo(newTodo: Todos): Promise<Todos> {
+export function addTodo(newTodo: {
+  task: string
+  completed: boolean
+  priority: string
+}): Promise<Todos> {
   return db('todos').insert(newTodo)
 }
 

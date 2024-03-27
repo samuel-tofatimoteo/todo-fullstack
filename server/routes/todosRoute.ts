@@ -8,7 +8,7 @@ export default router
 //get all todos:
 router.get('/', async (req, res) => {
   try {
-    const todos = db.getAllTodos()
+    const todos = await db.getAllTodos()
     res.json(todos)
   } catch (error) {
     console.log('Error: Could not get todos')
@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
-    const todos = db.getTodoById(id)
+    const todos = await db.getTodoById(id)
     res.json(todos)
   } catch (error) {
     console.log('Error: Could not get todos')
@@ -30,8 +30,8 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const newTodo = req.body
-    const addedTodo = db.addTodo(newTodo)
-    res.json(addedTodo)
+    await db.addTodo(newTodo)
+    res.json(newTodo)
   } catch (error) {
     console.log('Error: Could not get todos')
   }
@@ -42,8 +42,9 @@ router.patch('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
     const updateTodo = req.body
-    const updatedTodo = db.updateTodo(id, updateTodo)
-    res.json(updatedTodo)
+    await db.updateTodo(id, updateTodo)
+    res.json(updateTodo)
+    console.log('updated todo')
   } catch (error) {
     console.log('Error: Could not get todos')
   }
@@ -53,8 +54,9 @@ router.patch('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
-    const deletedTodo = db.deleteTodo(id)
-    res.json(deletedTodo)
+    await db.deleteTodo(id)
+    const todos = await db.getAllTodos()
+    res.json(todos)
   } catch (error) {
     console.log('Error: Could not get todos')
   }
