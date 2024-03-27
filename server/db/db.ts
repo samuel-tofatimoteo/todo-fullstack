@@ -14,6 +14,9 @@ export function getTodosById(id: number): Promise<Todo> {
 export function addTodo(newTodoObj: Todo) {
   return db('todos').insert(newTodoObj)
 }
+export function updateTodo(id: number, updatedTodo: Todo) {
+  return db('todos').where({ id }).update(updatedTodo)
+}
 
 export function removeTodo(id: number) {
   return db('todos').where({ id }).del()
