@@ -2,10 +2,11 @@ import { useQuery, useMutation } from '@tanstack/react-query'
 import { TodoId, Todos } from '../../models/todos'
 import * as api from '../apis/apiClient.ts'
 import useTodos from './hooks/useTodos.tsx'
-// import useDeleteTodos from './hooks/useDeleteTodos.tsx'
+import useDeleteTodos from './hooks/useDeleteTodos.tsx'
 
 function TodoList() {
   const { isPending, isError, data, error } = useTodos()
+  const deleteTodos = useDeleteTodos()
 
   if (isPending) {
     return <span>Loading ...</span>
@@ -13,6 +14,14 @@ function TodoList() {
   if (isError) {
     return <span>Error: The data is not available</span>
   }
+
+  function handleClick(id: number) {
+    if (deleteTodos.isPending) {
+      return
+    }
+    deleteTodos.mutate({ id })
+  }
+
   if (data) {
     return (
       <>
@@ -29,7 +38,9 @@ function TodoList() {
                   Completed: <input type="checkbox" name="completed" />
                 </label>
               </fieldset>
-              <button key={todo.id}>Delete</button>
+              <button key={todo.id} onClick={() => handleClick(todo.id)}>
+                Delete
+              </button>
             </div>
           )
         })}
