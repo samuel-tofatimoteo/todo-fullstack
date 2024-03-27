@@ -81,14 +81,16 @@ export default function TodoList() {
                     onChange={() => handleToggle(todo.id, todo.completed)}
                   />
                   {editableTodoId === todo.id ? (
-                    <input
-                      type="text"
-                      value={editedTodoDetails}
-                      onChange={handleEditChange}
-                      onBlur={() => handleEditSubmit(todo.id)}
-                      autoFocus
-                      className="edit"
-                    />
+                    <form onSubmit={(e) => handleEditSubmit(e, todo.id)}>
+                      <input
+                        type="text"
+                        value={editedTodoDetails}
+                        onChange={handleEditChange}
+                        onBlur={(e) => handleEditSubmit(e, todo.id)}
+                        autoFocus
+                        className="ed"
+                      />
+                    </form>
                   ) : (
                     <label
                       className=""
