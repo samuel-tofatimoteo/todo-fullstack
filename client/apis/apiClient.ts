@@ -17,7 +17,7 @@ export async function addTodos(newTodo: Todos) {
 }
 
 //delete a todo
-export async function deleteTodos(id: TodoId) {
+export async function deleteTodos(id: number) {
   await request.delete(`/api/v1/todos/${id}`)
   return alert('your todo has been deleted')
 }
