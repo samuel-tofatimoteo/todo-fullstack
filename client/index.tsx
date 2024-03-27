@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
       clientId="vueaflafFtoBcIkhGc1skiDBwKVpJbI8"
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: 'https://todos/api',
+        audience: 'https:/todos/api',
       }}
     >
       <QueryClientProvider client={queryClient}>
