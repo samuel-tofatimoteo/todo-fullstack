@@ -1,11 +1,21 @@
 import express from 'express'
 import * as Path from 'node:path'
-import todos from './routes/todosRoute'
+import * as db from './db/db'
+import todosRoute from './routes/todosRoute'
 
 const server = express()
 
+const todos = await db.addTodo({
+  id: 4,
+  task: 'wash the dog',
+  completed: false,
+  priority: 'high',
+})
+
+console.log(todos)
+
 server.use(express.json())
-server.get('/api/v1/todos', todos)
+server.get('/api/v1/todos', todosRoute)
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))
