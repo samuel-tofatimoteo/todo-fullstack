@@ -38,7 +38,8 @@ export default function TodoList() {
     setEditedTodoDetails(e.target.value)
   }
 
-  const handleEditSubmit = (id) => {
+  const handleEditSubmit = (e, id) => {
+    e.preventDefault()
     mutationUpdate.mutate({ id, details: editedTodoDetails })
     setEditableTodoId(null)
   }
@@ -68,14 +69,20 @@ export default function TodoList() {
                 <div className="view">
                   <input className="toggle" type="checkbox" />
                   {editableTodoId === todo.id ? (
-                    <input
-                      type="text"
-                      value={editedTodoDetails}
-                      onChange={handleEditChange}
-                      onBlur={() => handleEditSubmit(todo.id)}
-                    />
+                    <form onSubmit={(e) => handleEditSubmit(e, todo.id)}>
+                      <input
+                        className="ed"
+                        type="text"
+                        value={editedTodoDetails}
+                        onChange={handleEditChange}
+                        onBlur={(e) => handleEditSubmit(e, todo.id)}
+                      />
+                    </form>
                   ) : (
-                    <label onDoubleClick={() => handleDoubleClick(todo)}>
+                    <label
+                      className=""
+                      onDoubleClick={() => handleDoubleClick(todo)}
+                    >
                       {todo.details}
                     </label>
                   )}
@@ -92,3 +99,5 @@ export default function TodoList() {
     </div>
   )
 }
+
+//todo-list li.editing .edi
