@@ -1,58 +1,39 @@
-// eslint-disable-next-line no-unused-vars
-import { SetStateAction, useState } from 'react'
-import { useMutation } from '@tanstack/react-query'
+import { ChangeEvent, useState } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import * as api from '../apis/apiClient'
+// eslint-disable-next-line no-unused-vars
 
-function AddTodo() {
-  const [newTask, setNewtask] = useState('')
-  const [submittedTask, setSummittedTask] = useState('')
-  //onSuccess - refresh auto
+export default function AddTodo() {
+  const [newToDo, setNewToDo] = useState('')
+
+  const queryClient = useQueryClient()
   const mutation = useMutation({
-    mutationFn: api.addTodo,
+    mutationFn: (newToDo) => api.addTodo(newToDo),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] })
+    },
   })
-  const handleChange = async (e: {
-    target: { value: SetStateAction<string> }
-  }) => {
-    setNewtask(e.target.value)
+
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewToDo(e.target.value)
   }
-  const handleSubmit = (e: { preventDefault: () => void }) => {
-    console.log(newTask)
-    setSummittedTask(newTask)
+
+  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    mutation.mutate({
-      // what: newTask,
-      // when: '2pm',
-      taskDetails: '',
-      priority: 0,
-      completed: false,
-      newTodo: '',
-    })
-    setSummittedTask('')
+    mutation.mutate({ taskDetails: newToDo })
+    setNewToDo('')
   }
+
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleOnSubmit}>
         <input
-          onChange={handleChange}
-          value={newTask}
           className="new-todo"
           placeholder="What needs to be done?"
+          value={newToDo}
+          onChange={handleOnChange}
         />
-        <button>Submit</button>
       </form>
-
-      <form onSubmit={handleSubmit}>
-        <input
-          onChange={handleChange}
-          value={newTask}
-          className="new-todo"
-          placeholder="by what time?"
-        />
-        <button>Submit</button>
-      </form>
-      <p>Submitted Task: {submittedTask}</p>
     </>
   )
 }
-
-export default AddTodo

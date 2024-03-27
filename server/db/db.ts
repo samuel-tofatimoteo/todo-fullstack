@@ -1,5 +1,5 @@
 import connection from './connection'
-import { toDo } from '../../models/toDo'
+import { toDo } from '../../models/todo'
 
 const db = connection
 export async function getToDo(): Promise<toDo[]> {
