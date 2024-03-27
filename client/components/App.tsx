@@ -5,20 +5,31 @@ import AddTodo from './AddTodo.tsx'
 
 function App() {
   const { data, isLoading, isError, error } = useTodos()
-  const initialData = data && [...data]
-  const [input, setInput] = useState(initialData)
+  const [input, setInput] = useState('')
   const [update, setUpdate] = useState(false)
+  const [useId, setUseID] = useState(0)
 
   const delTodo = useDelTodos()
   function handleDelete(e: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+    console.log(useId)
     delTodo.mutate(e.target.id)
   }
 
   const updtTodo = useUpdateTodos()
   function handleUpdate(e: React.ButtonHTMLAttributes<HTMLButtonElement>) {
     e.preventDefault()
-    updtTodo.mutate({ id: 1, todo: 'Something' })
-    console.log(e.target)
+    const sendData = { id: useId, todo: input }
+    updtTodo.mutate(sendData)
+  }
+
+  function doUpdate(e) {
+    setUseID(Number(e.target.id))
+    setUpdate(true)
+  }
+
+  function handleChange(e) {
+    e.preventDefault()
+    setInput(e.target.value)
   }
 
   if (isLoading) {
@@ -40,25 +51,12 @@ function App() {
           {data.map((todo: Todos) => {
             return (
               <div key={todo.id} className="todo-container">
-                {update ? (
-                  <form onSubmit={handleUpdate}>
-                    <input
-                      className="new-"
-                      placeholder={todo.task_details}
-                      // onChange={handleChange}
-                      name={todo.id}
-                      id={todo.id}
-                    ></input>
-                    <p className="priority">{todo.priority} </p>
-                    <p>{todo.completed ? 'completed' : 'not complete'}</p>
-                    <button type="submit" id={String(todo.id)}>
-                      Confirm update
-                    </button>
-                  </form>
-                ) : (
-                  <p>{todo.task_details}</p>
-                )}
-                <button onClick={() => setUpdate(!update)}>Update</button>
+                <p>{todo.task_details}</p>
+                <p>{todo.priority}</p>
+                <p>{todo.completed}</p>
+                <button id={String(todo.id)} onClick={doUpdate}>
+                  update
+                </button>
 
                 <button id={String(todo.id)} onClick={handleDelete}>
                   delete
@@ -66,6 +64,20 @@ function App() {
               </div>
             )
           })}
+          {update && (
+            <form onSubmit={handleUpdate}>
+              <input
+                className="new-todo"
+                placeholder={`Update task with ID ${useId}`}
+                onChange={handleChange}
+                name="updateVal"
+                id="updateVal"
+                value={input}
+              ></input>
+              <button type="submit">Submit</button>
+              <button onClick={() => setUpdate(false)}>Close</button>
+            </form>
+          )}
         </div>
         <section className="main"></section>
         <footer className="footer"></footer>

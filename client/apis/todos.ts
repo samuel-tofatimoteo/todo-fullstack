@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { Todos } from '../../models/model'
+import { SendData, Todos } from '../../models/model'
 
 const rootUrl = '/api/v1'
 
@@ -16,6 +16,8 @@ export async function delTodos(id: number) {
   return request.delete(rootUrl + `/todos/${id}`)
 }
 
-export async function updateTodos(id:number, todo: string) {
-  return request.patch(rootUrl + `/update/${id}`).send({newTodo: todo})
+export async function updateTodos(sendData: SendData) {
+  return request
+    .patch(rootUrl + `/todos/update/${sendData.id}`)
+    .send({ newTodo: sendData.todo })
 }

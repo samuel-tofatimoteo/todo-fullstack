@@ -4,3 +4,8 @@ export interface Todos {
   priority: number
   completed: boolean
 }
+
+export interface SendData {
+  id: number
+  todo: string
+}
