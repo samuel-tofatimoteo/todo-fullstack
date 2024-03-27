@@ -15,3 +15,7 @@ export async function addTodos(todo: Todos) {
 export async function delTodos(id: number) {
   return request.delete(rootUrl + `/todos/${id}`)
 }
+
+export async function updateTodos(id:number, todo: string) {
+  return request.patch(rootUrl + `/update/${id}`).send({newTodo: todo})
+}

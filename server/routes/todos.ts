@@ -45,7 +45,7 @@ router.patch('/update/:id', async (req, res) =>{
   try {
     const input = req.body
     const id = Number(req.params.id)
-    await updateDetails(id, input.input)
+    await updateDetails(id, input.newTodo)
     res.json({yes: "successful"})
   } catch (error) {
     res.status(500).json({ message: 'Error' })

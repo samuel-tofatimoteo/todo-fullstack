@@ -4,7 +4,7 @@ import {
   useQueryClient,
   MutationFunction,
 } from '@tanstack/react-query'
-import { addTodos, delTodos, getTodos } from '../apis/todos'
+import { addTodos, delTodos, getTodos, updateTodos } from '../apis/todos'
 import { Todos } from '../../models/model'
 
 export function useTodos() {
@@ -26,6 +26,14 @@ export function useDelTodos() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (id: number) => delTodos(id),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['todos'] }),
+  })
+}
+
+export function useUpdateTodos() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (updt)=> updateTodos(updt.id, updt.todo), 
     onSuccess: () => qc.invalidateQueries({ queryKey: ['todos'] }),
   })
 }
