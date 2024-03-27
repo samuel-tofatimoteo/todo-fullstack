@@ -12,12 +12,12 @@ import {
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import * as api from '../apis/apiClient'
 import { useMutation } from '@tanstack/react-query'
-
 export default function TodoList() {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['todos'],
     queryFn: () => api.fetchTodos(),
   })
+
   const queryClient = useQueryClient()
 
   const mutationDelete = useMutation({
@@ -26,21 +26,40 @@ export default function TodoList() {
       queryClient.invalidateQueries('todos')
     },
   })
+
   const mutationUpdate = useMutation({
     mutationFn: (updatedTodo) => api.updateTodo(updatedTodo),
     onSuccess: () => {
       queryClient.invalidateQueries('todos')
     },
   })
+
   const handleDelete = (id) => {
     mutationDelete.mutate(id)
   }
-  const handleToggle = (
-    id: Key | null | undefined,
-    completed: boolean | undefined,
-  ) => {
+
+  const handleDoubleClick = (todo) => {
+    setEditableTodoId(todo.id)
+    setEditedTodoDetails(todo.details)
+  }
+
+  const handleEditChange = (e) => {
+    setEditedTodoDetails(e.target.value)
+  }
+
+  const handleEditSubmit = (e, id) => {
+    e.preventDefault()
+    mutationUpdate.mutate({ id, details: editedTodoDetails })
+    setEditableTodoId(null)
+  }
+
+  const handleToggle = (id, completed) => {
     mutationUpdate.mutate({ id, completed: !completed })
   }
+
+  const [editableTodoId, setEditableTodoId] = useState(null)
+  const [editedTodoDetails, setEditedTodoDetails] = useState('')
+
   if (isPending) {
     return <span>Loading...</span>
   }
@@ -51,10 +70,6 @@ export default function TodoList() {
 
   const todos = data
   console.log(todos)
-
-  // const handleDelete = (id) => {
-  //   MutationEvent.mutate(id)
-  // }
 
   return (
     <>
@@ -90,3 +105,24 @@ export default function TodoList() {
     </>
   )
 }
+// export default function TodoList() {
+//   const { isPending, isError, data, error } = useQuery({
+//     queryKey: ['todos'],
+//     queryFn: () => api.fetchTodos(),
+//   })
+//   // const queryClient = useQueryClient()
+
+//   if (isPending) {
+//     return <span>Loading...</span>
+//   }
+
+//   if (isError) {
+//     return <span>Error: {error.message}</span>
+//   }
+
+//   const todos = data
+//   console.log(todos)
+
+//   // const handleDelete = (id) => {
+//   //   MutationEvent.mutate(id)
+//   // }
