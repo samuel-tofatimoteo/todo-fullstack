@@ -1,13 +1,13 @@
-import { TodoForm } from './AddTodo'
-import { ToDoList } from './TodoList'
+import AddTodo from './AddTodo'
+import Todo from './TodoList'
 
 function App() {
   return (
     <>
       <header className="header">
         <h1>todos</h1>
-        <ToDoList />
-        <TodoForm />
+        <Todo />
+        <AddTodo />
       </header>
       <section className="main"></section>
       <footer className="footer"></footer>

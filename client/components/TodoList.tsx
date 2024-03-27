@@ -1,17 +1,33 @@
 import { toDo } from '../../models/toDo'
+import * as api from '../apis/apiClient'
+import { useQuery } from '@tanstack/react-query'
 
-export function ToDoList() {
-  const todos = [
-    { taskDetails: 'walk the rabbit', priority: 2, completed: true },
-    { taskDetails: 'walk the new dog', priority: 1, completed: true },
-    { taskDetails: 'walk the mouse', priority: 8, completed: false },
-  ] as toDo[]
+export default function Todo() {
+  const { isPending, isError, data, error } = useQuery({
+    queryKey: ['todos'],
+    queryFn: () => api.fetchTodo(),
+  })
+
+  if (isPending) {
+    return <span>Loading...</span>
+  }
+
+  if (isError) {
+    return <span>Error: {error.message}</span>
+  }
+
+  const todos = data
+  console.log(todos)
 
   return (
     <>
-      {todos.map((todos) => {
-        return <p key={todos.taskDetails}>{todos.completed}</p>
-      })}
+      {todos.map((task) => (
+        <ul key={task.what} className="todo-count">
+          <li {...task}>
+            {task.what} by {task.when}
+          </li>
+        </ul>
+      ))}
     </>
   )
 }
