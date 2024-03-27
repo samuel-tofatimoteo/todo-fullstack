@@ -11,3 +11,5 @@ export async function getTasks(): Promise<TaskDB[]>{
 export async function addTask(data) {
     await request.post(rootUrl).send(data)
 }
+
+// mark completed
