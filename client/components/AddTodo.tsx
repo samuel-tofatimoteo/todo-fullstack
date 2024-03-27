@@ -10,7 +10,9 @@ function AddTodo() {
   const mutation = useMutation({
     mutationFn: api.addTodo,
   })
-  const handleChange = (e: { target: { value: SetStateAction<string> } }) => {
+  const handleChange = async (e: {
+    target: { value: SetStateAction<string> }
+  }) => {
     setNewtask(e.target.value)
   }
   const handleSubmit = (e: { preventDefault: () => void }) => {
@@ -18,14 +20,14 @@ function AddTodo() {
     setSummittedTask(newTask)
     e.preventDefault()
     mutation.mutate({
-      what: newTask,
-      when: '2pm',
+      // what: newTask,
+      // when: '2pm',
       taskDetails: '',
       priority: 0,
       completed: false,
       newTodo: '',
     })
-    setNewtask('')
+    setSummittedTask('')
   }
   return (
     <>
@@ -35,7 +37,6 @@ function AddTodo() {
           value={newTask}
           className="new-todo"
           placeholder="What needs to be done?"
-          autoFocus={true}
         />
         <button>Submit</button>
       </form>
@@ -46,10 +47,10 @@ function AddTodo() {
           value={newTask}
           className="new-todo"
           placeholder="by what time?"
-          autoFocus={true}
         />
         <button>Submit</button>
       </form>
+      <p>Submitted Task: {submittedTask}</p>
     </>
   )
 }

@@ -23,9 +23,7 @@ export default function Todo() {
     <>
       {todos.map((task) => (
         <ul key={task.what} className="todo-count">
-          <li {...task}>
-            {task.what} by {task.when}
-          </li>
+          <li {...task}>{task.taskDetails}</li>
         </ul>
       ))}
     </>

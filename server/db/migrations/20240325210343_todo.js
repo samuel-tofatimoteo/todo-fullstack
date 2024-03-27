@@ -8,6 +8,7 @@ export function up(knex) {
     table.string('taskDetails')
     table.string('priority')
     table.boolean('completed')
+    table.string('NewTodo')
   })
 }
 
