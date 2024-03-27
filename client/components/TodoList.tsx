@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import * as api from '../apis/apiClient'
 import { useMutation } from '@tanstack/react-query'
+import { useAuth0 } from '@auth0/auth0-react' // Import useAuth0
 
 export default function TodoList() {
   const { isPending, isError, data, error } = useQuery({
@@ -10,16 +11,17 @@ export default function TodoList() {
   })
 
   const queryClient = useQueryClient()
+  const { getAccessTokenSilently } = useAuth0() // Get the access token
 
   const mutationDelete = useMutation({
-    mutationFn: (id) => api.deleteTodo(id),
+    mutationFn: (id, token) => api.deleteTodo(id, token), // Pass token to your API function
     onSuccess: () => {
       queryClient.invalidateQueries('todos')
     },
   })
 
   const mutationUpdate = useMutation({
-    mutationFn: (updatedTodo) => api.updateTodo(updatedTodo),
+    mutationFn: (updatedTodo, token) => api.updateTodo(updatedTodo, token), // Pass token to your API function
     onSuccess: () => {
       queryClient.invalidateQueries('todos')
     },
@@ -87,7 +89,6 @@ export default function TodoList() {
                         value={editedTodoDetails}
                         onChange={handleEditChange}
                         onBlur={(e) => handleEditSubmit(e, todo.id)}
-                        autoFocus
                         className="ed"
                       />
                     </form>
