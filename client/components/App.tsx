@@ -11,9 +11,7 @@ function App() {
         <TodoList />
       </header>
       <section className="main"></section>
-      <footer className="footer">
-        <FooterButtons />
-      </footer>
+      <footer className="footer">{/* <FooterButtons /> */}</footer>
     </>
   )
 }
