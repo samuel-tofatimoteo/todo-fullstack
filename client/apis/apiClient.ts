@@ -4,7 +4,7 @@ import { TodoId, Todos } from '../../models/todos'
 const rootUrl = '/api/v1/todos'
 
 // GET allTODOS
-export async function getTodos(): Promise<TodoId> {
+export async function getTodos(): Promise<TodoId[]> {
   const res = await request.get(rootUrl)
   return res.body
 }

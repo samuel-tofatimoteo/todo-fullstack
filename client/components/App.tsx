@@ -1,4 +1,5 @@
 import AddTodo from './AddTodo.tsx'
+import TodoList from './TodoList.tsx'
 
 function App() {
   return (
@@ -7,7 +8,9 @@ function App() {
         <h1>todos</h1>
         <AddTodo />
       </header>
-      <section className="main"></section>
+      <section className="main">
+        <TodoList />
+      </section>
       <footer className="footer"></footer>
     </>
   )
