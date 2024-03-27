@@ -48,8 +48,20 @@ textarea::placeholder {
   font-size: large;
 }
 
+.hide-button {
+  all: unset;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.8rem;
+  color: rgba(36, 36, 38, 0.5);
+}
+
+.hide-button:hover {
+  color: rgba(42, 42, 82, 0.649);
+}
+
 li {
-  padding-bottom: 6px;
+  padding-bottom: 10px;
 }
 
 .task {
@@ -57,4 +69,34 @@ li {
   font-size: large;
   color: rgb(17, 17, 17);
   margin-right: 5px;
+}
+
+.completed {
+  transition-duration: 0.3s;
+  color: rgba(0, 125, 27, 0.2);
+  background-color: white;
+  border: 1px solid rgba(36, 36, 38, 0.5);
+  margin-left: 0.1rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.completed:hover{
+  color: rgb(0, 125, 27);
+  border: 1px solid rgba(36, 36, 38, 0.7);
+}
+
+.delete-it {
+  transition-duration: 0.3s;
+  color: rgba(215, 0, 21, 0.2);
+  background-color: white;
+  border: 1px solid rgba(36, 36, 38, 0.5);
+  margin-left: 0.1rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.delete-it:hover{
+  color: rgb(215, 0, 21);
+  border: 1px solid rgba(36, 36, 38, 0.7);
 }

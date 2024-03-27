@@ -14,9 +14,30 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.patch('/return/:id', async (req, res) => {
+    const id = Number(req.params.id)
+    try {
+        await db.incompleteTask(id)
+        res.send('marked as incomplete')
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(500)
+    }
+})
+
 router.get('/incomplete', async (req, res) => {
     try {
         const allTasks = await db.getIncomplete()
+        res.json(allTasks) 
+    } catch (error) {
+        console.log(error) 
+        res.sendStatus(500)
+    }
+})
+
+router.get('/complete', async (req, res) => {
+    try {
+        const allTasks = await db.getComplete()
         res.json(allTasks) 
     } catch (error) {
         console.log(error) 
@@ -57,5 +78,16 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
+router.patch('/:id', async (req, res) => {
+    const id = Number(req.params.id)
+    try {
+        await db.completeTask(id)
+        res.send('marked as complete')
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(500)
+    }
+
+})
 
 export default router

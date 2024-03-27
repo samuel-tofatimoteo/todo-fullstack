@@ -14,7 +14,10 @@ function AddTodo() {
   const [newForm, setNewForm] = useState(initialState)
 
   function handleInputChange(e){
-    const {name, value} = e.target
+    let {name, value} = e.target
+    if(typeof value == "string"){
+      value = value.toLowerCase()
+    }
     setNewForm({...newForm, [name]: value})
   }
 

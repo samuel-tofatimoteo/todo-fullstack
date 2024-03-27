@@ -23,3 +23,15 @@ export async function deleteTask(id: number) {
 export async function getIncomplete() : Promise<TaskDB[]>{
     return db('tasks').where('completed', false).select()
 }
+
+export async function getComplete() : Promise<TaskDB[]>{
+    return db('tasks').where('completed', false).select()
+}
+
+export async function completeTask(id: number) {
+    return  db('tasks').where({id}).update({completed: true})
+}
+
+export async function incompleteTask(id: number) {
+    return  db('tasks').where({id}).update({completed: false})
+}
