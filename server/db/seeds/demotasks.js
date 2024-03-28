@@ -16,6 +16,9 @@ export async function seed(knex) {
     {id: 7, name: 'have fun', details: 'have fun on Friday Evening with your classmates! :)', priority: 3, completed: false},
     {id: 8, name: 'g-g-g-g-g-hoooost', details: 'call ghostbusters', priority: 1, completed: false},
     {id: 9, name: 'knitting', details: 'knit a sweater', priority: 2, completed: true},
+    {id: 10, name: 'pay bills', details: 'water and power bills due this friday', priority: 1, completed: true},
+    {id: 11, name: 'call grandpa', details: 'wish him a happy 80th birthday!', priority: 1, completed: true},
+    {id: 12, name: 'meditate', details: 'practice mindfulness for 15 minutes', priority: 3, completed: false},
   ]);
 }
 

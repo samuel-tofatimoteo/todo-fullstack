@@ -24,7 +24,7 @@ function App() {
       <section className="main">
         {completeList =='Show Incomplete' && <ListTasks/>}
         {completeList =='Show Complete' && <ShowCompleted />}
-        {display =='hide' &&  <div><button className='task-button' value='adding' onClick={handleClick}>Add Task</button></div>}
+        {display =='hide' &&  <div><button className='add-button' value='adding' onClick={handleClick}>Add Task</button></div>}
         {display =='adding' && <><AddTodo /><button className='hide-button' value='hide' onClick={handleClick}>Hide</button></>}
       </section>
       <footer className="footer"></footer>

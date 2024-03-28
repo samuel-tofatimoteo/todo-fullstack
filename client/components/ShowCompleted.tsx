@@ -40,12 +40,12 @@ export function ShowCompleted(){
             <ul>
                 {data.map((task : TaskDB) =>
                 <li key={task.id}><span className='task'>{task.name}</span> {task.details}
-                <button value={task.id} aria-label="return task to incomplete list" className="reset" onClick={handleClick}>↻</button>
+                <button value={task.id} aria-label="return task to incomplete list" className="reset action-button" onClick={handleClick}>↻</button>
                 </li>)}
             </ul>
             </>
         )
     }
-
+W
 }
 
