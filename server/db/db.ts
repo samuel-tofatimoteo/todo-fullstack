@@ -25,7 +25,7 @@ export async function getIncomplete() : Promise<TaskDB[]>{
 }
 
 export async function getComplete() : Promise<TaskDB[]>{
-    return db('tasks').where('completed', false).select()
+    return db('tasks').where('completed', true).select()
 }
 
 export async function completeTask(id: number) {

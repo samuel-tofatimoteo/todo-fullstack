@@ -2,20 +2,11 @@ import { Task, TaskDB } from '../../Models/Task'
 import { useMutation, useQuery, useQueryClient  } from '@tanstack/react-query'
 import { taskSort } from '../helperFunctions/functionSet'
 import * as api from '../apis/apiClient'
-import ShowCompleted from './ShowCompleted'
 import { useState } from 'react'
 
 export function ListTasks(){
 
     const queryClient = useQueryClient()
-
-    // ATTEMPTED SHOW COMPLETED - to fix
-    // const [completeList, setCompleteList] = useState('Show Completed')
-
-    // function handleList(e){
-    //   const {value} = e.target
-    //   setCompleteList(value)
-    // }
 
     function handleClick(e){
         e.preventDefault()
@@ -66,9 +57,6 @@ export function ListTasks(){
                     <span className='task'>{task.name}</span> {task.details} <button value={task.id} aria-label="mark task as completed" className="completed" onClick={handleClick}>✔</button> <button value={task.id} aria-label="delete task" className="delete-it" onClick={handleClick}>✘</button>
                 </li>)}
             </ul>
-            {/* not functional - attempted display completed tasks
-            {completeList == 'Show Completed' && <button value='Hide' onClick={handleList}>{completeList}</button>}
-            {completeList == 'Hide' && <><ShowCompleted/><button value='Show Completed' onClick={handleList}>{completeList}</button></>} */}
             </>
         )
     }
