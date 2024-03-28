@@ -1,5 +1,5 @@
-import { Todos } from '../../models/TodosModels'
-import useDeleteTodo from './Hooks/useDeleteTodo'
+import { Todos, TodosId } from '../../models/TodosModels'
+import { useDeleteTodo } from './Hooks/useTodo'
 import useGetTodos from './Hooks/useGetTodo'
 
 function TodoList() {
@@ -24,7 +24,7 @@ function TodoList() {
       <>
         <section className="main">
           <ul className="todo-list">
-            {data.map((todo: Todos) => {
+            {data.map((todo: TodosId) => {
               return (
                 <li key={todo.id}>
                   <div className="view">
