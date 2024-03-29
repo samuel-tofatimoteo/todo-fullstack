@@ -67,8 +67,6 @@ export default function TodoList() {
     <div>
       <>
         <section className="main">
-          <input id="toggle-all" className="toggle-all" type="checkbox" />
-          <label htmlFor="toggle-all">Mark all as complete</label>
           <ul className="todo-list">
             {todos.map((todo) => (
               <li
@@ -81,28 +79,32 @@ export default function TodoList() {
                     type="checkbox"
                     checked={todo.completed}
                     onChange={() => handleToggle(todo.id, todo.completed)}
+                    id={`checkbox-${todo.id}`}
                   />
-                  {editableTodoId === todo.id ? (
-                    <form onSubmit={(e) => handleEditSubmit(e, todo.id)}>
-                      <input
-                        type="text"
-                        value={editedTodoDetails}
-                        onChange={handleEditChange}
-                        onBlur={(e) => handleEditSubmit(e, todo.id)}
-                        className="ed"
-                      />
-                    </form>
-                  ) : (
-                    <label
-                      className=""
-                      onDoubleClick={() => handleDoubleClick(todo)}
-                    >
-                      {todo.details}
-                    </label>
-                  )}
+                  <label
+                    htmlFor={`checkbox-${todo.id}`}
+                    className="todo-details"
+                    onDoubleClick={() => handleDoubleClick(todo)}
+                  >
+                    {editableTodoId === todo.id ? (
+                      <form onSubmit={(e) => handleEditSubmit(e, todo.id)}>
+                        <input
+                          type="text"
+                          value={editedTodoDetails}
+                          onChange={handleEditChange}
+                          onBlur={(e) => handleEditSubmit(e, todo.id)}
+                          className="ed"
+                          aria-label="Edit Todo"
+                        />
+                      </form>
+                    ) : (
+                      <span style={{ color: '#333' }}>{todo.details}</span>
+                    )}
+                  </label>
                   <button
                     className="destroy"
                     onClick={() => handleDelete(todo.id)}
+                    aria-label="Delete Todo"
                   ></button>
                 </div>
               </li>

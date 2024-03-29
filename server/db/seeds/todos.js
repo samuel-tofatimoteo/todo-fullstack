@@ -9,15 +9,16 @@ export async function seed(knex) {
     {
       id: 1,
       details: 'Declutter your desk',
-      completed: false,
+      completed: true,
       added_by_user: '',
     },
     {
       id: 2,
-      details: 'Read a book at least 30 minutes',
-      priority: 9,
+      details: 'Hug your friend',
       completed: false,
+      added_by_user: '',
     },
+
     { id: 3, details: 'Call a friend', added_by_user: '', completed: false },
   ])
 }

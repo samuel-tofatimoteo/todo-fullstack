@@ -1,7 +1,6 @@
-import { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import * as api from '../apis/apiClient'
-// eslint-disable-next-line no-unused-vars
 
 export default function AddTodo() {
   const [newToDo, setNewToDo] = useState('')
@@ -20,6 +19,7 @@ export default function AddTodo() {
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (newToDo.trim() === '') return // Prevent submission if input is empty
     mutation.mutate({ details: newToDo })
     setNewToDo('')
   }
@@ -32,7 +32,11 @@ export default function AddTodo() {
           placeholder="What needs to be done?"
           value={newToDo}
           onChange={handleOnChange}
+          aria-label="Add new todo"
         />
+        <button type="submit" style={{ display: 'none' }} aria-hidden="true">
+          Submit
+        </button>
       </form>
     </>
   )
