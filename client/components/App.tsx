@@ -1,19 +1,18 @@
 import AddTodo from './AddTodo.tsx'
 import FooterButtons from './FooterButtons.tsx'
 import TodoList from './TodoList.tsx'
-import Nav from './Nav.tsx'
+import Nav from './Login.tsx'
+import Login from './Login.tsx'
 
 function App() {
   return (
     <>
-      <header className="header">
-        <h1>todos</h1>
-        <Nav />
-        <AddTodo />
-        <TodoList />
-      </header>
+      <Login />
+      <h1>todos</h1>
+      <AddTodo />
+      <TodoList />
       <section className="main"></section>
-      <footer className="footer">{/* <FooterButtons /> */}</footer>
+      <footer className="footer"></footer>
     </>
   )
 }
