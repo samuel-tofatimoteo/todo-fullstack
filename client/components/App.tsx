@@ -66,16 +66,19 @@ function App() {
                         type="checkbox"
                         defaultChecked={false}
                         onClick={handleComplete}
+                        aria-label={`Allows the user to mark task as incomplete`}
+                        
                       />
-                    ) : (
+                      ) : (
                       <input
-                        id={String(todo.id)}
-                        className="toggle"
-                        type="checkbox"
-                        defaultChecked={true}
-                        onClick={handleComplete}
+                      id={String(todo.id)}
+                      className="toggle"
+                      type="checkbox"
+                      defaultChecked={true}
+                      onClick={handleComplete}
+                      aria-label={`Allows the user to mark task as complete`}
                       />
-                    )}
+                      )}
                     {edit == todo.id ? (
                       <input
                         className="edit"
@@ -92,8 +95,8 @@ function App() {
                             handleUpdate()
                           }
                         }}
-                      ></input>
-                    ) : (
+                        ></input>
+                        ) : (
                       <label id={String(todo.id)} onDoubleClick={handleEdit}>
                         {todo.task}
                       </label>
@@ -102,7 +105,7 @@ function App() {
                       id={String(todo.id)}
                       className="destroy"
                       onClick={handleDelete}
-                    />
+                      >×</button>
                   </div>
                 </li>
               )

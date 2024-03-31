@@ -27,6 +27,7 @@ function AddTodo() {
             handleSubmit()
           }
         }}
+        aria-label={`Add a todo`}
         name="task_details"
         id="task_details"
         value={task}
