@@ -40,8 +40,8 @@ export default function Todo() {
                 />
                 <label>{task.what}</label>
                 {/* This deletes all the seeds when active... */}
-                {/* <DeleteButton id={task.id} /> */}
-                <button className="destroy"></button>
+                <DeleteButton id={task.id} />
+                {/* <button className="destroy"></button> */}
               </div>
               <input className="edit" value="Create a TodoMVC template" />
             </li>
