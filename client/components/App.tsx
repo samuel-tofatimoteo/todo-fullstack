@@ -6,12 +6,12 @@ import AddTodo from './AddTodo.tsx'
 function App() {
   const { data, isLoading, isError, error } = useTodos()
   const [input, setInput] = useState('')
+  const [updateTask, setUpdateTask] = useState('')
   const [update, setUpdate] = useState(false)
   const [useId, setUseID] = useState(0)
 
   const delTodo = useDelTodos()
   function handleDelete(e: React.ButtonHTMLAttributes<HTMLButtonElement>) {
-    console.log(useId)
     delTodo.mutate(e.target.id)
   }
 
@@ -48,15 +48,29 @@ function App() {
           <AddTodo />
         </header>
         <div className="todo-content">
-          {data.map((todo: Todos) => {
-            return (
-              <div key={todo.id} className="view">
-                <input className="toggle" type="checkbox" onChange={handleChange}></input>
-                <button className="destroy"></button>
-                <label>{todo.task}</label>
-              </div>
-            )
-          })}
+          <ul className="todo-list">
+            {data.map((todo: Todos) => {
+              return (
+                <li key={todo.id} className="">
+                  <div className="view">
+                    <input className="toggle" type="checkbox" checked />
+                    <label
+                      id={String(todo.id)}
+                      onDoubleClick={(e) => console.log(e.target.id)}
+                    >
+                      {todo.task}
+                    </label>
+                    <button
+                      id={String(todo.id)}
+                      className="destroy"
+                      onClick={handleDelete}
+                    ></button>
+                  </div>
+                  <input className="edit" value={updateTask}></input>
+                </li>
+              )
+            })}
+          </ul>
         </div>
         <section className="main"></section>
         <footer className="footer"></footer>
