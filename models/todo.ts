@@ -1,8 +1,7 @@
-export interface TodosData {
+export interface Task {
   task: string
-  priority: number
-  completed: boolean
 }
-export interface Todos extends TodosData {
+
+export interface TaskId extends Task {
   id: number
 }

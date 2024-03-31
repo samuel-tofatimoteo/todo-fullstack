@@ -8,7 +8,6 @@ import {
   delTodo,
   updateDetails,
 } from '../db/db'
-import { Todos } from '../../models/todo'
 
 const router = Router()
 
@@ -48,9 +47,9 @@ router.patch('/:id', async (req, res) => {
 // updates the todo task from an input
 router.patch('/update/:id', async (req, res) => {
   try {
-    const input = req.body
+    const input = req.body.task
     const id = Number(req.params.id)
-    await updateDetails(id, input.newTodo)
+    await updateDetails(id, input)
     res.json({ yes: 'successful' })
   } catch (error) {
     res.status(500).json({ message: 'Error' })
@@ -71,8 +70,8 @@ router.get('/priority/:priority', async (req, res) => {
 // adds a new todo
 router.post('/add', async (req, res) => {
   try {
-    const todoData: Todos = req.body
-    const todos = await addTodo(todoData)
+    const input: string = req.body.task
+    const todos = await addTodo(input)
     res.json(todos)
   } catch (error) {
     res.status(500).json({ message: 'Error' })

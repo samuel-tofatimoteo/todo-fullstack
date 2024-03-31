@@ -1,4 +1,3 @@
-import { Todos } from '../../models/todo'
 import db from './connection'
 
 // get all todos
@@ -22,8 +21,8 @@ export function getTodosByPriority(priority: number) {
 }
 
 // adds a new todo
-export function addTodo(todoData: Todos) {
-  return db('todos').insert(todoData)
+export function addTodo(input: string) {
+  return db('todos').insert({ task: input, priority: 1, completed: false })
 }
 
 // deletes a specific todo
