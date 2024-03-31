@@ -102,7 +102,7 @@ function App() {
                       id={String(todo.id)}
                       className="destroy"
                       onClick={handleDelete}
-                    ></button>
+                    />
                   </div>
                 </li>
               )
