@@ -29,13 +29,14 @@ function AddTodo() {
   }
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} aria-label="Add to do">
         <input
           onChange={handleChange}
           value={newTask}
           className="new-todo"
           placeholder="What needs to be done?"
           autoFocus
+          aria-label="Add to do"
         />
       </form>
     </>

@@ -27,7 +27,12 @@ export default function Todo() {
   return (
     <>
       <section className="main">
-        <input id="toggle-all" className="toggle-all" type="checkbox" />
+        <input
+          id="toggle-all"
+          className="toggle-all"
+          type="checkbox"
+          aria-label="todo list"
+        />
         {todos.map((task) => (
           <ul key={task.what} className="todo-list">
             <li key={task.what} className={isChecked ? 'completed' : ''}>
@@ -37,13 +42,17 @@ export default function Todo() {
                   type="checkbox"
                   onChange={handleCheckboxChange}
                   checked={isChecked}
+                  aria-label="todo thing"
                 />
                 <label>{task.what}</label>
-                {/* This deletes all the seeds when active... */}
+
                 <DeleteButton id={task.id} />
-                {/* <button className="destroy"></button> */}
               </div>
-              <input className="edit" value="Create a TodoMVC template" />
+              <input
+                className="edit"
+                value="Create a TodoMVC template"
+                aria-label="todo thing"
+              />
             </li>
           </ul>
         ))}

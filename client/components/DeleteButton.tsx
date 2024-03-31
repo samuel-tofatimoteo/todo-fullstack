@@ -1,10 +1,5 @@
 import * as api from '../apis/apiclient'
-import {
-  QueryClient,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export default function DeleteTodo({ id }: { id: number }) {
   const queryClient = useQueryClient()
@@ -21,9 +16,14 @@ export default function DeleteTodo({ id }: { id: number }) {
 
   const handleDelete = (e: any) => {
     mutation.mutate(id)
-    console.log(e.target.id)
+    // console.log(e.target.id)
   }
   return (
-    <button id={String(id)} className="destroy" onClick={handleDelete}></button>
+    <button
+      id={String(id)}
+      className="destroy"
+      onClick={handleDelete}
+      aria-label="delete form"
+    ></button>
   )
 }
