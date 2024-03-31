@@ -10,3 +10,8 @@ export async function fetchTodo(): Promise<void> {
 export async function addTodo(newTask: Todos): Promise<void> {
   await request.post(rootUrl).send(newTask)
 }
+
+export async function deleteTodo(id: number): Promise<void> {
+  const url = `/api/v1/todos/${id}`
+  await request.del(url)
+}

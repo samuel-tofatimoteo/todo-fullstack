@@ -1,5 +1,6 @@
 import AddTodo from './AddTodo.tsx'
 import Todo from './Todo.tsx'
+import Footer from './Footer.tsx'
 
 function App() {
   return (
@@ -11,7 +12,9 @@ function App() {
         <Todo />
       </header>
       <section className="main"></section>
-      <footer className="footer"></footer>
+      <footer className="footer">
+        <Footer />
+      </footer>
     </>
   )
 }

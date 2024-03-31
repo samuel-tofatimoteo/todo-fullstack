@@ -1,12 +1,9 @@
 export interface Todos {
-  what: string
-  when: string
-  // done: boolean
-}
-
-export interface TodoData extends Todos {
+  details: string
+  priority: number
   done: boolean
 }
-export interface TodosData extends TodoData {
+
+export interface TodosData extends Todos {
   id: number
 }
