@@ -12,3 +12,8 @@ export interface Task {
 export interface TaskId extends Task {
   id: number
 }
+
+export interface Mark {
+  id: number
+  completed: boolean
+}

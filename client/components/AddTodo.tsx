@@ -8,13 +8,13 @@ function AddTodo() {
   const mutation = useAddTodos()
 
   function handleChange(e: any) {
-    console.log(task)
     setTask(e.target.value)
   }
 
   function handleSubmit() {
     const todo = { task: task }
     mutation.mutate(todo)
+    setTask('')
   }
   return (
     <>

@@ -1,35 +1,41 @@
 import { useState } from 'react'
-import { Todos } from '../../models/todo'
-import { useDelTodos, useTodos, useUpdateTodos } from '../hooks/useTodos.ts'
+import { Task, Todos } from '../../models/todo'
+import {
+  useDelTodos,
+  useMarkTodos,
+  useTodos,
+  useUpdateTodos,
+} from '../hooks/useTodos.ts'
 import AddTodo from './AddTodo.tsx'
 
 function App() {
   const { data, isLoading, isError, error } = useTodos()
-  const [input, setInput] = useState('')
-  const [updateTask, setUpdateTask] = useState('')
-  const [update, setUpdate] = useState(false)
-  const [useId, setUseID] = useState(0)
-
+  const [update, setUpdate] = useState('')
+  const [edit, setEdit] = useState(0)
+  const updateTodo = useUpdateTodos()
   const delTodo = useDelTodos()
-  function handleDelete(e: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  const markComplete = useMarkTodos()
+
+  function handleDelete(e) {
     delTodo.mutate(e.target.id)
   }
 
-  const updtTodo = useUpdateTodos()
-  function handleUpdate(e: React.ButtonHTMLAttributes<HTMLButtonElement>) {
-    e.preventDefault()
-    const sendData = { id: useId, todo: input }
-    updtTodo.mutate(sendData)
+  function handleComplete(e) {
+    const mark = { id: e.target.id, completed: e.target.checked }
+    markComplete.mutate(mark)
   }
 
-  function doUpdate(e) {
-    setUseID(Number(e.target.id))
-    setUpdate(true)
+  function handleUpdate(e) {
+    updateTodo.mutate({ id: edit, task: update })
+    setEdit(0)
   }
 
-  function handleChange(e) {
-    e.preventDefault()
-    setInput(e.target.value)
+  function handleEdit(e) {
+    setEdit(e.target.id)
+  }
+
+  function handleChange(e: any) {
+    setUpdate(e.target.value)
   }
 
   if (isLoading) {
@@ -51,22 +57,50 @@ function App() {
           <ul className="todo-list">
             {data.map((todo: Todos) => {
               return (
-                <li key={todo.id} className="">
+                <li key={todo.id} className={todo.completed ? 'completed' : ''}>
                   <div className="view">
-                    <input className="toggle" type="checkbox" checked />
-                    <label
-                      id={String(todo.id)}
-                      onDoubleClick={(e) => console.log(e.target.id)}
-                    >
-                      {todo.task}
-                    </label>
+                    {todo.completed ? (
+                      <input
+                        id={String(todo.id)}
+                        className="toggle"
+                        type="checkbox"
+                        onClick={handleComplete}
+                      />
+                    ) : (
+                      <input
+                        id={String(todo.id)}
+                        className="toggle"
+                        type="checkbox"
+                        checked
+                        onClick={handleComplete}
+                      />
+                    )}
+                    {edit == todo.id ? (
+                      <input
+                        className="edit"
+                        value={update}
+                        onChange={handleChange}
+                        placeholder={todo.task}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Escape') {
+                            setEdit(0)
+                          }
+                          if (e.key === 'Enter') {
+                            handleUpdate()
+                          }
+                        }}
+                      ></input>
+                    ) : (
+                      <label id={String(todo.id)} onDoubleClick={handleEdit}>
+                        {todo.task}
+                      </label>
+                    )}
                     <button
                       id={String(todo.id)}
                       className="destroy"
                       onClick={handleDelete}
                     ></button>
                   </div>
-                  <input className="edit" value={updateTask}></input>
                 </li>
               )
             })}

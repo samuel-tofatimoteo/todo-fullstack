@@ -1,6 +1,12 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { addTodos, delTodos, getTodos, updateTodos } from '../apis/todos'
-import { Task, TaskId } from '../../models/todo'
+import {
+  addTodos,
+  delTodos,
+  getTodos,
+  markTodos,
+  updateTodos,
+} from '../apis/todos'
+import { Mark, Task, TaskId } from '../../models/todo'
 
 // query to api to get all todos
 export function useTodos() {
@@ -33,6 +39,15 @@ export function useUpdateTodos() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (data: TaskId) => updateTodos(data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['todos'] }),
+  })
+}
+
+// query to api to mark todos
+export function useMarkTodos() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (data: Mark) => markTodos(data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['todos'] }),
   })
 }
