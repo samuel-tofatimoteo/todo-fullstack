@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Task, Todos } from '../../models/todo'
+import { Todos } from '../../models/todo'
 import {
   useDelTodos,
   useMarkTodos,
@@ -16,21 +16,21 @@ function App() {
   const delTodo = useDelTodos()
   const markComplete = useMarkTodos()
 
-  function handleDelete(e) {
+  function handleDelete(e: any) {
     delTodo.mutate(e.target.id)
   }
 
-  function handleComplete(e) {
+  function handleComplete(e: any) {
     const mark = { id: e.target.id, completed: e.target.checked }
     markComplete.mutate(mark)
   }
 
-  function handleUpdate(e) {
+  function handleUpdate() {
     updateTodo.mutate({ id: edit, task: update })
     setEdit(0)
   }
 
-  function handleEdit(e) {
+  function handleEdit(e: any) {
     setEdit(e.target.id)
   }
 
@@ -64,6 +64,7 @@ function App() {
                         id={String(todo.id)}
                         className="toggle"
                         type="checkbox"
+                        defaultChecked={false}
                         onClick={handleComplete}
                       />
                     ) : (
@@ -71,7 +72,7 @@ function App() {
                         id={String(todo.id)}
                         className="toggle"
                         type="checkbox"
-                        checked
+                        defaultChecked={true}
                         onClick={handleComplete}
                       />
                     )}
@@ -81,9 +82,11 @@ function App() {
                         value={update}
                         onChange={handleChange}
                         placeholder={todo.task}
+                        autoFocus
                         onKeyDown={(e) => {
                           if (e.key === 'Escape') {
                             setEdit(0)
+                            setUpdate('')
                           }
                           if (e.key === 'Enter') {
                             handleUpdate()
