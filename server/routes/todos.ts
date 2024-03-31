@@ -59,7 +59,7 @@ router.patch('/update/:id', async (req, res) => {
 // returns a list of todos based on input priority
 router.get('/priority/:priority', async (req, res) => {
   try {
-    const priority = Number(req.params.priority)
+    const priority = req.params.priority
     const todos = await getTodosByPriority(priority)
     res.json(todos)
   } catch (error) {

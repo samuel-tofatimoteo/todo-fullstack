@@ -16,13 +16,13 @@ export function markedComplete(id: number, comp: boolean) {
 }
 
 // gets todos based on specific priority
-export function getTodosByPriority(priority: number) {
+export function getTodosByPriority(priority: string) {
   return db('todos').where({ priority })
 }
 
 // adds a new todo
 export function addTodo(input: string) {
-  return db('todos').insert({ task: input, priority: 1, completed: false })
+  return db('todos').insert({ task: input, priority: 'low', completed: false })
 }
 
 // deletes a specific todo
