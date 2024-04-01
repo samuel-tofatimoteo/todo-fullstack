@@ -56,7 +56,7 @@ export function ListTasks(){
                 <li key={task.id}>
                     <span className='task'>{task.name}</span> {task.details} 
                     <button value={task.id} aria-label="mark task as completed" className="completed action-button" onClick={handleClick}>✔</button>
-                    <button value={task.id} aria-label="delete task" className="deleted action-button" onClick={handleClick}>✘</button>
+                    <button value={task.id} aria-label="delete task" className="deleted action-button" onClick={handleCross}>✘</button>
                 </li>)}
             </ul>
             </>

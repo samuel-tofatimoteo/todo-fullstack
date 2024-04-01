@@ -33,7 +33,6 @@ export function ShowCompleted(){
     }
     
     if(data){
-        console.log(data);
         data.sort((a, b) => taskSort(a, b))
         return (
             <>
