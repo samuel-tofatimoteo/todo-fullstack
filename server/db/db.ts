@@ -1,25 +1,28 @@
 import connection from './connection'
-import { Todo } from '../../models/todo'
+import { Task, TaskUpdate } from '../../models/task'
 
 const db = connection
 // const newTodoObj =
 
-export function getTodos(): Promise<Todo[]> {
-  return db('todo').select()
+export async function getTasks(): Promise<Task[]> {
+  return await db('tasks').select()
 }
 
-export function getTodosById(id: number): Promise<Todo> {
-  return db('todo').where({ id }).select().first()
+export async function getTaskById(id: number): Promise<Task> {
+  return await db('tasks').where({ id }).select().first()
 }
 
-export function addTodo(newTodoObj: Todo) {
-  return db('todo').insert(newTodoObj)
+export async function addTask(newTaskObj: Task) {
+  return await db('tasks').insert(newTaskObj)
 }
 
-export function deleteTodo(id: number): Promise<Todo> {
-  return db('todo').where(id).del()
+export async function deleteTask(id: number): Promise<Task> {
+  return await db('tasks').where({ id }).del()
 }
 
-export function updateTodo(id: number): Promise<Todo> {
-  return db('todo').where(id)
+export async function updateTask(
+  id: number,
+  updateTask: TaskUpdate,
+): Promise<Task> {
+  return await db('tasks').where({ id }).update({ updateTask })
 }

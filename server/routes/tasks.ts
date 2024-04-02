@@ -5,13 +5,13 @@ const router = express.Router()
 export default router
 
 router.get('/', async (req, res) => {
-  const data = await db.getTodos()
+  const data = await db.getTasks()
   res.json(data)
 })
 
 router.get('/:id', async (req, res) => {
   const id = Number(req.params.id)
-  const task = await db.getTodosById(id)
+  const task = await db.getTaskById(id)
 
   if (task) {
     res.json(task)
@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
 router.patch('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
-    await db.updateTodo(id, req.body)
+    await db.updateTask(id, req.body)
     res.sendStatus(204)
   } catch (error) {
     console.error(error)
@@ -33,7 +33,7 @@ router.patch('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    await db.addTodo(req.body)
+    await db.addTask(req.body)
     res.sendStatus(204)
   } catch (error) {
     console.error(error)
@@ -44,7 +44,7 @@ router.post('/', async (req, res) => {
 router.delete('/:id', async (req, res, next) => {
   try {
     const id = Number(req.params.id)
-    await db.deleteTodo(id)
+    await db.deleteTask(id)
   } catch (e) {
     next(e)
   }
