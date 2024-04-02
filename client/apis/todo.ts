@@ -8,3 +8,7 @@ export function getTodos(): Promise<Todo[]> {
     return res.body.todos
   })
 }
+
+export function addTodo(newTodo: Todo): Promise<void> {
+  await request.post(rootUrl + '/todos').send(newTodo)
+}

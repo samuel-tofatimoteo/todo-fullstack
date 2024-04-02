@@ -8,8 +8,8 @@ const router = Router()
 router.get('/', async (req, res) => {
   try {
     const todos = await db.getTodos()
-
-    res.json({ todos: todos.map((todo) => todo.task) })
+    res.json(todos)
+    //{ todos: todos.map((todo) => todo.task) }
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })
@@ -18,9 +18,9 @@ router.get('/', async (req, res) => {
 
 //get todo by id
 router.get('/:id', async (req, res) => {
-  const { id } = req.params
+  const id = Number(req.params.id)
   try {
-    const todos = await db.getTodosById(Number(id))
+    const todos = await db.getTodosById(id)
     res.json(todos)
   } catch (error) {
     console.log(error)
@@ -30,12 +30,10 @@ router.get('/:id', async (req, res) => {
 
 //add todo
 router.post('/', async (req, res, next) => {
+  const { task } = req.body
   try {
-    const { task } = req.body
-    const id = await db.addTodo(task)
-    const url = `/api/v1/todos/${id}`
-    res.setHeader('todos', url)
-    res.status(201).json({ task: url })
+    await db.addTodo(task)
+    res.sendStatus(200)
   } catch (e) {
     next(e)
   }
@@ -43,9 +41,10 @@ router.post('/', async (req, res, next) => {
 
 //update completion status
 router.patch('/:id', async (req, res) => {
+  const id = Number(req.params.id)
   try {
-    const { id } = req.params
-    await db.completeTodo(Number(id))
+    await db.completeTodo(id)
+    res.sendStatus(200)
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })
