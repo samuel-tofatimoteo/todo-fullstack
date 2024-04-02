@@ -5,8 +5,12 @@ import { useState } from 'react'
 // eslint-disable-next-line no-unused-vars
 function AddTodo() {
   const addTodo = useAddTodo()
-  const [input, setInput] = useState({task: '', completed: false, priority:''})
 
+  const [input, setInput] = useState({
+    task: '',
+    completed: false,
+    priority: '',
+  })
 
   function handleChange(e) {
     setInput(e.target.value)
@@ -15,7 +19,8 @@ function AddTodo() {
   function handleSubmit(e) {
     console.log('submitted')
     addTodo.mutate(e.target.value)
-   
+    setInput({ task: '', completed: false, priority: '' })
+    // console.log(newTodo)
   }
 
   return (
@@ -27,11 +32,11 @@ function AddTodo() {
         value={input.task}
         onChange={handleChange}
       />
-
+      <button type="submit" onClick={handleSubmit}>
+        Submit
+      </button>
     </>
   )
 }
 
 export default AddTodo
-
-
