@@ -6,15 +6,14 @@ import { useState } from 'react'
 function AddTodo() {
   const addTodo = useAddTodo()
 
-  const [input, setInput] = useState<Todos>({
+  const [input, setInput] = useState({
     task: '',
     completed: false,
-    priority: ''
+    priority: '',
   })
 
   function handleChange(e) {
-    setInput(todos => ({
-      ...todos, task: e.target.value}))
+    setInput(e.target.value)
   }
 
   function handleSubmit(e) {
@@ -22,24 +21,23 @@ function AddTodo() {
     // console.log('submitted')
     const newTodo = input
     addTodo.mutate(newTodo)
-    setInput({ task: '',
-    completed: false,
-    priority: ''},)
+    setInput({ task: '', completed: false, priority: '' })
   }
 
   return (
     <>
-    <form onSubmit={handleSubmit}>
-      <label>Add Todo:
-      <input
-        className="new-todo"
-        name="todo"
-        placeholder="What needs to be done?"
-        autoFocus={true}
-        value={input.task}
-        onChange={handleChange}
-      />
-      </label>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Add Todo:
+          <input
+            className="new-todo"
+            name="todo"
+            placeholder="What needs to be done?"
+            autoFocus={true}
+            value={input.task}
+            onChange={handleChange}
+          />
+        </label>
       </form>
     </>
   )
