@@ -24,5 +24,5 @@ export async function updateTask(
   id: number,
   updateTask: TaskUpdate,
 ): Promise<Task> {
-  return await db('tasks').where({ id }).update({ updateTask })
+  return await db('tasks').where({ id }).update(updateTask)
 }

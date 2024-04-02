@@ -5,7 +5,7 @@ import taskRouter from './routes/tasks.ts'
 const server = express()
 
 server.use(express.json())
-server.use('/api/v1/tasks', taskRouter)
+server.use('/api/v1/', taskRouter)
 
 // const todos = await db.getTodos()
 
