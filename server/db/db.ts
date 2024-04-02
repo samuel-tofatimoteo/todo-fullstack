@@ -1,5 +1,5 @@
 import connection from './connection'
-import { Task, TaskUpdate } from '../../models/task'
+import { Task, TaskUpdate } from '../../models/Task'
 
 const db = connection
 
