@@ -27,6 +27,7 @@ function AddTodo() {
     <>
       <form onSubmit={handleSubmit}>
         <input
+          aria-label="todo"
           className="new-todo"
           placeholder="What needs to be done?"
           autoFocus={true}
@@ -36,6 +37,7 @@ function AddTodo() {
           value={formData.task_details}
         />
         <input
+          aria-label="todo"
           className="new-todo"
           placeholder="Assign Priority"
           type="number"
