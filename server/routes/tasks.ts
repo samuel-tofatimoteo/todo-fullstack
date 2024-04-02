@@ -41,11 +41,13 @@ router.post('/', async (req, res) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
     await db.deleteTask(id)
-  } catch (e) {
-    next(e)
+    res.sendStatus(204)
+  } catch (error) {
+    console.error(error)
+    res.sendStatus(500)
   }
 })

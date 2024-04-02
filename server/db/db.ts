@@ -2,7 +2,6 @@ import connection from './connection'
 import { Task, TaskUpdate } from '../../models/task'
 
 const db = connection
-// const newTodoObj =
 
 export async function getTasks(): Promise<Task[]> {
   return await db('tasks').select()
