@@ -4,9 +4,9 @@ import { useState } from 'react'
 // eslint-disable-next-line no-unused-vars
 function AddTodo() {
   const addTodo = useAddTodo()
+  const [input, setInput] = useState({task: '', completed: false, priority:''})
 
-  const [input, setInput] = useState({task: '', completed: false, priority:''})}
-
+  
   function handleChange(e) {
     setInput(e.target.value)
   }
@@ -31,8 +31,11 @@ function AddTodo() {
           }
         }}
       />
+
     </>
   )
 }
 
 export default AddTodo
+
+
