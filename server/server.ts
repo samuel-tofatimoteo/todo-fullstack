@@ -1,11 +1,11 @@
 import express from 'express'
 import * as Path from 'node:path'
-import taskRouter from './routes/tasks.ts'
+import tasksRouter from './routes/tasks.ts'
 
 const server = express()
 
 server.use(express.json())
-server.use('/api/v1/', taskRouter)
+server.use('/api/v1/tasks', tasksRouter)
 
 // const todos = await db.getTodos()
 
