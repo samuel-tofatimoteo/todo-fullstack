@@ -123,11 +123,11 @@ function App() {
         <footer className="footer">
           <span className='todo-count'><strong>{data.filter((item:Todos)=> item.completed == false).length}</strong> item(s) left</span>
           <ul className='filters'>
-            <li><a className={all ? 'selected' : ""} href="/#" onClick={()=>setAll(true)}>All</a></li>
-            <li><a className={!all ? !tick ? 'selected' : "" : ""} href="/#" onClick={()=>{
+            <li><a className={all ? 'selected' : ""} href="/" onClick={()=>setAll(true)}>All</a></li>
+            <li><a className={!all ? !tick ? 'selected' : "" : ""} href="/" onClick={()=>{
               setAll(false) 
               setTick(false)}}>Active</a></li>
-            <li><a className={!all ? tick ? 'selected' : "" : ""} href="/#" onClick={()=>{
+            <li><a className={!all ? tick ? 'selected' : "" : ""} href="/" onClick={()=>{
               setAll(false) 
               setTick(true)
               }}>Completed</a></li>
