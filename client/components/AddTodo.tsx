@@ -1,3 +1,4 @@
+import { Todos } from '../../models/TodosModels'
 import { useAddTodo } from './Hooks/useTodo'
 import { useState } from 'react'
 
@@ -6,14 +7,15 @@ function AddTodo() {
   const addTodo = useAddTodo()
   const [input, setInput] = useState({task: '', completed: false, priority:''})
 
-  
+
   function handleChange(e) {
     setInput(e.target.value)
   }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
     console.log('submitted')
-    // console.log(e.target.value)
+    addTodo.mutate(e.target.value)
+   
   }
 
   return (
@@ -22,14 +24,8 @@ function AddTodo() {
         className="new-todo"
         placeholder="What needs to be done?"
         autoFocus={true}
-        value={input.task }
+        value={input.task}
         onChange={handleChange}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            handleSubmit()
-            // console.log(e.target)
-          }
-        }}
       />
 
     </>
