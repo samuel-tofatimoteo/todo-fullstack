@@ -9,7 +9,7 @@ function AddTodo() {
   const [input, setInput] = useState<Todos>({
     task: '',
     completed: false,
-    priority: '',
+    priority: ''
   })
 
   function handleChange(e) {
@@ -24,20 +24,22 @@ function AddTodo() {
     addTodo.mutate(newTodo)
     setInput({ task: '',
     completed: false,
-    priority: ''})
+    priority: ''},)
   }
 
   return (
     <>
     <form onSubmit={handleSubmit}>
-      <label>Add Todo:</label>
+      <label>Add Todo:
       <input
         className="new-todo"
+        name="todo"
         placeholder="What needs to be done?"
         autoFocus={true}
         value={input.task}
         onChange={handleChange}
       />
+      </label>
       </form>
     </>
   )
