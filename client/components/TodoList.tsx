@@ -6,6 +6,14 @@ import { useState } from 'react'
 
 export default function TodoList() {
   const [id, setId] = useState(0)
+  const [count, setCount] = useState(0)
+
+  const status = [
+    ['red', 'not read'],
+    ['orange', 'reading'],
+    ['green', 'read'],
+  ]
+
   const deleteHook = useDeleteBook(id)
   const { data, isLoading, isError } = useQuery({
     queryKey: ['todos'],
@@ -28,6 +36,12 @@ export default function TodoList() {
     deleteHook.mutate()
   }
 
+  function changeStatus(e) {
+    console.log(e.target.className)
+    const newCount = count === 2 ? 0 : count + 1
+    setCount(newCount)
+  }
+
   if (list) {
     return (
       <section className="main">
@@ -37,9 +51,13 @@ export default function TodoList() {
           {list.map((book: BookWithId) => (
             <li data-id={book.id} key={book.id}>
               <div className="view">
-                <label htmlFor={`book${book.id}`} className="toggle">
-                  Status
-                </label>
+                <button
+                  // htmlFor={`book${book.id}`}
+                  className={`toggle ${status[count][0]}`}
+                  onClick={(e) => changeStatus(e)}
+                >
+                  {status[count][1]}
+                </button>
                 <input id={`book${book.id}`} type="checkbox" />
                 <p className="title">{book.title}</p>
                 <span className="author">{book.author}</span>

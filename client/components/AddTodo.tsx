@@ -56,7 +56,7 @@ function AddTodo() {
         placeholder="Author"
         value={input.author}
       />
-      <fieldset className="new-todo">
+      {/* <fieldset className="new-todo">
         <legend>
           <input
             type="radio"
@@ -75,7 +75,7 @@ function AddTodo() {
           />
           <label htmlFor="notRead">Not Read</label>
         </legend>
-      </fieldset>
+      </fieldset> */}
       <button className="submitButton">Submit</button>
     </form>
   )
