@@ -5,6 +5,7 @@ import useGetTodos from './Hooks/useGetTodo'
 function TodoList() {
   const { data, isLoading, isError, error } = useGetTodos()
   const deleteTodo = useDeleteTodo()
+  console.log(deleteTodo)
 
   function handleDelete(e) {
     // console.log(e.target.id)
