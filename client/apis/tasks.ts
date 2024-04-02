@@ -1,6 +1,6 @@
 import request from 'superagent'
 import { Task } from '../../models/Task'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 // export async function getTasks() {
 //   const res = await request.get('api/v1/tasks')
@@ -43,10 +43,54 @@ export function useTasks() {
 
 export function useTask(id: number) {
   return useQuery({
-    queryKey: ['tasks', id],
+    queryKey: ['task', id],
     queryFn: async () => {
       const res = await request.get(`api/v1/tasks/${id}`)
-      return res.body as Task
+      return res.body
+    },
+  })
+}
+
+export function useAddTask(newTask: Task) {
+  const client = useQueryClient()
+
+  return useMutation({
+    mutationFn: async () => {
+      const res = await request.post('api/v1/tasks').send(newTask)
+      return res.body
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ['tasks'] })
+    },
+  })
+}
+
+export function useDelTask(id: number) {
+  const client = useQueryClient()
+
+  return useMutation({
+    mutationFn: async () => {
+      await request.del(`api/v1/tasks/${id}`)
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ['tasks'] })
+    },
+  })
+}
+
+export function useUpdateTask(taskUpdate: Task) {
+  const client = useQueryClient()
+
+  return useMutation({
+    mutationFn: async () => {
+      const { id, name, details, difficulty, completed } = taskUpdate
+      const res = await request
+        .patch(`api/v1/tasks/${id}`)
+        .send({ name, details, difficulty, completed })
+      return res.body as Task[]
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ['tasks'] })
     },
   })
 }
