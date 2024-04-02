@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
     const todos = await getTodos()
     res.json(todos)
   } catch (error) {
-    res.status(500).json({ message: 'Error' })
+    res.sendStatus(500).json({ message: 'Error' })
   }
 })
 
@@ -24,7 +24,7 @@ router.get('/:id', async (req, res) => {
     const todos = await getTodosById(id)
     res.json(todos)
   } catch (error) {
-    res.status(500).json({ message: 'Error' })
+    res.sendStatus(500).json({ message: 'Error' })
   }
 })
 
@@ -34,7 +34,7 @@ router.patch('/:id', async (req, res) => {
     await updateTodoComp(id)
     res.sendStatus(200)
   } catch (error) {
-    res.status(500).json({ message: 'Error' })
+    res.sendStatus(500).json({ message: 'Error' })
   }
 })
 
@@ -44,7 +44,7 @@ router.delete('/:id', async (req, res) => {
     await deleteTodo(id)
     res.sendStatus(200)
   } catch (error) {
-    res.status(500).json({ message: 'Error' })
+    res.sendStatus(500).json({ message: 'Error' })
   }
 })
 
@@ -54,7 +54,7 @@ router.post('/', async (req, res) => {
     const todos = await addTodo(input)
     res.json(todos)
   } catch (error) {
-    res.status(500).json({ message: 'Error' })
+    res.sendStatus(500).json({ message: 'Error' })
   }
 })
 
