@@ -7,8 +7,6 @@ import todoRoutes from './routes/todos.ts'
 const server = express()
 
 server.use(express.json())
-//const todo = { task: 'pet 10 cats', complete: false }
-//console.log(await db.getTodos())
 
 server.use('/api/v1/todos', todoRoutes)
 

@@ -1,5 +1,8 @@
 export interface Todo {
-  id?: number
   task: string
   complete: boolean
+}
+
+export interface TodoID extends Todo {
+  id: number
 }

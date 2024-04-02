@@ -9,6 +9,6 @@ export function getTodos(): Promise<Todo[]> {
   })
 }
 
-export function addTodo(newTodo: Todo): Promise<void> {
-  await request.post(rootUrl + '/todos').send(newTodo)
+export function addTodo(newTodo: Todo) {
+  request.post(rootUrl + '/todos').send(newTodo)
 }

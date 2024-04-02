@@ -1,18 +1,19 @@
 import { Router } from 'express'
-
+import { Todo } from '../../models/Todo.ts'
 import * as db from '../db/db.ts'
 
 const router = Router()
 
+// /api/v1/todos
+
 //get all todos
 router.get('/', async (req, res) => {
   try {
-    const todos = await db.getTodos()
-    res.json(todos)
-    //{ todos: todos.map((todo) => todo.task) }
+    const allTodos = await db.getTodos()
+    res.json(allTodos)
   } catch (error) {
     console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
+    res.sendStatus(500).json({ message: 'Something went wrong' })
   }
 })
 
@@ -24,15 +25,15 @@ router.get('/:id', async (req, res) => {
     res.json(todos)
   } catch (error) {
     console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
+    res.sendStatus(500).json({ message: 'Something went wrong' })
   }
 })
 
 //add todo
 router.post('/', async (req, res, next) => {
-  const { task } = req.body
+  const todo: Todo = req.body
   try {
-    await db.addTodo(task)
+    await db.addTodo(todo)
     res.sendStatus(200)
   } catch (e) {
     next(e)
@@ -47,7 +48,8 @@ router.patch('/:id', async (req, res) => {
     res.sendStatus(200)
   } catch (error) {
     console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
+    res.sendStatus(500).json({ message: 'Something went wrong' })
   }
 })
+
 export default router
