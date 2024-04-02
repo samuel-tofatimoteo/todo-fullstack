@@ -3,10 +3,12 @@ import { TodoId, Todos } from '../../models/todos'
 import * as api from '../apis/apiClient.ts'
 import useTodos from './hooks/useTodos.tsx'
 import useDeleteTodos from './hooks/useDeleteTodos.tsx'
+import useUpdateTodos from './hooks/useUpdateTodo.tsx'
 
 function TodoList() {
   const { isPending, isError, data, error } = useTodos()
   const deleteTodos = useDeleteTodos()
+  const updateTodo = useUpdateTodos()
 
   if (isPending) {
     return <span>Loading ...</span>
@@ -22,6 +24,10 @@ function TodoList() {
     deleteTodos.mutate({ id })
   }
 
+  function handleToggle(id: number, completed: boolean) {
+    updateTodo.mutate({ id: id, completed: !completed })
+  }
+
   if (data) {
     return (
       <>
@@ -35,7 +41,13 @@ function TodoList() {
               <fieldset>
                 <legend> Click the box when todo is complete</legend>
                 <label>
-                  Completed: <input type="checkbox" name="completed" />
+                  Completed:{' '}
+                  <input
+                    type="checkbox"
+                    name="completed"
+                    checked={todo.completed}
+                    onChange={() => handleToggle(todo.id, todo?.completed)}
+                  />
                 </label>
               </fieldset>
               <button

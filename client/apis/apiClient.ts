@@ -21,3 +21,7 @@ export async function deleteTodos(id: number) {
   await request.delete(`/api/v1/todos/${id}`)
   return alert('your todo has been deleted')
 }
+
+export async function updateTodo(id: number, updatedata: Todos) {
+  await request.patch(`/api/v1/todos/${id}`).send(updatedata)
+}
