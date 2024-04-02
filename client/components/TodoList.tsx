@@ -1,14 +1,32 @@
 import { Todos, TodosId } from '../../models/TodosModels'
-import { useDeleteTodo } from './Hooks/useTodo'
+import { useDeleteTodo, useUpdateTodo } from './Hooks/useTodo'
 import useGetTodos from './Hooks/useGetTodo'
+import { useState } from 'react'
 
 function TodoList() {
   const { data, isLoading, isError, error } = useGetTodos()
   const deleteTodo = useDeleteTodo()
+  const updateTodo = useUpdateTodo()
+
+  const [update, setUpdate] = useState(0)
+  const [input, setInput] = useState('')
 
   function handleDelete(e) {
     // console.log(e.target.id)
     deleteTodo.mutate(Number(e.target.id))
+  }
+
+  function handleUpdate(e) {
+    e.preventDefault()
+    console.log(input, update)
+    // console.log(e.target.id, e.target.value, 'hello')
+    const data = { id: update, update: input }
+    updateTodo.mutate(data)
+    setUpdate(0)
+  }
+
+  function handleChange(e) {
+    setInput(e.target.value)
   }
 
   if (isLoading) {
@@ -29,7 +47,29 @@ function TodoList() {
                 <li key={todo.id}>
                   <div className="view">
                     <input className="toggle" type="checkbox" />
-                    <label>{todo.task}</label>
+                    {todo.id === update ? (
+                      <form onSubmit={handleUpdate}>
+                        <input
+                          placeholder={todo.task}
+                          value={input}
+                          onChange={handleChange}
+                          autoFocus
+                          onKeyDown={(e) => {
+                            if (e.key === 'Escape') {
+                              setUpdate(0)
+                            }
+                          }}
+                        ></input>
+                      </form>
+                    ) : (
+                      <label
+                        id={String(todo.id)}
+                        onDoubleClick={() => setUpdate(todo.id)}
+                      >
+                        {todo.task}
+                      </label>
+                    )}
+
                     <button
                       onClick={handleDelete}
                       className="destroy"

@@ -13,8 +13,10 @@ function AddTodo() {
   })
 
   function handleChange(e) {
-    setInput(todos => ({
-      ...todos, task: e.target.value}))
+    setInput((todos) => ({
+      ...todos,
+      task: e.target.value,
+    }))
   }
 
   function handleSubmit(e) {
@@ -22,22 +24,21 @@ function AddTodo() {
     // console.log('submitted')
     const newTodo = input
     addTodo.mutate(newTodo)
-    setInput({ task: '',
-    completed: false,
-    priority: ''})
+    setInput({ task: '', completed: false, priority: '' })
   }
 
   return (
     <>
-    <form onSubmit={handleSubmit}>
-      <label>Add Todo:</label>
-      <input
-        className="new-todo"
-        placeholder="What needs to be done?"
-        autoFocus={true}
-        value={input.task}
-        onChange={handleChange}
-      />
+      <form onSubmit={handleSubmit}>
+        {/* <label>Add Todo:</label> */}
+        <input
+          aria-label="add todo"
+          className="new-todo"
+          placeholder="What needs to be done?"
+          autoFocus={true}
+          value={input.task}
+          onChange={handleChange}
+        />
       </form>
     </>
   )

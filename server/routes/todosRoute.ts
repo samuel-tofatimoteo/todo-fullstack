@@ -41,7 +41,8 @@ router.post('/', async (req, res) => {
 router.patch('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
-    const updateTodo = req.body
+    const updateTodo = req.body.update
+    console.log('update called')
     await db.updateTodo(id, updateTodo)
     res.json(updateTodo)
     console.log('updated todo')

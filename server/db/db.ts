@@ -25,8 +25,8 @@ export function addTodo(newTodo: {
 }
 
 //update data:
-export function updateTodo(id: number, update: Todos) {
-  return db('todos').where({ id }).update(update)
+export function updateTodo(id: number, update: string) {
+  return db('todos').where({ id }).update({ task: update })
 }
 
 //delete data:
