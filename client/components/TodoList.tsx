@@ -38,6 +38,7 @@ export default function TodoList() {
 
   function changeStatus(e) {
     console.log(e.target.className)
+
     const newCount = count === 2 ? 0 : count + 1
     setCount(newCount)
   }

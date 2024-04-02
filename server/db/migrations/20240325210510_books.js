@@ -7,7 +7,7 @@ export function up(knex) {
     table.increments('id')
     table.string('title')
     table.string('author')
-    table.boolean('isRead')
+    table.string('status')
   })
 }
 

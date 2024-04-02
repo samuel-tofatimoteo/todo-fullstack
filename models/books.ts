@@ -1,7 +1,7 @@
 export interface Book {
   title: string
   author: string
-  isRead: boolean
+  status: string
 }
 
 export interface BookWithId extends Book {

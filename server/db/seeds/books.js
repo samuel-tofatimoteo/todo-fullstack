@@ -10,14 +10,14 @@ export async function seed(knex) {
       id: 1,
       title: 'The Great Gatsby',
       author: 'F. Scott Fitzgerald ',
-      isRead: false,
+      status: 'not read',
     },
-    { id: 2, title: 'Catch-22', author: 'Joseph Heller ', isRead: false },
+    { id: 2, title: 'Catch-22', author: 'Joseph Heller ', status: 'not read' },
     {
       id: 3,
       title: 'The Lord Of The Rings',
       author: 'J. R. R. Tolkien',
-      isRead: true,
+      status: 'not read',
     },
   ])
 }
