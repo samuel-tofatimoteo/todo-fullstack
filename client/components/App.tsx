@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { Todos } from '../../models/todo'
 import {
+  useDelAllCompleted,
   useDelTodos,
+  useMarkAllCompleted,
   useMarkTodos,
   useTodos,
   useUpdateTodos,
@@ -12,12 +14,20 @@ function App() {
   const { data, isLoading, isError, error } = useTodos()
   const [update, setUpdate] = useState('')
   const [edit, setEdit] = useState(0)
+  const [tick, setTick] = useState(true)
+  const [all, setAll] = useState(true)
   const updateTodo = useUpdateTodos()
   const delTodo = useDelTodos()
+  const delAll = useDelAllCompleted()
   const markComplete = useMarkTodos()
+  const markAll = useMarkAllCompleted()
 
   function handleDelete(e: any) {
     delTodo.mutate(e.target.id)
+  }
+
+  function delCompleted() {
+    delAll.mutate()
   }
 
   function handleComplete(e: any) {
@@ -38,6 +48,10 @@ function App() {
     setUpdate(e.target.value)
   }
 
+  function selectAll(e: any) {
+    markAll.mutate(e.target.checked)
+  }
+
   if (isLoading) {
     return <p>Loading</p>
   }
@@ -49,71 +63,79 @@ function App() {
   if (data)
     return (
       <>
-        <header className="header">
-          <h1>todos</h1>
-          <AddTodo />
-        </header>
-        <div className="todo-content">
+        <section id="app" className="todoapp">
+          <header className="header">
+            <h1>todos</h1>
+            <AddTodo />
+          </header>
+          <section className="main">
+          <input id="toggle-all" className="toggle-all" type="checkbox" onClick={selectAll} defaultChecked={false}/>
+          <label htmlFor="toggle-all">Mark all as complete</label>
+          <div className="todo-content">
           <ul className="todo-list">
             {data.map((todo: Todos) => {
-              return (
-                <li key={todo.id} className={todo.completed ? 'completed' : ''}>
-                  <div className="view">
-                    {todo.completed ? (
+              if(all ? true : todo.completed == tick )
+                return (
+                  <li key={todo.id} className={todo.completed ? 'completed' : ''}>
+                    <div className="view">
                       <input
                         id={String(todo.id)}
                         className="toggle"
                         type="checkbox"
-                        defaultChecked={false}
+                        checked={!todo.completed}
                         onClick={handleComplete}
-                        aria-label={`Allows the user to mark task as incomplete`}
-                        
+                        aria-label={`Allows the user to mark task as incomplete/complete`}
                       />
-                      ) : (
-                      <input
-                      id={String(todo.id)}
-                      className="toggle"
-                      type="checkbox"
-                      defaultChecked={true}
-                      onClick={handleComplete}
-                      aria-label={`Allows the user to mark task as complete`}
-                      />
-                      )}
-                    {edit == todo.id ? (
-                      <input
-                        className="edit"
-                        value={update}
-                        onChange={handleChange}
-                        placeholder={todo.task}
-                        autoFocus
-                        onKeyDown={(e) => {
-                          if (e.key === 'Escape') {
-                            setEdit(0)
-                            setUpdate('')
-                          }
-                          if (e.key === 'Enter') {
-                            handleUpdate()
-                          }
-                        }}
-                        ></input>
+                      {edit == todo.id ? (
+                        <input
+                          className="edit"
+                          value={update}
+                          onChange={handleChange}
+                          placeholder={todo.task}
+                          autoFocus
+                          onKeyDown={(e) => {
+                            if (e.key === 'Escape') {
+                              setEdit(0)
+                              setUpdate('')
+                            }
+                            if (e.key === 'Enter') {
+                              handleUpdate()
+                            }
+                          }}
+                          ></input>
                         ) : (
-                      <label id={String(todo.id)} onDoubleClick={handleEdit}>
-                        {todo.task}
-                      </label>
-                    )}
+                          <label id={String(todo.id)} onDoubleClick={handleEdit}>
+                            {todo.task}
+                          </label>
+                      )}
                     <button
                       id={String(todo.id)}
                       className="destroy"
                       onClick={handleDelete}
                       >×</button>
-                  </div>
-                </li>
-              )
+                    </div>
+                  </li>
+                )
             })}
           </ul>
         </div>
-        <section className="main"></section>
-        <footer className="footer"></footer>
+        </section>
+        <footer className="footer">
+          <span className='todo-count'><strong>{data.filter((item:Todos)=> item.completed == false).length}</strong> item(s) left</span>
+          <ul className='filters'>
+            <li><a className={all ? 'selected' : ""} href="/#" onClick={()=>setAll(true)}>All</a></li>
+            <li><a className={!all ? !tick ? 'selected' : "" : ""} href="/#" onClick={()=>{
+              setAll(false) 
+              setTick(false)}}>Active</a></li>
+            <li><a className={!all ? tick ? 'selected' : "" : ""} href="/#" onClick={()=>{
+              setAll(false) 
+              setTick(true)
+              }}>Completed</a></li>
+          </ul>
+          <button className="clear-completed" onClick={delCompleted}>Clear completed</button>
+        </footer>
+              </section>
+        <footer className='info'></footer>
       </>
     )
 }

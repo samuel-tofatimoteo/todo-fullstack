@@ -27,3 +27,13 @@ export async function markTodos(data: Mark) {
     .patch(rootUrl + `/todos/${data.id}`)
     .send({ completed: data.completed })
 }
+
+export async function markAllCompleted(check:boolean) {
+  return request
+    .patch(rootUrl + `/todos/`).send({check:check})
+}
+
+export async function delAllCompleted() {
+  return request
+    .delete(rootUrl + `/todos/`)
+}

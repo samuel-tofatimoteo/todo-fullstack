@@ -7,6 +7,8 @@ import {
   addTodo,
   delTodo,
   updateDetails,
+  setAllComplete,
+  delAllComplete,
 } from '../db/db'
 
 const router = Router()
@@ -38,6 +40,17 @@ router.patch('/:id', async (req, res) => {
     const id = Number(req.params.id)
     const comp: boolean = req.body.completed
     const todos = await markedComplete(id, comp)
+    res.json(todos)
+  } catch (error) {
+    res.status(500).json({ message: 'Error' })
+  }
+})
+
+// changes all todos to completed
+router.patch('/', async (req, res) => {
+  try {
+    const check = req.body.check
+    const todos = await setAllComplete(check)
     res.json(todos)
   } catch (error) {
     res.status(500).json({ message: 'Error' })
@@ -83,6 +96,16 @@ router.delete('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
     const todos = await delTodo(id)
+    res.json(todos)
+  } catch (error) {
+    res.status(500).json({ message: 'Error' })
+  }
+})
+
+// deletes all completed
+router.delete('/', async (req, res) => {
+  try {
+    const todos = await delAllComplete()
     res.json(todos)
   } catch (error) {
     res.status(500).json({ message: 'Error' })

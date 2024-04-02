@@ -34,3 +34,13 @@ export function delTodo(id: number) {
 export function updateDetails(id: number, input: string) {
   return db('todos').where({ id }).update({ task: input })
 }
+
+// mark all as complete
+export function setAllComplete(check:boolean) {
+  return db('todos').update({ completed: check })
+}
+
+// delete all completed
+export function delAllComplete() {
+  return db('todos').where({ completed: true }).del()
+}

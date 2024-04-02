@@ -32,6 +32,7 @@ function AddTodo() {
         id="task_details"
         value={task}
       />
+        
     </>
   )
 }

@@ -1,8 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import {
   addTodos,
+  delAllCompleted,
   delTodos,
   getTodos,
+  markAllCompleted,
   markTodos,
   updateTodos,
 } from '../apis/todos'
@@ -48,6 +50,23 @@ export function useMarkTodos() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (data: Mark) => markTodos(data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['todos'] }),
+  })
+}
+
+// query to api to mark all todos as completed
+export function useMarkAllCompleted() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (check:boolean) => markAllCompleted(check),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['todos'] }),
+  })
+}
+
+export function useDelAllCompleted() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: () => delAllCompleted(),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['todos'] }),
   })
 }
