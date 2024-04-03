@@ -51,11 +51,11 @@ export function useTask(id: number) {
   })
 }
 
-export function useAddTask(newTask: Task) {
+export function useAddTask() {
   const client = useQueryClient()
 
   return useMutation({
-    mutationFn: async () => {
+    mutationFn: async (newTask: Task) => {
       const res = await request.post('api/v1/tasks').send(newTask)
       return res.body
     },
@@ -65,12 +65,13 @@ export function useAddTask(newTask: Task) {
   })
 }
 
-export function useDelTask(id: number) {
+export function useDelTask() {
   const client = useQueryClient()
 
   return useMutation({
-    mutationFn: async () => {
-      await request.del(`api/v1/tasks/${id}`)
+    mutationFn: async (id: number) => {
+      const res = await request.del(`api/v1/tasks/${id}`)
+      return res.body as Task[]
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ['tasks'] })
@@ -78,11 +79,11 @@ export function useDelTask(id: number) {
   })
 }
 
-export function useUpdateTask(taskUpdate: Task) {
+export function useUpdateTask() {
   const client = useQueryClient()
 
   return useMutation({
-    mutationFn: async () => {
+    mutationFn: async (taskUpdate: Task) => {
       const { id, name, details, difficulty, completed } = taskUpdate
       const res = await request
         .patch(`api/v1/tasks/${id}`)

@@ -1,14 +1,12 @@
-// eslint-disable-next-line no-unused-vars
+import { useCallback } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useAddTask } from '../apis/tasks'
+import { Task } from '../../models/Task'
+
 function AddTodo() {
-  return (
-    <>
-      <input
-        className="new-todo"
-        placeholder="What needs to be done?"
-        autoFocus={true}
-      />
-    </>
-  )
+  const params = useParams()
+  const id = Number(params.id)
+  const task = 
 }
 
 export default AddTodo
