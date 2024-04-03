@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { TaskId, Todos, Task, Complete } from '../models/todo'
+import { TaskId, Task, Complete } from '../models/todo'
 
 const rootUrl = '/api/v1'
 
@@ -9,7 +9,7 @@ export async function getTodos() {
   })
 }
 
-export async function addTodos(todo: Todos) {
+export async function addTodos(todo: Task) {
   return request.post(rootUrl + '/todos').send(todo)
 }
 

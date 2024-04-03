@@ -5,13 +5,8 @@ import {
   completeTodos,
   updateTodos,
 } from '../apis/todos'
-import { Todos, Task, TaskId, Complete } from '../models/todo'
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-} from '@tanstack/react-query'
+import { Task, TaskId, Complete } from '../models/todo'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 
 export function useTodos() {
   return useQuery({
