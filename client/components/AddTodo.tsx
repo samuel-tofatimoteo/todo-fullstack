@@ -1,36 +1,35 @@
 import { useState } from 'react'
-import { Mutation, useMutation, useQueryClient } from '@tanstack/react-query'
-import * as api from '../apis/todo'
+import { useAddTodo } from '../hooks/useTodos'
+import { Todo } from '../../models/Todo'
 
-// eslint-disable-next-line no-unused-vars
 function AddTodo() {
-  const [newTask, setNewTask] = useState('')
-  const [submittedTask, setSubmittedTask] = useState('')
+  const addTodo = useAddTodo()
 
-  const queryClient = useQueryClient()
-  const mutation = useMutation({
-    mutationFn: (newTask) => api.addTodo(newTask),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['todos'] })
-    },
-  })
+  const initialState: Todo = { task: '', complete: false }
+  const [newTask, setNewTask] = useState(initialState)
 
   const handelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewTask(e.target.value)
+    setNewTask((todos) => ({ ...todos, task: e.target.value }))
   }
 
   const handelSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault()
-    mutation.mutate({ task: newTask })
-    setSubmittedTask(newTask)
-    setNewTask('')
+    const task = newTask
+    addTodo.mutate(task)
+    setNewTask(initialState)
   }
 
   return (
-    <form onSubmit={handelSubmit}>
-      <label htmlFor="task">
+    <form className="form" onSubmit={handelSubmit}>
+      <label>
         Enter your task:
-        <input value={newTask} onChange={handelChange} type="text" id="task" />
+        <input
+          aria-label="add todo"
+          placeholder="task..."
+          value={newTask.task}
+          onChange={handelChange}
+          type="text"
+        />
       </label>
       <button type="submit">Submit</button>
     </form>

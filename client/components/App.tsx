@@ -10,7 +10,7 @@ function App() {
         <TodoList />
       </header>
       <section className="main"></section>
-      <footer className="footer"></footer>
+      <footer className="footer">May you feel accomplished.</footer>
     </>
   )
 }

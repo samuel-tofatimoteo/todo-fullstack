@@ -1,14 +1,31 @@
 import request from 'superagent'
-import { Todo } from '../../models/Todo'
+import { Todo, TodoID } from '../../models/Todo'
 
-const rootUrl = '/api/v1'
+const rootUrl = '/api/v1/'
 
-export function getTodos(): Promise<Todo[]> {
-  return request.get(rootUrl + '/todos').then((res) => {
-    return res.body.todos
-  })
+export async function getTodos(): Promise<TodoID[]> {
+  const res = await request.get(rootUrl + 'todos')
+  return res.body as TodoID[]
 }
 
-export function addTodo(newTodo: Todo) {
-  request.post(rootUrl + '/todos').send(newTodo)
+export async function addTodo(newTodo: Todo) {
+  request.post(rootUrl + 'todos').send(newTodo)
+}
+
+export async function getIncomplete(): Promise<TodoID[]> {
+  const res = await request.get(rootUrl + 'todos/done')
+  return res.body as TodoID[]
+}
+
+export async function getComplete(): Promise<TodoID[]> {
+  const res = await request.get(rootUrl + 'todos/not-done')
+  return res.body as TodoID[]
+}
+
+export async function deleteTodo(id: number) {
+  await request.delete(`${rootUrl}todo/${id}`)
+}
+
+export async function updateToDoneTodo(id: number) {
+  return await request.patch(`${rootUrl}todo/${id}`).send({ id })
 }

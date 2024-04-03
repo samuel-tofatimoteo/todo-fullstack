@@ -29,6 +29,28 @@ router.get('/:id', async (req, res) => {
   }
 })
 
+//get all complete todos
+router.get('/done', async (req, res) => {
+  try {
+    const allDoneTodos = await db.getCompleteTodos()
+    res.json(allDoneTodos)
+  } catch (error) {
+    console.log(error)
+    res.sendStatus(500).json({ message: 'Something went wrong' })
+  }
+})
+
+//get all incomplete todos
+router.get('/not-done', async (req, res) => {
+  try {
+    const notDoneTodos = await db.getIncompleteTodos()
+    res.json(notDoneTodos)
+  } catch (error) {
+    console.log(error)
+    res.sendStatus(500).json({ message: 'Something went wrong' })
+  }
+})
+
 //add todo
 router.post('/', async (req, res, next) => {
   const todo: Todo = req.body

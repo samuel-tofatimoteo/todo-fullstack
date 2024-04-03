@@ -1,14 +1,12 @@
 html,
 body {
-  margin: 0;
-  padding: 0;
+  margin: 2px;
+  padding: 2px;
 }
 
 button {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: none;
+  margin: 5px;
+  padding: 2px;
   font-size: 100%;
   vertical-align: baseline;
   font-family: inherit;
@@ -73,10 +71,16 @@ body {
   font-size: 80px;
   font-weight: 200;
   text-align: center;
-  color: #b83f45;
+  color: #173d20;
   -webkit-text-rendering: optimizeLegibility;
   -moz-text-rendering: optimizeLegibility;
   text-rendering: optimizeLegibility;
+}
+
+.task{
+  font-weight: bold;
+  font-size: 17px;
+  color: #173d20;
 }
 
 .new-todo,
@@ -353,6 +357,11 @@ html .clear-completed:active {
 .info p.design-link {
   font-size: 200%;
   line-height: 0.1em;
+}
+
+.form {
+  margin-left: 15px;
+  padding: 12px;
 }
 
 /*
