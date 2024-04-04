@@ -10,5 +10,4 @@ export interface TaskId extends Task {
 
 export interface Complete {
   id: number
-  completed: boolean
 }

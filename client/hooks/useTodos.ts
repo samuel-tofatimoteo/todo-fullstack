@@ -42,7 +42,7 @@ export function useUpdateTodos() {
 export function useCompleteTodos() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: Complete) => completeTodos(data),
+    mutationFn: (id: number) => completeTodos(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['todos'] }),
   })
 }

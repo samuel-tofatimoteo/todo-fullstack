@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { TaskId, Task, Complete } from '../models/todo'
+import { TaskId, Task } from '../models/todo'
 
 const rootUrl = '/api/v1'
 
@@ -21,8 +21,6 @@ export async function updateTodos(data: TaskId) {
   return request.patch(rootUrl + `/todos/${data.id}`).send({ task: data.task })
 }
 
-export async function completeTodos(data: Complete) {
-  return request
-    .patch(rootUrl + `/todos/${data.id}`)
-    .send({ completed: data.completed })
+export async function completeTodos(id: number) {
+  return request.patch(rootUrl + `/todos/${id}`)
 }
