@@ -20,3 +20,7 @@ export async function delTodos(id: number) {
 export async function updateTodos(data: TaskId) {
   return request.patch(rootUrl + `/todos/${data.id}`).send({ task: data.task })
 }
+
+export async function submitTodos(id: number) {
+  return request.patch(rootUrl + `/todos/${id}`)
+}
