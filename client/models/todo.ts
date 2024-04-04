@@ -7,6 +7,6 @@ export interface TaskId extends Task {
   id: number
 }
 
-export interface Finshed {
+export interface completed {
   id: number
 }

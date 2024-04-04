@@ -3,7 +3,7 @@ import {
   delTodos,
   getTodos,
   updateTodos,
-  submitTodos,
+  completeTodos,
 } from '../apis/todos'
 import { Task, TaskId } from '../models/todo'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -42,7 +42,7 @@ export function useUpdateTodos() {
 export function useCompleteTodos() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (id: number) => submitTodos(id),
+    mutationFn: (id: number) => completeTodos(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['todos'] }),
   })
 }

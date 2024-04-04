@@ -15,7 +15,7 @@ export function addTodo(newTask: string) {
   })
 }
 
-export function updateTodoSubmit(id: number) {
+export function updateTodoComplete(id: number) {
   return db('todos').where({ id }).update({ completed: true })
 }
 
