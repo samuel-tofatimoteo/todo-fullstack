@@ -2,14 +2,18 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = function(knex) {
-  
-};
+export function up(knex) {
+  return knex.schema.createTable('todos', (table) => {
+    table.integer('id').primary()
+    table.string('task')
+    table.boolean('completed')
+  })
+}
 
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.down = function(knex) {
-  
-};
+export function down(knex) {
+  return knex.schema.dropTable('todos')
+}
