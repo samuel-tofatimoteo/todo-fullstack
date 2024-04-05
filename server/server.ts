@@ -7,6 +7,6 @@ const server = express()
 
 server.use(express.json())
 
-server.use('/api/v1/grab', routes)
+server.use('/api/v1/todos', routes)
 
 export default server
