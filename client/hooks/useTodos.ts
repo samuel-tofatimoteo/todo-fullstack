@@ -1,6 +1,6 @@
 import {
   addTodos,
-  delTodos,
+  removeTodos,
   getTodos,
   updateTodos,
   completeTodos,
@@ -8,14 +8,14 @@ import {
 import { Task, TaskId } from '../models/todo'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 
-export function useTodos() {
+function useTodos() {
   return useQuery({
     queryKey: ['todos'],
     queryFn: () => getTodos(),
   })
 }
 
-export function useAddTodos() {
+function useAddTodos() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (todo: Task) => addTodos(todo),
@@ -23,15 +23,15 @@ export function useAddTodos() {
   })
 }
 
-export function useDelTodos() {
+function useRemoveTodos() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (id: number) => delTodos(id),
+    mutationFn: (id: number) => removeTodos(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['todos'] }),
   })
 }
 
-export function useUpdateTodos() {
+function useUpdateTodos() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (data: TaskId) => updateTodos(data),
@@ -39,10 +39,12 @@ export function useUpdateTodos() {
   })
 }
 
-export function useCompleteTodos() {
+function CompleteTodos() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (id: number) => completeTodos(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['todos'] }),
   })
 }
+
+export { useTodos, useAddTodos, useRemoveTodos, useUpdateTodos, CompleteTodos }

@@ -13,7 +13,7 @@ export async function addTodos(todo: Task) {
   return request.post(rootUrl + '/todos').send(todo)
 }
 
-export async function delTodos(id: number) {
+export async function removeTodos(id: number) {
   return request.delete(rootUrl + `/todos/${id}`)
 }
 
@@ -21,6 +21,6 @@ export async function updateTodos(data: TaskId) {
   return request.patch(rootUrl + `/todos/${data.id}`).send({ task: data.task })
 }
 
-export async function submitTodos(id: number) {
+export async function completeTodos(id: number) {
   return request.patch(rootUrl + `/todos/${id}`)
 }

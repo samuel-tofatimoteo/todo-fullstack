@@ -6,6 +6,7 @@ export function up(knex) {
   return knex.schema.createTable('todos', (table) => {
     table.integer('id').primary()
     table.string('task')
+    table.string('priority')
     table.boolean('completed')
   })
 }
