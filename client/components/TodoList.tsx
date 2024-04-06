@@ -39,12 +39,12 @@ function TodoList() {
                     id={String(todo.id)}
                     defaultChecked={todo.completed}
                   />
-                  <label>{todo.task}</label>
+                  <label htmlFor={String(todo.id)}>{todo.task}</label>
                   <button
                     onClick={handleClick}
                     className="destroy"
-                    id={String(todo.id)}
-                  />
+                    id={String(todo.id)}>  <span className="visually-hidden">Delete</span>
+                  </button>
                 </div>
               </li>
             ))}
