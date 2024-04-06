@@ -5,7 +5,7 @@ import { Todo } from '../../models/Todo'
 
 //test post route for adding todo works:
 describe('POST /api/v1/todos', () => {
-  it('should return 201 when inserting a new song', async () => {
+  it('should return 201 qwhen inserting a new song', async () => {
     const newTodo: Todo = {
       task: 'take cat swimming',
       complete: false,
@@ -20,7 +20,9 @@ describe('POST /api/v1/todos', () => {
     const fakeTodo = {}
 
     const response = await request(server).post('/api/v1/todos').send(fakeTodo)
-    console.log(response)
-    expect(response).toBe(Error)
+    //console.log(response)
+    expect(response.status).toBe(500)
   })
 })
+
+//Was working, not sure what error is. Need to come back

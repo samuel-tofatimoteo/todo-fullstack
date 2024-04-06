@@ -24,13 +24,14 @@ function AddTodo() {
       <label>
         Enter your task:
         <input
-          aria-label="add todo"
+          aria-label="add task"
           placeholder="task..."
           value={newTask.task}
           onChange={handelChange}
           type="text"
         />
       </label>
+
       <button type="submit">Submit</button>
     </form>
   )

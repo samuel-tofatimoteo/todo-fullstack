@@ -59,8 +59,7 @@ router.post('/', async (req, res, next) => {
     res.sendStatus(201)
   } catch (e) {
     console.log(e)
-
-    next(e)
+    res.status(500)
   }
 })
 

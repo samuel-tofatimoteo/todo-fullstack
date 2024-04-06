@@ -17,10 +17,10 @@ export function useGetTodos() {
   })
 }
 
-export function useDeleteTodo() {
+export function useAddTodo() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (id: number) => deleteTodo(id),
+    mutationFn: (newTodo: Todo) => addTodo(newTodo),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['todos'],
@@ -29,10 +29,10 @@ export function useDeleteTodo() {
   })
 }
 
-export function useAddTodo() {
+export function useDeleteTodo() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (newTodo: Todo) => addTodo(newTodo),
+    mutationFn: (id: number) => deleteTodo(id),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['todos'],

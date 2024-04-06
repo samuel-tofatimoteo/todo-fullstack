@@ -9,7 +9,7 @@ export async function getTodos(): Promise<TodoID[]> {
 }
 
 export async function addTodo(newTodo: Todo) {
-  request.post(rootUrl + 'todos').send(newTodo)
+  await request.post(rootUrl + 'todos').send(newTodo)
 }
 
 export async function getIncomplete(): Promise<TodoID[]> {
