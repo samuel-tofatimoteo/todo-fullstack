@@ -56,8 +56,10 @@ router.post('/', async (req, res, next) => {
   const todo: Todo = req.body
   try {
     await db.addTodo(todo)
-    res.sendStatus(200)
+    res.sendStatus(201)
   } catch (e) {
+    console.log(e)
+
     next(e)
   }
 })
