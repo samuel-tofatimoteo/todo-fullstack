@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { Task, TaskId, Todos } from '../models/todo'
+import { TaskId, Todos } from '../models/todo'
 
 const rootUrl = '/api/v1'
 
