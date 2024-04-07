@@ -1,4 +1,4 @@
-import { Task, TaskId, Complete } from '../models/todo'
+import { TaskId } from '../models/todo'
 import { useTodos, useDelTodos, useCompleteTodos } from '../hooks/useTodos'
 
 function TodoList() {
@@ -31,19 +31,17 @@ function TodoList() {
               return (
                 <li key={todo.id}>
                   <div className="view">
-                    <input
-                      onClick={handleComplete}
-                      className="toggle"
-                      type="checkbox"
-                      id={String(todo.id)}
-                      defaultChecked={todo.completed}
-                    />
-                    <label>{todo.task}</label>
+                    <button onClick={handleComplete} id={String(todo.id)}>
+                      Complete: {todo.completed ? '✔️' : '❌'}
+                    </button>
+                    <span>{todo.task}</span>
                     <button
                       onClick={handleClick}
                       className="destroy"
                       id={String(todo.id)}
-                    ></button>
+                    >
+                      Delete
+                    </button>
                   </div>
                 </li>
               )

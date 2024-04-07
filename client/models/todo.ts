@@ -11,3 +11,7 @@ export interface TaskId extends Task {
 export interface Complete {
   id: number
 }
+
+export interface Todos {
+  task: string
+}
