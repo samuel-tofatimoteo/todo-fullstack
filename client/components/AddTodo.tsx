@@ -29,10 +29,13 @@ function AddTodo() {
           value={newTask.task}
           onChange={handelChange}
           type="text"
+          name="task"
         />
       </label>
 
-      <button type="submit">Submit</button>
+      <button type="submit" name="submitBtn">
+        Submit
+      </button>
     </form>
   )
 }

@@ -34,7 +34,6 @@ export default function TodoList() {
             return (
               <li key={todo.id}>
                 <span className="task">{todo.task}</span>
-                {/* <input type="checkbox" onClick={handleComplete} /> */}
                 <button onClick={handleComplete} id={String(todo.id)}>
                   Complete: {todo.complete ? '✅ ' : '❌ '}
                 </button>
