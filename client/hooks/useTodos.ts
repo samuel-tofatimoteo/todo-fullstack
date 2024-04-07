@@ -34,9 +34,7 @@ export function useDeleteTodo() {
   return useMutation({
     mutationFn: (id: number) => deleteTodo(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['todos'],
-      })
+      queryClient.invalidateQueries({ queryKey: ['todos'] })
     },
   })
 }

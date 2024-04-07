@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { Todo } from '../../models/Todo'
+import { Todo, TodoID } from '../../models/Todo'
 import {
   useDeleteTodo,
   useGetTodos,
@@ -13,10 +13,11 @@ export default function TodoList() {
   const doneTodo = useUpdateDoneTodo()
   //handle function
   function handleDelete(e) {
-    rmvTodo.mutate(Number(e.target.id))
+    const id = Number(e.target.id)
+    rmvTodo.mutate(id)
   }
   function handleComplete(e) {
-    doneTodo.mutate(Number(e.target.id))
+    doneTodo.mutate(e.target.id)
   }
 
   if (isLoading) {
@@ -29,17 +30,24 @@ export default function TodoList() {
     return (
       <>
         <ul>
-          {todos.map((todo) => (
-            <li key={todo.id}>
-              <span className="task">{todo.task}</span>
-              <button onClick={handleComplete}>
-                Complete: {todo.complete ? '✅ ' : '❌ '}{' '}
-              </button>
-              <button onClick={handleDelete} className="delete">
-                Delete
-              </button>
-            </li>
-          ))}
+          {todos.map((todo: TodoID) => {
+            return (
+              <li key={todo.id}>
+                <span className="task">{todo.task}</span>
+                {/* <input type="checkbox" onClick={handleComplete} /> */}
+                <button onClick={handleComplete} id={String(todo.id)}>
+                  Complete: {todo.complete ? '✅ ' : '❌ '}
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="delete"
+                  id={String(todo.id)}
+                >
+                  Delete
+                </button>
+              </li>
+            )
+          })}
         </ul>
       </>
     )

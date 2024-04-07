@@ -23,7 +23,7 @@ export async function getComplete(): Promise<TodoID[]> {
 }
 
 export async function deleteTodo(id: number) {
-  await request.delete(`${rootUrl}todo/${id}`)
+  return await request.delete(rootUrl + `todo/${id}`)
 }
 
 export async function updateToDoneTodo(id: number) {
