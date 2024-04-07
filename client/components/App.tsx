@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <header className="header">
-        <h1>todos</h1>
+        <h1>To do's</h1>
       </header>
       <section className="main"></section>
         <TodoList />
