@@ -23,8 +23,8 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-// TODO: Add a post route in here
+// TODO for WD04: Add a post route in here
 
-// TODO: Add a delete route in here
+// TODO for WD04: Add a delete route in here
 
 export default router
