@@ -22,4 +22,9 @@ router.get('/:id', async (req, res) => {
     console.log(error)
   }
 })
+
+// TODO: Add a post route in here
+
+// TODO: Add a delete route in here
+
 export default router
