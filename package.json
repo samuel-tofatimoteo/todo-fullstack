@@ -62,15 +62,15 @@
     "tsx": "^3.12.7",
     "typescript": "^5.3.3",
     "vite": "^5.0.0",
-    "vitest": "^1.2.0"
+    "vitest": "^1.2.0",
+    "superagent": "^8.1.2"
   },
   "dependencies": {
     "express": "^4.17.2",
     "jsdom": "^24.0.0",
     "knex": "^2.5.1",
     "nock": "^13.5.4",
-    "sqlite3": "^5.1.6",
-    "superagent": "^8.1.2"
+    "sqlite3": "^5.1.6"
   },
   "prettier": {
     "semi": false,
