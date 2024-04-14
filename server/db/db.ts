@@ -2,30 +2,31 @@ import { TodoIntrfc } from "../../models/model";
 import db from "./connection"
 
 export function getTodos() {
-    return db('todos')
+    return db('todo').select('todo_info as todo', 'id')
 }
 
 export function getTodoById(id: number) {
-    return db('todos').where({id}).first()
+    return db('todo').where({id}).first()
 }
 
 export function createTodos(todo: TodoIntrfc) {
-    return db('todos').insert(todo)
+    const newTodo = {todo_info: todo.todo, completed: todo.complete}
+    return db('todo').insert(newTodo)
 }
 
 export function updateTodos(id: number, todo: TodoIntrfc) {
-    return db('todos').where({id})
+    return db('todo').where({id})
         .update(todo).then(() => {
             return getTodoById(id)
         })
 }
 
 export function deleteTodos(id: number) {
-    return db('todos').where({id}).del()
+    return db('todo').where({id}).del()
 }
 
 export function getActiveTodos(completed:boolean){
-    return db("todos")
+    return db("todo")
     .where({ completed })
     .select("title", "id")
     // const query = db("todos")
@@ -37,7 +38,7 @@ export function getActiveTodos(completed:boolean){
 }
 
 export function deleteCompletedTodos(completed: boolean) {
-    return db("todos")
+    return db("todo")
     .delete()
     .where({ completed })
 //     return db("todos")

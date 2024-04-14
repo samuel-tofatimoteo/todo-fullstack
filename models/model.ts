@@ -3,7 +3,7 @@ export interface TodoIntrfc {
     complete: boolean
 }
 
-export interface TodoId extends  TodoIntrfc{ 
-    id?: number 
+export interface TodoId extends TodoIntrfc{ 
+    id: number 
 }
 

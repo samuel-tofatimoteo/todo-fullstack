@@ -9,6 +9,7 @@ router.get('/' , async (req, res) => {
         const allTodos = await db.getTodos() 
         res.json(allTodos)
     }catch(err){
+        console.log(err);
         return res.status(500).json(err)
     }
 })
@@ -30,6 +31,8 @@ router.post('/' , async (req, res) => {
         const  addedTodo = await db.createTodos(newTodo)
         res.json(addedTodo)
     } catch (error) {
+        console.log(error);
+        
         return res.status(500).json(error)
     }
 });

@@ -6,7 +6,7 @@ const server = express()
 
 server.use(express.json())
 
-server.use('/todos', todoRoutes)
+server.use('/api/todo', todoRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))
