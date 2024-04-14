@@ -15,10 +15,9 @@ export function createTodos(todo: TodoIntrfc) {
 }
 
 export function updateTodos(id: number, todo: TodoIntrfc) {
-    return db('todo').where({id})
-        .update(todo).then(() => {
-            return getTodoById(id)
-        })
+    console.log('db');
+    
+    return db('todo').where('id', id).update(todo)
 }
 
 export function deleteTodos(id: number) {

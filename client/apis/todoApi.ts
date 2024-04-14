@@ -17,7 +17,6 @@ export async function getTodoById(id: number) {
 
 export async function addNewTodo(newTodo: TodoIntrfc){
     console.log(newTodo);
-    
     const res = await request
     .post(rootUrl)
     .send(newTodo)
@@ -25,6 +24,9 @@ export async function addNewTodo(newTodo: TodoIntrfc){
 } 
 
 export async function updateTodos(id: number, updatedTodo: TodoIntrfc){
+    console.log(`${rootUrl}/${id}`);
+    console.log(updatedTodo);
+    
     const res = await request
     .put(`${rootUrl}/${id}`)
     .send(updatedTodo)

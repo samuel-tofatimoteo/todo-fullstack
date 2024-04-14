@@ -27,6 +27,8 @@ router.get('/:id' , async (req, res) => {
 // POST a new todo
 router.post('/' , async (req, res) => {
     try {
+        console.log(req.body);
+        
         const newTodo: TodoIntrfc = req.body
         const  addedTodo = await db.createTodos(newTodo)
         res.json(addedTodo)
@@ -40,9 +42,12 @@ router.post('/' , async (req, res) => {
 router.put('/:id' , async (req, res) => {
     try {
         const id = Number(req.params.id)
+        console.log(id);
         const updatedTodo: TodoIntrfc = req.body
-        const todo = await db.updateTodos(id, updatedTodo)
-        res.json(todo)
+        console.log(updatedTodo)
+        await db.updateTodos(id, updatedTodo)
+        console.log('route');
+        res.sendStatus(200)
     } catch (error) {
         return res.status(500).json(error)
     }

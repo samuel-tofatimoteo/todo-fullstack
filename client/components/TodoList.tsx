@@ -48,8 +48,9 @@ function TodoList() {
                     {todo.id === update ? (
                       <form onSubmit={handleUpdate}>
                         <input
-                          placeholder="Update your todo"
-                          value={todo.todo}
+                          name="todo"
+                          type="text"
+                          placeholder={todo.todo}
                           onChange={handleChange}
                           onKeyDown={(e) => {
                             if (e.key === 'Escape') {
