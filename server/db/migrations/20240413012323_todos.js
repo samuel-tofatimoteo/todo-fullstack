@@ -3,11 +3,11 @@
  * @returns { Promise<void> }
  */
 export function up(knex) {
-  return knex.schema.createTable('vegetables', (table) => {
-    table.increments()
-    table.string('vegetable')
-    table.boolean('rotten')
-    table.integer('price')
+  return knex.schema.createTable('todos', (table) => {
+    table.increments('id').primary
+    table.string('task')
+    table.boolean('completed')
+    table.string('importance')
   })
 }
 
@@ -16,5 +16,5 @@ export function up(knex) {
  * @returns { Promise<void> }
  */
 export function down(knex) {
-  return knex.schema.dropTable('vegetables')
+  return knex.schema.dropTable('todos')
 }
