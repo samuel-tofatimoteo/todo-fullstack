@@ -7,15 +7,11 @@ export async function getTasks(): Promise<Task[]> {
   return await db('tasks').select()
 }
 
-export async function getTaskById(id: number): Promise<Task> {
-  return await db('tasks').where({ id }).select().first()
-}
-
 export async function addTask(newTaskObj: Task) {
   return await db('tasks').insert(newTaskObj)
 }
 
-export async function deleteTask(id: number): Promise<Task> {
+export async function deleteTask(id: number) {
   return await db('tasks').where({ id }).del()
 }
 
