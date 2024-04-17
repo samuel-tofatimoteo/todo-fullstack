@@ -22,8 +22,8 @@ function AddTodo() {
   function handleSubmit(e) {
     e.preventDefault()
     // console.log('submitted')
-    const newTodo = input
-    addTodo.mutate(newTodo)
+    const newTask = input
+    addTodo.mutate(newTask)
     setInput({ task: '', completed: false, importance: '' })
   }
 

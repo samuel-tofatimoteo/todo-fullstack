@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Task } from 'vitest'
+import { addTodos } from '../apis/apiClient'
 
 export function useAddTodos() {
   const qc = useQueryClient()
@@ -22,7 +23,7 @@ export function useDelTodos() {
 export function useUpdateTodos() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: TaskId) => updateTodos(data),
+    mutationFn: (data: Todos) => updateTodos(data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['todos'] }),
   })
 }
