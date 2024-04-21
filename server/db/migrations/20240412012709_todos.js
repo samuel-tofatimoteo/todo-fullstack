@@ -7,7 +7,9 @@ export function up(knex) {
     table.increments('id')
     table.string('name')
     table.string('details')
-    table.boolean('completed')
+    table.timestamp('created_at').defaultTo(knex.fn.now())
+    table.timestamp('due_date')
+    table.boolean('completed').defaultTo(false)
   })
 }
 

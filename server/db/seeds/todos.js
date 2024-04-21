@@ -8,7 +8,7 @@ export async function seed(knex) {
     {
       name: 'Fight Mike Tyson',
       details:
-        'Somehow you have to fight Former Boxing Heavyweight Champion Mike Tyson',
+        'Somehow you have to fight Former Heavyweight Boxing Champion Mike Tyson',
       completed: false,
     },
     { name: 'Dishes', details: 'Dishes are dirty', completed: false },
