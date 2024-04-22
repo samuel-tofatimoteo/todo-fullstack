@@ -7,7 +7,9 @@ function App() {
         <h1>todos</h1>
         <AddTodo />
       </header>
-      <section className="main"></section>
+      <section className="main">
+        
+      </section>
       <footer className="footer"></footer>
     </>
   )
