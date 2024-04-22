@@ -23,11 +23,11 @@ function Login() {
     <>
       <NavGroup>
         <IfAuthenticated>
-          <NavButton onClick={handleSignOut}>Sign out</NavButton>
+          {/* <NavButton onClick={handleSignOut}>Sign out</NavButton> */}
           {user && <p>Signed in as: {user?.nickname?.name}</p>}
         </IfAuthenticated>
         <IfNotAuthenticated>
-          <NavButton onClick={handleSignIn}>Sign in</NavButton>
+          {/* <NavButton onClick={handleSignIn}>Sign in</NavButton> */}
         </IfNotAuthenticated>
       </NavGroup>
     </>
