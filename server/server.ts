@@ -5,7 +5,7 @@ import todosRouter from './routes/todoRoutes'
 const server = express()
 
 server.use(express.json())
-server.use('/todos', todosRouter)
+server.use('/api/v1/todos', todosRouter)
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))

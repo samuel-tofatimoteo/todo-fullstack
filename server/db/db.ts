@@ -1,5 +1,5 @@
-import { NewTodo, Todo, TodoUpdate } from "../../models/models";
-import connection from "./connection";
+import { NewTodo, Todo, TodoUpdate } from '../../models/models'
+import connection from './connection'
 
 const db = connection
 
@@ -8,7 +8,7 @@ export async function getTodos() {
 }
 
 export async function getTodoById(id: number) {
-  return await db('todos').where({id}).select()
+  return await db('todos').where({ id }).select()
 }
 
 export async function getIncompletedTodos() {
@@ -24,9 +24,9 @@ export async function addTodo(newTodo: NewTodo) {
 }
 
 export async function delTodo(id: number) {
-  return db('todos').where('id', {id}).del()
+  return db('todos').where({ id }).del()
 }
 
 export async function updateTodo(id: number, updateTodo: TodoUpdate) {
-  return await db('todos').where('id', {id}).insert(updateTodo)
+  return await db('todos').where({ id }).update(updateTodo)
 }
