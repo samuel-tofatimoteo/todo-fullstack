@@ -1,4 +1,5 @@
 import AddTodo from './AddTodo.tsx'
+import AllTodos from './AllTodos.tsx'
 
 function App() {
   return (
@@ -8,7 +9,7 @@ function App() {
         <AddTodo />
       </header>
       <section className="main">
-        
+        <AllTodos/>  
       </section>
       <footer className="footer"></footer>
     </>
