@@ -3,7 +3,7 @@ import { useTodos } from "../hooks/useTodos";
 
 function AllTodos() {
 
-  const { data: tasks, isLoading, isError, error } = useTodos()
+  const { data: todos, isLoading, isError, error } = useTodos()
 
   if (isLoading) {
     return <p>Loading...</p>
@@ -16,7 +16,7 @@ function AllTodos() {
   return (
     <div className="view">
       <ul className="todo-list">
-        {tasks.map((todo: Todo) => {
+        {todos.map((todo: Todo) => {
           return (
             <li key={todo.id}>
               {todo.name}
