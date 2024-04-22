@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { addTodo, getTodos } from "../apis/todos";
-import { NewTodo } from "../../models/models";
+import { addTodo, getTodos, updateTodo } from "../apis/todos";
+import { NewTodo, Todo } from "../../models/models";
 
 export function useTodos() {
   return useQuery({
@@ -17,5 +17,13 @@ export function useAddTodo() {
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ['todos'] })
     },
+  })
+}
+
+export function useUpdateTodo() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (todoUpdate: Todo) => updateTodo(todoUpdate),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['todos'] }),
   })
 }
