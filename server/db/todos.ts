@@ -25,7 +25,7 @@ export async function addTask(
 export async function updateTask(
   id: number,
   task_detail: string,
-  priority: BigInteger,
+  priority: number,
   completed: boolean,
 ) {
   await connection('todos')
