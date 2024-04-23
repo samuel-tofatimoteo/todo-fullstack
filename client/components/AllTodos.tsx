@@ -18,7 +18,7 @@ function AllTodos() {
       <ul className="todo-list">
         {todos.map((todo: Todo) => {
           return (
-            <li key={todo.id}>
+            <li key={todo.id} className="new-todo">
               {todo.name}
             </li>
           )

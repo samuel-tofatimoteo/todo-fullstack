@@ -19,14 +19,13 @@ function AddTodo() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="new-todo" onSubmit={handleSubmit}>
       <input 
       type="text"
       placeholder="What needs to be done?"
       value={newTodo}
       onChange={handleChange}
        />
-       <button type="submit">Submit</button>
     </form>
   )
 }

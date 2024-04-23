@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { addTodo, getTodos, updateTodo } from "../apis/todos";
 import { NewTodo, Todo } from "../../models/models";
 
+// Get all todos
 export function useTodos() {
   return useQuery({
     queryKey: ['todos'],
@@ -9,6 +10,7 @@ export function useTodos() {
   })
 }
 
+// Add a todo
 export function useAddTodo() {
   const client = useQueryClient()
 
@@ -20,6 +22,7 @@ export function useAddTodo() {
   })
 }
 
+// Update a todo
 export function useUpdateTodo() {
   const qc = useQueryClient()
   return useMutation({
