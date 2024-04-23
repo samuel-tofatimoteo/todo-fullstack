@@ -20,8 +20,6 @@ describe('POST /api/v1/todos', () => {
   it('status code should be 204 when adding new todo', async () => {
     const newTodo = { name: 'route test' }
     const response = await request(server).post('/api/v1/todos').send(newTodo)
-    console.log(response.body)
-
     expect(response.statusCode).toBe(204)
   })
 
