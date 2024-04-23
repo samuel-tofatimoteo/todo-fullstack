@@ -22,3 +22,8 @@ export async function updateTodo(todoUpdate: Todo) {
     .send({ name, details, due_date, completed })
   return res.body
 }
+
+// Del a todo
+export async function delTodo(id: number) {
+  return await request.del(`${rootUrl}/${id}`)
+}

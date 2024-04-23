@@ -1,8 +1,7 @@
-import { Todo } from "../../models/models";
-import { useTodos } from "../hooks/useTodos";
+import { Todo } from '../../models/models'
+import { useTodos, useUpdateTodo } from '../hooks/useTodos'
 
 function AllTodos() {
-
   const { data: todos, isLoading, isError, error } = useTodos()
 
   if (isLoading) {

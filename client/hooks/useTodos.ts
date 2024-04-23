@@ -1,12 +1,12 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { addTodo, getTodos, updateTodo } from "../apis/todos";
-import { NewTodo, Todo } from "../../models/models";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { addTodo, delTodo, getTodos, updateTodo } from '../apis/todos'
+import { NewTodo, Todo } from '../../models/models'
 
 // Get all todos
 export function useTodos() {
   return useQuery({
     queryKey: ['todos'],
-    queryFn: () => getTodos()
+    queryFn: () => getTodos(),
   })
 }
 
@@ -15,7 +15,7 @@ export function useAddTodo() {
   const client = useQueryClient()
 
   return useMutation({
-    mutationFn: (newTodo: NewTodo) => addTodo(newTodo) ,
+    mutationFn: (newTodo: NewTodo) => addTodo(newTodo),
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ['todos'] })
     },
@@ -24,9 +24,18 @@ export function useAddTodo() {
 
 // Update a todo
 export function useUpdateTodo() {
-  const qc = useQueryClient()
+  const client = useQueryClient()
   return useMutation({
     mutationFn: (todoUpdate: Todo) => updateTodo(todoUpdate),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['todos'] }),
+    onSuccess: () => client.invalidateQueries({ queryKey: ['todos'] }),
+  })
+}
+
+// Del a todo
+export function useDelTodo() {
+  const client = useQueryClient()
+  return useMutation({
+    mutationFn: (todoId: number) => delTodo(todoId),
+    onSuccess: () => client.invalidateQueries({ queryKey: ['todos'] }),
   })
 }
