@@ -1,6 +1,5 @@
-import { useState } from "react"
-import { useAddTodo } from "../hooks/useTodos"
-
+import { useState } from 'react'
+import { useAddTodo } from '../hooks/useTodos'
 
 function AddTodo() {
   const [newTodo, setNewTodo] = useState('')
@@ -12,20 +11,22 @@ function AddTodo() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    if (newTodo.length === 0) return; // Make sure user cant submit an empty todo
-    const todo = {name: newTodo}
+    if (newTodo.length === 0) return // Make sure user cant submit an empty todo
+    const todo = { name: newTodo }
     addTodoMutation.mutate(todo)
     setNewTodo('')
   }
 
   return (
-    <form className="new-todo" onSubmit={handleSubmit}>
-      <input 
-      type="text"
-      placeholder="What needs to be done?"
-      value={newTodo}
-      onChange={handleChange}
-       />
+    <form onSubmit={handleSubmit}>
+      <input
+        aria-label="todo"
+        className="new-todo"
+        type="text"
+        placeholder="What needs to be done?"
+        value={newTodo}
+        onChange={handleChange}
+      />
     </form>
   )
 }

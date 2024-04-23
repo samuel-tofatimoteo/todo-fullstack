@@ -1,8 +1,13 @@
 import { Todo } from '../../models/models'
-import { useTodos, useUpdateTodo } from '../hooks/useTodos'
+import { useDelTodo, useTodos } from '../hooks/useTodos'
 
 function AllTodos() {
   const { data: todos, isLoading, isError, error } = useTodos()
+  const deleteTodoMutation = useDelTodo()
+
+  const handleDeleteClick = (id: number) => {
+    deleteTodoMutation.mutate(id)
+  }
 
   if (isLoading) {
     return <p>Loading...</p>
@@ -18,7 +23,14 @@ function AllTodos() {
         {todos.map((todo: Todo) => {
           return (
             <li key={todo.id} className="new-todo">
-              {todo.name}
+              <span>{todo.name}</span>
+              <button
+                name="delete button"
+                className="destroy"
+                onClick={() => handleDeleteClick(todo.id)}
+              >
+                del
+              </button>
             </li>
           )
         })}
