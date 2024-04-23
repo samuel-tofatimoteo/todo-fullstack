@@ -1,6 +1,20 @@
 import request from 'supertest'
 import { expect, describe, it } from 'vitest'
 import server from '../server'
+import { beforeAll, beforeEach, afterAll } from 'vitest'
+import connection from '../db/connection'
+
+beforeAll(async () => {
+  await connection.migrate.latest()
+})
+
+beforeEach(async () => {
+  await connection.seed.run()
+})
+
+afterAll(async () => {
+  await connection.destroy()
+})
 
 describe('POST /api/v1/todos', () => {
   it('status code should be 204 when adding new todo', async () => {
