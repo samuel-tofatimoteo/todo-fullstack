@@ -29,7 +29,7 @@ function AllTodos() {
                 className="destroy"
                 onClick={() => handleDeleteClick(todo.id)}
               >
-                del
+                delete
               </button>
             </li>
           )

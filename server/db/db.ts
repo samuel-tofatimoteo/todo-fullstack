@@ -1,4 +1,4 @@
-import { NewTodo, Todo, TodoUpdate } from '../../models/models'
+import { NewTodo, TodoUpdate } from '../../models/models'
 import connection from './connection'
 
 const db = connection
