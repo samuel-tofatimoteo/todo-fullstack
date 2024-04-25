@@ -43,7 +43,7 @@ export default function EditEventForm({
 
   return (
     <form onSubmit={handleSubmit} className="form">
-      {/* <input type="hidden" name="id" value="{{tasks.id}}" /> */}
+      <input type="hidden" name="id" value="{{tasks.id}}" />
 
       <label htmlFor="task_detail" className="label">
         Task

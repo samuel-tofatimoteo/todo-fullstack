@@ -3,13 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { Todo, TodoData } from '../../models/todo.ts'
 import EditTodoForm from './EditTodoForm'
 
-import {
-  useTasks,
-  useCreateTask,
-  useDeleteTask,
-  useTaskData,
-  useEditTask,
-} from '../hooks/api.ts'
+import { useDeleteTask, useTaskData, useEditTask } from '../hooks/api.ts'
 
 export default function EditTodo() {
   const params = useParams()
@@ -19,14 +13,9 @@ export default function EditTodo() {
   const deleteTask = useDeleteTask(id)
   const navigate = useNavigate()
 
-  //console.log('task -> ', task.data.id)
-
-  const handleSubmit = useCallback(
-    async (formData: TodoData) => {
-      editTask.mutateAsync({ id, ...formData })
-    },
-    ['tasks'],
-  )
+  const handleSubmit = useCallback(async (formData: TodoData) => {
+    editTask.mutateAsync({ id, ...formData })
+  }, [])
 
   const handleDelete = useCallback(async () => {
     deleteTask.mutate()

@@ -6,14 +6,13 @@ export default function useTaskEvent(id: number) {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (values: Event) => {
+    mutationFn: async (values: Todo) => {
       console.log(values)
 
       await request.patch(`/api/v1/todos/${id}`).send(values)
     },
     onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: ['tasks', id] })
-      //queryClient.invalidateQueries({ queryKey: ['schedule'] })
     },
   })
 }

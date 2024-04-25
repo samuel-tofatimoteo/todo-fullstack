@@ -5,7 +5,6 @@ import {
 } from 'react-router-dom'
 
 import App from './components/App'
-import NewTodo from './components/NewTodo'
 import EditTodo from './components/EditTodo'
 import AddTodo from './components/AddTodo'
 

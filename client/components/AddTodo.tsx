@@ -9,7 +9,7 @@ interface Props {
   handleAdd: (form: TodoData) => void
 }
 
-function AddTodo({ handleAdd }: Props) {
+function AddTodo() {
   const initialState = {
     task_detail: '',
   }
