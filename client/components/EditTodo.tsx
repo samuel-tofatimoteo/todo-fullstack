@@ -41,6 +41,8 @@ export default function EditTodo() {
         completed={task.data.completed}
         onSubmit={handleSubmit}
       />
+      <br />
+      <br />
       <form onSubmit={handleDelete} className="form">
         <div />
         <button className="delete">Delete task</button>

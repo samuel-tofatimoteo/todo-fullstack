@@ -7,7 +7,7 @@ export default function useTaskEvent(id: number) {
 
   return useMutation({
     mutationFn: async (values: Todo) => {
-      console.log(values)
+      console.log('values ->', values)
 
       await request.patch(`/api/v1/todos/${id}`).send(values)
     },
