@@ -1,21 +1,28 @@
 import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import EditEventForm from './EditEventForm.tsx'
-import { EventData } from '../../models/Event.ts'
-import LineupNav from './LineupNav.tsx'
-import { useCreateEvent } from '../hooks/api.ts'
+import EditTodoForm from './EditTaskForm.tsx'
+import { Todo } from '../../models/todo'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-export default function NewEvent() {
-  const createEvent = useCreateEvent()
+import { useTasks, useCreateTask } from '../hooks/api'
+
+export default function NewTodo() {
+  const createTask = useCreateTask()
   const navigate = useNavigate()
-  const handleSubmit = useCallback(async (data: EventData) => {
-    await createEvent.mutateAsync(data)
-    navigate(`/schedule/${data.day}`)
+  const handleSubmit = useCallback(async (data: Todo) => {
+    await createTask.mutateAsync(data)
+    navigate(`/`)
   }, [])
 
   return (
     <>
       <h2>New Event</h2>
+      <EditTodoForm
+        task_detail=""
+        priority={0}
+        completed={false}
+        onSubmit={handleSubmit}
+      />
     </>
   )
 }
