@@ -1,18 +1,15 @@
-import AddTodo from './AddTodo.tsx'
+import { Outlet } from 'react-router-dom'
 import TodoList from './TodoList.tsx'
+
+// import TodoList from './TodoList.tsx'
 
 function App() {
   return (
     <>
       <header>
-        <h1>Todos hahah</h1>
-        <AddTodo />
-      </header>
-      <section>
-        {/* <input id="toggle-all" className="toggle-all" type="checkbox" />
-        <label htmlFor="toggle-all">Mark all as complete</label> */}
+        <h1>Todo List</h1>
         <TodoList />
-      </section>
+      </header>
       <footer></footer>
     </>
   )

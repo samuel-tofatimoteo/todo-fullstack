@@ -28,9 +28,8 @@ function AddTodo({ handleAdd }: Props) {
       return res.body
     },
     onSuccess: (data) => {
-      const tasks = queryClient.getQueryData(['tasks']) as TodoData[]
+      //const tasks = queryClient.getQueryData(['tasks']) as TodoData[]
       queryClient.invalidateQueries({ queryKey: ['tasks'] })
-      //console.log('tasks query add todo=> ', tasks)
     },
   })
 
