@@ -1,3 +1,5 @@
 export { default as useTasks } from './use-tasks'
 export { default as useCreateTask } from './use-tasks'
 export { default as useDeleteTask } from './use-delete-tasks'
+export { default as useTaskData } from './use-tasks-data'
+export { default as useEditTask } from './use-edit-tasks'

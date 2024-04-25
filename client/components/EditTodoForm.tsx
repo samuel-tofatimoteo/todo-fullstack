@@ -1,20 +1,62 @@
-import { TodoData } from '../../models/todo'
+import { useCallback, useState, FormEvent, ChangeEvent } from 'react'
+import { useTasks } from '../hooks/api.ts'
+import { TodoData } from '../../models/todo.ts'
 
 interface Props extends TodoData {
-  submitLabel: string
   onSubmit: (_: TodoData) => void
 }
 
-function EditTodoForm() {
+export default function EditEventForm({
+  task_detail,
+  priority,
+  completed,
+  onSubmit,
+}: Props) {
+  const [formState, setFormState] = useState({
+    task_detail,
+    priority,
+    completed,
+  })
+
+  const handleChange = useCallback(
+    (
+      evt: ChangeEvent<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      >,
+    ) => {
+      const { name, value } = evt.target
+      setFormState((prev) => ({
+        ...prev,
+        [name]: value,
+      }))
+    },
+    [],
+  )
+
+  const handleSubmit = useCallback(
+    (evt: FormEvent) => {
+      evt.preventDefault()
+      onSubmit(formState)
+    },
+    [formState],
+  )
+
   return (
-    <>
+    <form onSubmit={handleSubmit} className="form">
+      {/* <input type="hidden" name="id" value="{{tasks.id}}" /> */}
+
+      <label htmlFor="task_detail" className="label">
+        Task
+      </label>
       <input
-        className="new-todo"
-        placeholder="What needs to be done?"
-        autoFocus={true}
+        type="text"
+        id="task_detail"
+        name="task_detail"
+        onChange={handleChange}
+        value={formState.task_detail}
       />
-    </>
+
+      <button>Update Task</button>
+    </form>
   )
 }
-
-export default EditTodoForm

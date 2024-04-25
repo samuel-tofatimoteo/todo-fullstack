@@ -23,9 +23,14 @@ export default function TodoList() {
         {tasks?.map((task) => (
           <li key={task.id}>
             <div>
-              <span>id: {task.id} </span>
-              <span>{task.task_detail}</span>
-              <Link to={`/todo/${task.id}/edit`}>edit to do</Link>
+              <div>
+                <span>
+                  id: {task.id} - {task.task_detail}
+                </span>
+              </div>
+              <div>
+                <Link to={`/todo/${task.id}/edit`}>edit to do</Link>
+              </div>
             </div>
           </li>
         ))}
