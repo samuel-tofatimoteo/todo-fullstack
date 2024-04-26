@@ -10,7 +10,7 @@ export default function useTaskEvent(id: number) {
       await request.patch(`/api/v1/todos/${id}`).send(values)
     },
     onSuccess: async () => {
-      queryClient.invalidateQueries({ queryKey: ['tasks', id] })
+      queryClient.invalidateQueries({ queryKey: ['tasks'] })
     },
   })
 }

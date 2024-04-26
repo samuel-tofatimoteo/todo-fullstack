@@ -30,7 +30,6 @@ function AddTodo() {
       return res.body
     },
     onSuccess: (data) => {
-      //const tasks = queryClient.getQueryData(['tasks']) as TodoData[]
       queryClient.invalidateQueries({ queryKey: ['tasks'] })
       navigate(`/`)
     },
