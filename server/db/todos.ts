@@ -32,7 +32,7 @@ export async function updateTask(
     .update({
       task_detail: task_detail,
       priority: priority,
-      completed: completed,
+      completed: false,
     })
     .where({ id })
   const changedTask = getTaksById(id)

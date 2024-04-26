@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { TodoData } from '../../models/todo'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import request from 'superagent'
@@ -18,6 +19,7 @@ function AddTodo() {
   const { isLoading, isError, data: tasks } = useTasks()
 
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   // mutation
 
@@ -30,6 +32,7 @@ function AddTodo() {
     onSuccess: (data) => {
       //const tasks = queryClient.getQueryData(['tasks']) as TodoData[]
       queryClient.invalidateQueries({ queryKey: ['tasks'] })
+      navigate(`/`)
     },
   })
 

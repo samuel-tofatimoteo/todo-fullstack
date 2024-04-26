@@ -25,7 +25,7 @@ export default function TodoList() {
             <div>
               <div>
                 <span>
-                  id: {task.id} - {task.task_detail}
+                  id: {task.id} - priority: {task.priority} - {task.task_detail}
                 </span>
               </div>
               <div>

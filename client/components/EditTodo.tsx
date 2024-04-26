@@ -15,6 +15,7 @@ export default function EditTodo() {
 
   const handleSubmit = useCallback(async (formData: TodoData) => {
     editTask.mutateAsync({ id, ...formData })
+    navigate(`/`)
   }, [])
 
   const handleDelete = useCallback(async () => {

@@ -9,7 +9,6 @@ function App() {
       <header>
         <h1>Todo List</h1>
         <Outlet />
-        <TodoList />
       </header>
       <footer></footer>
     </>
