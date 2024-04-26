@@ -14,10 +14,14 @@ export async function addTask(
   priority: BigInteger,
   completed: boolean,
 ): Promise<number | undefined> {
+  const prior = await connection('todos').max('priority').first()
+
+  console.log('prior -> ', prior)
+
   const idArr = await connection('todos').insert({
     task_detail: task_detail,
-    priority: priority,
-    completed: completed,
+    priority: prior.priority,
+    completed: false,
   })
   return idArr[0]
 }
