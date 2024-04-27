@@ -4,30 +4,17 @@ import { Task, TaskDB } from '../../Models/Task'
 import { taskSort } from '../helperFunctions/functionSet'
 import * as api from '../apis/apiClient'
 
-export function ListTasks() {
+export function ShowCompleted() {
   const queryClient = useQueryClient()
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
     const { value } = e.currentTarget
-    taskMarkComplete.mutate(value)
+    taskMarkIncomplete.mutate(value)
   }
 
-  const taskMarkComplete = useMutation({
-    mutationFn: (change: string) => api.completeTask(change),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tasks'] })
-    },
-  })
-
-  function handleCross(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault()
-    const { value } = e.currentTarget
-    taskDelete.mutate(value)
-  }
-
-  const taskDelete = useMutation({
-    mutationFn: (change: string) => api.deleteTask(change),
+  const taskMarkIncomplete = useMutation({
+    mutationFn: (change: string) => api.incompleteTask(change),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] })
     },
@@ -35,7 +22,7 @@ export function ListTasks() {
 
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ['tasks'],
-    queryFn: () => api.getIncompleteTasks(),
+    queryFn: () => api.getCompleteTasks(),
   })
 
   if (isLoading) {
@@ -56,19 +43,11 @@ export function ListTasks() {
               <span className="task">{task.name}</span> {task.details}
               <button
                 value={task.id}
-                aria-label="mark task as completed"
-                className="completed action-button"
+                aria-label="return task to incomplete list"
+                className="reset action-button"
                 onClick={handleClick}
               >
-                ✔
-              </button>
-              <button
-                value={task.id}
-                aria-label="delete task"
-                className="deleted action-button"
-                onClick={handleCross}
-              >
-                ✘
+                ↻
               </button>
             </li>
           ))}

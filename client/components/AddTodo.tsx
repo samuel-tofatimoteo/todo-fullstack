@@ -1,40 +1,72 @@
-// eslint-disable-next-line no-unused-vars
+import React, { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { SetStateAction, useState } from 'react'
-import { addTask } from '../apis/apiClient'
+import * as api from '../apis/apiClient'
+import { Task } from '../../Models/Task'
 
 function AddTodo() {
-  const [newTask, setNewTask] = useState('')
-  const [submittedTask, setSubmittedTask] = useState('')
   const queryClient = useQueryClient()
-  const mutation = useMutation({
-    mutationFn: (newTask) => addTask(newTask),
+  const initialState: Task = {
+    name: '',
+    details: '',
+    priority: 1,
+    completed: false,
+  }
+  const [newForm, setNewForm] = useState(initialState)
+
+  function handleInputChange(
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) {
+    const { name, value } = e.target
+    if (typeof value === 'string') {
+      setNewForm({ ...newForm, [name]: value.toLowerCase() })
+    }
+  }
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    taskAdd.mutate(newForm)
+    setNewForm(initialState)
+  }
+
+  const taskAdd = useMutation({
+    mutationFn: (change: Task) => api.addTask(change),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] })
     },
   })
 
-  function handleChange(e: { target: { value: SetStateAction<string> } }) {
-    setNewTask(e.target.value)
-  }
-  function handleSubmit(e: { preventDefault: () => void }) {
-    e.preventDefault()
-    mutation.mutate({ name: newTask })
-    setSubmittedTask(newTask)
-    setNewTask('')
-  }
   return (
     <>
-      <p>New Task: {newTask}</p>
-      <p>Submitted Task: {submittedTask}</p>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="task">Task Name</label>
+        <label htmlFor="name">Task Name</label>
         <input
-          id="task"
-          value={newTask}
-          onChange={handleChange}
-          placeholder="Enter New Task ..."
+          id="name"
+          name="name"
+          required={true}
+          value={newForm.name}
+          onChange={handleInputChange}
+          placeholder="Enter new task ..."
         />
+        <label htmlFor="details">Details (optional)</label>
+        <textarea
+          rows={3}
+          maxLength={70}
+          id="details"
+          name="details"
+          value={newForm.details}
+          onChange={handleInputChange}
+          placeholder="More about task here ..."
+        />
+        <label htmlFor="priority">
+          Priority Level:
+          <select id="priority" name="priority" onChange={handleInputChange}>
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+          </select>
+        </label>
         <button type="submit">Submit</button>
       </form>
     </>
