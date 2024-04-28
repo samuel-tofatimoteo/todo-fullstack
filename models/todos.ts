@@ -1,6 +1,6 @@
 
 export interface Todos {
-  todo: string, 
+  task: string, 
   importance: string,
   complete: boolean
 }

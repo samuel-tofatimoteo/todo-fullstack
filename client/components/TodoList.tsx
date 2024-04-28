@@ -1,4 +1,4 @@
-import { TodoId} from '../../models/todos'
+import { TodoId } from '../../models/todos'
 import { useUpdateTodos, useDeleteTodo, useGetTodos } from './hooks/useTodo'
 import { useState } from 'react'
 
@@ -8,11 +8,9 @@ function TodoList() {
   const updateTodo = useUpdateTodos()
 
   const [update, setUpdate] = useState(0)
-  const [input, setInput] = useState({ todo: '', complete: false })
+  const [input, setInput] = useState({ task: '', completed: false })
 
   function handleDelete(id: number) {
-    console.log(id)
-
     deleteTodo.mutate(Number(id))
   }
 
@@ -24,7 +22,8 @@ function TodoList() {
   }
 
   function handleChange(e) {
-    setInput(e.target.value)
+    const newInput = { ...input, task: e.target.value }
+    setInput(newInput)
   }
 
   if (isLoading) {
@@ -48,12 +47,13 @@ function TodoList() {
                     {todo.id === update ? (
                       <form onSubmit={handleUpdate}>
                         <input
-                          name="todo"
+                          name="task"
                           type="text"
-                          placeholder={todo.todo}
+                          placeholder={todo.task}
                           onChange={handleChange}
                           onKeyDown={(e) => {
                             if (e.key === 'Escape') {
+                              setInput({ task: '', completed: false })
                               setUpdate(0)
                             }
                           }}
@@ -64,7 +64,7 @@ function TodoList() {
                         id={String(todo.id)}
                         onDoubleClick={() => setUpdate(todo.id)}
                       >
-                        {todo.todo}
+                        {todo.task}
                       </label>
                     )}
 

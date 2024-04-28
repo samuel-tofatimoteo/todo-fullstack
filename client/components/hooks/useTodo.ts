@@ -38,8 +38,10 @@ export function useAddNewTodo() {
 export function useUpdateTodos() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (data: { id: number; update: Todos }) =>
-    updateTodos(data.id, data.update),
+    mutationFn: (data: {
+      id: number
+      update: { todo: string; completed: boolean }
+    }) => updateTodos(data.id, data.update),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['todos'],
