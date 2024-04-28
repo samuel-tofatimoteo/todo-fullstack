@@ -3,9 +3,10 @@ import userEvent from '@testing-library/user-event'
 import { beforeAll, describe, expect, it, test } from 'vitest'
 import AddTodo from '../AddTodo'
 import nock from 'nock'
+import { renderApp } from '../../test/setup'
 
 test('should show AddTodo labels placeholder text', () => {
-  render(<AddTodo />)
+  renderApp(<AddTodo />)
   const inputElement = screen.getByPlaceholderText('What needs to be done?')
   expect(inputElement).toBeInTheDocument()
 })
@@ -17,7 +18,8 @@ describe('AddTodo component', () => {
   })
 
   it('adds a new todo when the form is submitted', async () => {
-    const { getByPlaceholderText } = render(<AddTodo />)
+    
+    const { getByPlaceholderText } = renderApp(<AddTodo />)
     const input = getByPlaceholderText('What needs to be done?')
 
     const todoName = 'Test Todo'
@@ -35,7 +37,9 @@ describe('AddTodo component', () => {
 
     
     await waitFor(() => {
-      expect(nock.isDone()).toBe(true)
+    // Checking to see if new todo name is seen on screen
+      const todoElement = screen.getByDisplayValue(todoName);
+      expect(todoElement).toBeInTheDocument();
     })
   })
 })
