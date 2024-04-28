@@ -65,6 +65,7 @@
     "vitest": "^1.2.0"
   },
   "dependencies": {
+    "dokku": "^0.1.2",
     "express": "^4.17.2",
     "knex": "^2.5.1",
     "nock": "^13.5.4",
