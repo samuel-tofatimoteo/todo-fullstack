@@ -1,60 +1,40 @@
-import { Todos } from '../../models/TodosModels'
-import { useAddTodo } from './Hooks/useTodo'
-import { useState } from 'react'
-
-// eslint-disable-next-line no-unused-vars
-import { useState } from 'react'
-import useAddTodo from './hooks/useAddToDo'
+import React from 'react';
+import { useAddNewTodo } from './hooks/useTodo'; // Ensure the path is correct
 
 function AddTodo() {
-  const [newTodo, setNewTodo] = useState({
-    todo: '',
-    priority: '',
-  })
+  const addTodo = useAddNewTodo();
 
-  const addATodo = useAddTodo()
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    const todo = form.get('todoText')?.toString() || ''; // Convert the FormDataEntryValue to string
+    const importance = form.get('importance')?.toString() || 'Low'; // Default importance set to 'Low' if not specified
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.name
-    const val = e.target.value
-    setNewTodo({
-      ...newTodo,
-      [name]: val,
-    })
-  }
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    addATodo.mutate(newTodo)
-    setNewTodo({
-      todo: '',
-      priority: '',
-    })
+    if (todo) {
+      addTodo.mutate({ todo: todo, complete: false, importance: importance });
+    }
   }
 
   return (
     <>
       <form onSubmit={handleSubmit}>
         <input
+          name="todoText"
+          aria-label="add todo"
           className="new-todo"
-          placeholder="What needs to be done?"
-          name="todo"
-          value={newTodo.todo}
-          onChange={handleChange}
+          placeholder="What have you got 'todo' next?"
+          autoFocus={true}
         />
-        <input
-          className="new-todo"
-          placeholder="Priority"
-          name="priority"
-          value={newTodo.priority}
-          onChange={handleChange}
-        />
-        <button type="submit" id="button">
-          Submit
-        </button>
+        <select name="importance" defaultValue="Meh" className="importance-select">
+          <option value="Extremely">Extremely</option>
+          <option value="Moderately">Moderately</option>
+          <option value="Meh">Meh</option>
+        </select>
+        <button type="submit">Add Todo</button>
       </form>
     </>
-  )
+  );
 }
 
-export default AddTodo
+export default AddTodo;
+

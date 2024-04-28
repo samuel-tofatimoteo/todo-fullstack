@@ -1,66 +1,85 @@
-import * as db from '../db/db'
-import express from 'express'
+import { Router } from "express"
+import { Todos } from "../../models/todos"
+import * as db from "../db/db"
 
-const router = express.Router()
+const router = Router()
 
-//GET all todos
-router.get('/', async (req, res) => {
-  try {
-    const todos = await db.getAllTodos()
-    res.json(todos)
-  } catch (error) {
-    res.sendStatus(500)
-    console.log('There was an error retrieving the data')
-  }
+router.get('/' , async (req, res) => {
+    try{
+        const allTodos = await db.getTodos() 
+        res.json(allTodos)
+    }catch(err){
+        console.log(err);
+        return res.status(500).json(err)
+    }
 })
 
-//GET a todo by ID
-router.get('/:id', async (req, res) => {
-  try {
-    const id = Number(req.params.id)
-    const todos = await db.getTodoById(id)
-    res.json(todos)
-  } catch (error) {
-    res.sendStatus(500)
-    console.log('There was an error retrieving the data')
-  }
+router.get('/:id' , async (req, res) => {
+    try{
+
+        const id = Number(req.params.id)
+        const todoId = await db.getTodoById(id)
+        res.json(todoId)
+    }catch(err){
+        return res.status(500).json(err)
+    }
 })
 
-//POST add a new todo
-router.post('/', async (req, res) => {
-  try {
-    const newTodo = req.body
-    const todos = await db.addTodo(newTodo)
-    res.json(todos)
-  } catch (error) {
-    res.sendStatus(500)
-    console.log('There was an error retrieving the data')
-  }
+router.post('/' , async (req, res) => {
+    try {
+        console.log(req.body);
+        
+        const newTodo: Todos = req.body
+        const  addedTodo = await db.createTodos(newTodo)
+        res.json(addedTodo)
+    } catch (error) {
+        console.log(error);
+        
+        return res.status(500).json(error)
+    }
+});
+
+router.put('/:id' , async (req, res) => {
+    try {
+        const id = Number(req.params.id)
+        console.log(id);
+        const updatedTodo: Todos = req.body
+        console.log(updatedTodo)
+        await db.updateTodos(id, updatedTodo)
+        console.log('route');
+        res.sendStatus(200)
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+});
+
+router.delete("/:id", async (req,res)=>{
+    try {
+        const id = Number(req.params.id)
+        await db.deleteTodos(id)
+        res.json({message: "Deleted Todo"})
+    } catch (error) {
+        return res.status(500).json(error)
+    }
 })
 
-//PATCH update a todo
-router.patch('/:id', async (req, res) => {
-  try {
-    const id = Number(req.params.id)
-    const updateTodo = req.body
-    const todos = await db.updateTodo(id, updateTodo)
-    res.json(todos)
-  } catch (error) {
-    res.sendStatus(500)
-    console.log('There was an error retrieving the data')
-  }
+router.get("/active", async (req,res)=> {
+    try{
+       const actives = await db.getActiveTodos(true)
+       res.json(actives)  
+       }catch(err){
+           console.log("Error getting active todos")
+           res.status(500).json(err)
+       }
 })
 
-//DELETE a todo
-router.delete('/:id', async (req, res) => {
-  try {
-    const id = Number(req.params.id)
-    const todos = await db.deleteTodo(id)
-    res.json(todos)
-  } catch (error) {
-    res.sendStatus(500)
-    console.log('There was an error retrieving the data')
-  }
+router.delete("/completed",  async (req,res)=>{
+    try{
+        await db.deleteCompletedTodos( false);
+        res.json({message:"Completed tasks have all been deleted."})
+    }catch(e){
+        res.status(500).json(e)
+    }
 })
 
 export default router

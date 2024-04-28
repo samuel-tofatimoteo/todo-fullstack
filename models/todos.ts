@@ -1,9 +1,10 @@
+
 export interface Todos {
-  todo?: string
-  completed?: boolean
-  priority?: string
+  todo: string, 
+  importance: string,
+  complete: boolean
 }
 
-export interface TodoId extends Todos {
-  id: number
+export interface TodoId extends Todos{ 
+  id: number 
 }

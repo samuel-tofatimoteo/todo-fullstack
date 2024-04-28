@@ -1,65 +1,83 @@
-import { useQuery, useMutation } from '@tanstack/react-query'
-import { TodoId, Todos } from '../../models/todos'
-import * as api from '../apis/apiClient.ts'
-import useTodos from './hooks/useTodos.tsx'
-import useDeleteTodos from './hooks/useDeleteTodos.tsx'
-import useUpdateTodos from './hooks/useUpdateTodo.tsx'
+import { TodoId} from '../../models/todos'
+import { useUpdateTodos, useDeleteTodo, useGetTodos } from './hooks/useTodo'
+import { useState } from 'react'
 
 function TodoList() {
-  const { isPending, isError, data, error } = useTodos()
-  const deleteTodos = useDeleteTodos()
+  const { data, isLoading, isError, error } = useGetTodos()
+  const deleteTodo = useDeleteTodo()
   const updateTodo = useUpdateTodos()
 
-  if (isPending) {
-    return <span>Loading ...</span>
+  const [update, setUpdate] = useState(0)
+  const [input, setInput] = useState({ todo: '', complete: false })
+
+  function handleDelete(id: number) {
+    console.log(id)
+
+    deleteTodo.mutate(Number(id))
   }
+
+  function handleUpdate(e) {
+    e.preventDefault()
+    const data = { id: update, update: input }
+    updateTodo.mutate(data)
+    setUpdate(0)
+  }
+
+  function handleChange(e) {
+    setInput(e.target.value)
+  }
+
+  if (isLoading) {
+    return <p>Loading...</p>
+  }
+
   if (isError) {
-    return <span>Error: The data is not available</span>
-  }
-
-  function handleClick(id: number) {
-    if (deleteTodos.isPending) {
-      return
-    }
-    deleteTodos.mutate({ id })
-  }
-
-  function handleToggle(id: number, completed: boolean) {
-    updateTodo.mutate({ id: id, completed: !completed })
+    return <p>Error: {error.message}</p>
   }
 
   if (data) {
     return (
       <>
-        {data.map((todo) => {
-          return (
-            <div key={todo.id}>
-              <p id="todo">{todo.todo}</p>
-              <p>
-                <strong>Priority:</strong> {todo.priority}
-              </p>
-              <fieldset>
-                <legend> Click the box when todo is complete</legend>
-                <label>
-                  Completed:{' '}
-                  <input
-                    type="checkbox"
-                    name="completed"
-                    checked={todo.completed}
-                    onChange={() => handleToggle(todo.id, todo?.completed)}
-                  />
-                </label>
-              </fieldset>
-              <button
-                key={todo.id}
-                onClick={() => handleClick(todo.id)}
-                id="button"
-              >
-                Delete
-              </button>
-            </div>
-          )
-        })}
+        <section className="main">
+          <ul className="todo-list">
+            {data.map((todo: TodoId) => {
+              return (
+                <li key={todo.id}>
+                  <div className="view">
+                    <input className="toggle" type="checkbox" />
+                    {todo.id === update ? (
+                      <form onSubmit={handleUpdate}>
+                        <input
+                          name="todo"
+                          type="text"
+                          placeholder={todo.todo}
+                          onChange={handleChange}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Escape') {
+                              setUpdate(0)
+                            }
+                          }}
+                        ></input>
+                      </form>
+                    ) : (
+                      <label
+                        id={String(todo.id)}
+                        onDoubleClick={() => setUpdate(todo.id)}
+                      >
+                        {todo.todo}
+                      </label>
+                    )}
+
+                    <button
+                      onClick={() => handleDelete(todo.id)}
+                      className="destroy"
+                    ></button>
+                  </div>
+                </li>
+              )
+            })}
+          </ul>
+        </section>
       </>
     )
   }

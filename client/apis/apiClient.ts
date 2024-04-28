@@ -1,27 +1,46 @@
-import request from 'superagent'
-import { TodoId, Todos } from '../../models/todos'
+import request from "superagent"
+import { TodoId, Todos } from "../../models/todos"
+const rootUrl = '/api/todo'
 
-const rootUrl = '/api/v1/todos'
-
-// GET allTODOS
 export async function getTodos(): Promise<TodoId[]> {
-  const res = await request.get(rootUrl)
-  return res.body
+    const res = await request.get(rootUrl)
+    console.log(res.body);
+    
+    return res.body as TodoId[]
 }
-//POST Add a Todo
-export async function addTodos(newTodo: Todos) {
-  const res = await request
+
+export async function getTodoById(id: number) {
+    const res = await request.get(`${rootUrl}/${id}`)
+    return res.body
+}
+
+export async function addNewTodo(newTodo: Todos){
+    console.log(newTodo);
+    const res = await request
     .post(rootUrl)
-    .send({ todo: newTodo.todo, priority: newTodo.priority })
-  return res.body
+    .send(newTodo)
+    return res.body
+} 
+
+export async function updateTodos(id: number, updatedTodo: Todos){
+    console.log(`${rootUrl}/${id}`);
+    console.log(updatedTodo);
+    
+    const res = await request
+    .put(`${rootUrl}/${id}`)
+    .send(updatedTodo)
+    return res.body
 }
 
-//delete a todo
-export async function deleteTodos(id: number) {
-  await request.delete(`/api/v1/todos/${id}`)
-  return alert('your todo has been deleted')
+export async function deleteTodo(id: number) {
+    await request.delete(`${rootUrl}/${id}`)
 }
 
-export async function updateTodo(id: number, updatedata: Todos) {
-  await request.patch(`/api/v1/todos/${id}`).send(updatedata)
+export async function getActiveTodos(completed: boolean){
+    const res = await request.get(`${rootUrl}/active?completed=${completed}`)
+    return res.body
+}
+
+export async function deleteCompletedTodos(completed: boolean){
+    await request.delete(`${rootUrl}/completed?completed=${completed}`)
 }
