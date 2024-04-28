@@ -1,86 +1,65 @@
-import { Todos, TodosId } from '../../models/TodosModels'
-import { useDeleteTodo, useUpdateTodo } from './Hooks/useTodo'
-import useGetTodos from './Hooks/useGetTodo'
-import { useState } from 'react'
+import { useQuery, useMutation } from '@tanstack/react-query'
+import { TodoId, Todos } from '../../models/todos'
+import * as api from '../apis/apiClient.ts'
+import useTodos from './hooks/useTodos.tsx'
+import useDeleteTodos from './hooks/useDeleteTodos.tsx'
+import useUpdateTodos from './hooks/useUpdateTodo.tsx'
 
 function TodoList() {
-  const { data, isLoading, isError, error } = useGetTodos()
-  const deleteTodo = useDeleteTodo()
-  const updateTodo = useUpdateTodo()
+  const { isPending, isError, data, error } = useTodos()
+  const deleteTodos = useDeleteTodos()
+  const updateTodo = useUpdateTodos()
 
-  const [update, setUpdate] = useState(0)
-  const [input, setInput] = useState('')
-
-  function handleDelete(e) {
-    // console.log(e.target.id)
-    deleteTodo.mutate(Number(e.target.id))
+  if (isPending) {
+    return <span>Loading ...</span>
   }
-
-  function handleUpdate(e) {
-    e.preventDefault()
-    console.log(input, update)
-    // console.log(e.target.id, e.target.value, 'hello')
-    const data = { id: update, update: input }
-    updateTodo.mutate(data)
-    setUpdate(0)
-  }
-
-  function handleChange(e) {
-    setInput(e.target.value)
-  }
-
-  if (isLoading) {
-    return <p>Loading...</p>
-  }
-
   if (isError) {
-    return <p>Error: {error.message}</p>
+    return <span>Error: The data is not available</span>
+  }
+
+  function handleClick(id: number) {
+    if (deleteTodos.isPending) {
+      return
+    }
+    deleteTodos.mutate({ id })
+  }
+
+  function handleToggle(id: number, completed: boolean) {
+    updateTodo.mutate({ id: id, completed: !completed })
   }
 
   if (data) {
     return (
       <>
-        <section className="main">
-          <ul className="todo-list">
-            {data.map((todo: TodosId) => {
-              return (
-                <li key={todo.id}>
-                  <div className="view">
-                    <input className="toggle" type="checkbox" />
-                    {todo.id === update ? (
-                      <form onSubmit={handleUpdate}>
-                        <input
-                          placeholder={todo.task}
-                          value={input}
-                          onChange={handleChange}
-                          autoFocus
-                          onKeyDown={(e) => {
-                            if (e.key === 'Escape') {
-                              setUpdate(0)
-                            }
-                          }}
-                        ></input>
-                      </form>
-                    ) : (
-                      <label
-                        id={String(todo.id)}
-                        onDoubleClick={() => setUpdate(todo.id)}
-                      >
-                        {todo.task}
-                      </label>
-                    )}
-
-                    <button
-                      onClick={handleDelete}
-                      className="destroy"
-                      id={String(todo.id)}
-                    ></button>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
-        </section>
+        {data.map((todo) => {
+          return (
+            <div key={todo.id}>
+              <p id="todo">{todo.todo}</p>
+              <p>
+                <strong>Priority:</strong> {todo.priority}
+              </p>
+              <fieldset>
+                <legend> Click the box when todo is complete</legend>
+                <label>
+                  Completed:{' '}
+                  <input
+                    type="checkbox"
+                    name="completed"
+                    checked={todo.completed}
+                    onChange={() => handleToggle(todo.id, todo?.completed)}
+                  />
+                </label>
+              </fieldset>
+              <button
+                key={todo.id}
+                onClick={() => handleClick(todo.id)}
+                id="button"
+              >
+                Delete
+              </button>
+            </div>
+          )
+        })}
       </>
     )
   }

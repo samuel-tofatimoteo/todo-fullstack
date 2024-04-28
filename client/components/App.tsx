@@ -9,7 +9,9 @@ function App() {
         <AddTodo />
         <TodoList />
       </header>
-      <section className="main"></section>
+      <section className="main">
+        <TodoList />
+      </section>
       <footer className="footer"></footer>
     </>
   )
