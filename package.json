@@ -70,7 +70,7 @@
     "knex": "^2.5.1",
     "sqlite3": "^5.1.6",
     "superagent": "^8.1.2",
-    "jwks-rsa": "13.5.4"
+    "jwks-rsa": "3.1.0"
   },
   "prettier": {
     "semi": false,
