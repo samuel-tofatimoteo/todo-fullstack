@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import EditTodoForm from './EditTaskForm.tsx'
+import EditTodoForm from '../components/EditTodoForm'
 import { Todo } from '../../models/todo'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 

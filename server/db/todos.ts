@@ -16,12 +16,12 @@ export async function addTask(
 ): Promise<number | undefined> {
   const prior = await connection('todos').max('priority').first()
 
-  console.log('prior -> ', prior)
+  //console.log(Number.parseInt(prior))
 
   const idArr = await connection('todos').insert({
     task_detail: task_detail,
-    priority: prior.priority,
-    completed: false,
+    priority: priority,
+    completed: true,
   })
   return idArr[0]
 }
