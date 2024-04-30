@@ -16,7 +16,7 @@ afterAll(async () => {
 })
 
 // this test looks correctly written, it is failing because when you add a task into your database it does not include an ID (you'll see it shows up as null in the id column in your database.)
-// to fix this issue and make the test pass, go into your migrations file and update your id to be 'table.increments'. See migrations schema for further comments.
+// to fix this issue and make the test pass, see your migrations schema for further guidance.
 test('database function test for add task', async () => {
   await db.addTask({
     name: 'test',

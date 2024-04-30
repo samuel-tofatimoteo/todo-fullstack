@@ -18,7 +18,7 @@ export async function addTask(data: Task): Promise<void> {
 }
 
 export async function deleteTask(id: number): Promise<void> {
-  await request.delete(`api/v1/${id}`)
+  await request.delete(`/api/v1/${id}`)
 }
 
 export async function completeTask(id: number): Promise<void> {

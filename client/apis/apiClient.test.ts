@@ -26,5 +26,5 @@ test('get tasks', () => {
 // USE THIS ENTIRE FILE AS BOILERPLATE FOR YOUR NOCK TESTS. ALTER TESTS TO FIT YOUR DATA AND COMPONENTS:
 //https://github.com/harakeke-2024/code-from-class/blob/main/week3-async-apis-useQuery/2-testing-reactQuery/client/components/__tests__/Sharks.test.tsx
 
-// IMPORTANT: PUT THIS AT THE TOP OF YOUR FILE (SHOULD STILL BE COMMENTED OUT)
+// IMPORTANT: PUT THIS AT THE TOP OF YOUR FILE (SHOULD STILL BE COMMENTED OUT)AND IMPORT jsdom FROM NPM
 //@vitest-environment jsdom
