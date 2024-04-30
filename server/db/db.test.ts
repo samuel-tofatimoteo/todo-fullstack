@@ -16,12 +16,19 @@ afterAll(async () => {
 })
 
 test('database function test for add task', async () => {
-  await db.addTask({
+  // I'm not sure what the problem was here? maybe it was fine
+  const [id] = await db.addTask({
     name: 'test',
     details: 'database function test for add task',
     priority: 1,
     completed: false,
   })
-  const result = await db.getTaskById(13)
-  expect(result.name).toBe('test')
+  const result = await db.getTaskById(id)
+  expect(result).toStrictEqual({
+    completed: 0,
+    details: 'database function test for add task',
+    id: 13,
+    name: 'test',
+    priority: 1,
+  })
 })
