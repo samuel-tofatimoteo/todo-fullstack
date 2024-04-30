@@ -12,6 +12,7 @@ export async function getTaskById(id: number): Promise<TaskDB> {
 }
 
 export async function addTask(newTask: Task) {
+  console.log(newTask)
   return db('tasks').insert(newTask)
 }
 

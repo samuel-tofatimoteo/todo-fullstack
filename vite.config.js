@@ -8,5 +8,11 @@ export default defineConfig({
     proxy: {
       '/api': 'http://localhost:3000',
     },
+
+    //ADD THE BELOW INTO YOUR VITE CONFIG FILE:
+
+    // test: {
+    //   setupFiles: './client/test-setup.tsx',
+    // },
   },
 })
