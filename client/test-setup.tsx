@@ -1,19 +1,37 @@
+// @vitest-environment jsdom
 import { beforeEach, expect } from 'vitest'
-import { render, cleanup } from '@testing-library/react/pure'
+import { cleanup, render } from '@testing-library/react'
 import * as matchers from '@testing-library/jest-dom/matchers'
-import type { TestingLibraryMatchers } from '@testing-library/jest-dom/matchers'
 import '@testing-library/jest-dom/vitest'
-import { createMemoryRouter, RouterProvider } from 'react-router-dom'
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+import {
+  createMemoryRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from 'react-router-dom'
 import userEvent from '@testing-library/user-event'
 
-declare module 'vitest' {
-  interface JestAssertion<T = any>
-    extends TestingLibraryMatchers<
-      ReturnType<typeof expect.stringContaining>,
-      T
-    > {}
-}
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 beforeEach(cleanup)
 expect.extend(matchers)
+
+export function renderWithQuery(component: JSX.Element) {
+  const router = createMemoryRouter(
+    createRoutesFromElements(<Route path="/" element={component} />),
+    {
+      initialEntries: ['/'],
+    },
+  )
+
+  const user = userEvent.setup()
+  const queryClient = new QueryClient()
+  return {
+    user,
+    ...render(
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>,
+    ),
+  }
+}
