@@ -1,10 +1,6 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
 export async function up(knex) {
   return knex.schema.createTable('tasks', (table) => {
-    table.integer('id')
+    table.increments('id').primary()
     table.string('name')
     table.string('details')
     table.integer('priority')
@@ -12,10 +8,6 @@ export async function up(knex) {
   })
 }
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
 export async function down(knex) {
   return knex.schema.dropTable('tasks')
 }

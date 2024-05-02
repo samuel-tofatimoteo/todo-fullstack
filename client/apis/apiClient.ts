@@ -1,7 +1,7 @@
 import request from 'superagent'
 import { Task, TaskDB } from '../../Models/Task'
 
-const rootUrl = 'api/v1/'
+const rootUrl = '/api/v1/'
 
 export async function getIncompleteTasks(): Promise<TaskDB[]> {
   const res = await request.get(`${rootUrl}incomplete`)
@@ -18,7 +18,7 @@ export async function addTask(data: Task): Promise<void> {
 }
 
 export async function deleteTask(id: number): Promise<void> {
-  await request.delete(`api/v1/${id}`)
+  await request.delete(`/api/v1/${id}`)
 }
 
 export async function completeTask(id: number): Promise<void> {

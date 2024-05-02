@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "react-query-intro",
   "version": "0.2.4",
   "description": "An introduction to React Query",
