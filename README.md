@@ -1,3 +1,12 @@
+# Note
+This repo is a learning challange made by Dev Academy Aotearoa I had graduated from. Here we exercised our knowledge of creating a full stack web app we had been educated on for 6 weeks at that time.
+
+This here is to show my learning progress and time to time recolidation on the tech stack we were using. Sometimes I even come back to it to test out something else I'm learnning and add it to this project in some way.
+
+Below is the previous readme instructions of Dev Academy Aotearoa's repo
+
+---
+
 # TODO App
 
 For this challenge, we will build a todo app (which is a common way to practice a new technology), using the full stack! From the database to the server, the API client, React and React Query, this app will ask you to use everything you've learned.
@@ -73,14 +82,3 @@ Here's a list of steps in case they are useful. You can build in any order you l
 - Forms can be tough to build accessibly. First ensure all parts of your form can be reached and used with keyboard-only navigation. Then test your form page with the WAVE browser extension, and fix any accessibility issues it detects
 
 </details>
-
-## Submitting this Challenge for Marking
-
-This challenge can be used for the following trello assessments:
- 
-- **WD03 - Forms**
-- **WD04- Fullstack** **_*Note_** - you will need to deploy this challenge to dokku to pass this trello assessment.
-- **CP02 - Use two or more software quality practises to improve an application**
-- **CP04 - Create and deploy a rich full-stack application using a modern framework**
-
-[Provide feedback on this repo](https://docs.google.com/forms/d/e/1FAIpQLSfw4FGdWkLwMLlUaNQ8FtP2CTJdGDUv6Xoxrh19zIrJSkvT4Q/viewform?usp=pp_url&entry.1958421517=todo-full-stack)
